@@ -2,7 +2,19 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtCharts/QChartView>
+#include <QtCharts/QLineSeries>
+#include <QtCore/QDateTime>
+#include <QtCharts/QDateTimeAxis>
+#include <QtCharts/QValueAxis>
+#include <QtCharts/QAbstractSeries>
+#include <QtCore>
+#include <QtCharts/QSplineSeries>
+#include <QtCharts/QCategoryAxis>
 
+
+
+using namespace QtCharts;
 namespace Ui {
 class MainWindow;
 }
@@ -17,6 +29,13 @@ public:
 
 private:
     Ui::MainWindow *ui;
+   /* QSplineSeries series;
+    QChart chart;
+    QDateTimeAxis xaxis;
+    QValueAxis yaxis;
+    QChartView chartView;*/
+
+
 };
 
 #endif // MAINWINDOW_H
