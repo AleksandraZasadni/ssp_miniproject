@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
 
 
-        QChart *chart = new QChart();
+       /* QChart *chart = new QChart();
         chart->legend()->hide();
         chart->setTitle("Multiaxis chart example");
 
