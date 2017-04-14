@@ -28,13 +28,17 @@ SOURCES += main.cpp\
     readserial.cpp \
     serialconnection.cpp \
     writeserial.cpp \
-    clickablewidget.cpp
+    clickablewidget.cpp \
+    qcustomplot.cpp
+
 
 HEADERS  += mainwindow.h \
     readserial.h \
     serialconnection.h \
     writeserial.h \
-    clickablewidget.h
+    clickablewidget.h \
+    qcustomplot.h
+
 
 FORMS    += mainwindow.ui
 

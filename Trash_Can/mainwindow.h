@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QtCore/QDateTime>
 #include <QtCore>
+#include <QInputDialog>
+#include "qcustomplot.h"
 
 namespace Ui {
 class MainWindow;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>720</height>
+    <width>1742</width>
+    <height>1006</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -708,7 +708,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="widget" native="true">
+             <widget class="QCustomPlot" name="chart" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -822,7 +822,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="widget_2" native="true">
+             <widget class="QCustomPlot" name="chart_2" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -2302,6 +2302,12 @@
    <class>clickableWidget</class>
    <extends>QWidget</extends>
    <header>clickablewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
