@@ -64,7 +64,7 @@ void MainWindow::on_pushButtonExit_clicked()
 
 //RETURN BUTTONS
 bool returnStatus;
-MainWindow::returnToStatus()
+void MainWindow::returnToStatus()
 {
     if (returnStatus==true){
     ui->stackedWidget->setCurrentIndex(1);
