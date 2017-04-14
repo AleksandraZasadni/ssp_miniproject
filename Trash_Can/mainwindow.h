@@ -56,11 +56,6 @@ private:
     Ui::MainWindow *ui;
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there
 
-    //QSplineSeries series;
-    //QChart chart;
-    //QDateTimeAxis xaxis;
-    //QValueAxis yaxis;
-    //QChartView chartView;
 };
 
 #endif // MAINWINDOW_H

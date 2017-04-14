@@ -14216,9 +14216,9 @@ void QCustomPlot::rescaleAxes(bool onlyVisiblePlottables)
   \note On Android systems, this method does nothing and issues an according qDebug warning
   message. This is also the case if for other reasons the define flag \c QT_NO_PRINTER is set.
 
-  \see savePng, saveBmp, saveJpg, saveRastered
-*/
-/*bool QCustomPlot::savePdf(const QString &fileName, int width, int height, QCP::ExportPen exportPen, const QString &pdfCreator, const QString &pdfTitle)
+  \see savePng, saveBmp, saveJpg, saveRastered*/
+
+bool QCustomPlot::savePdf(const QString &fileName, int width, int height, QCP::ExportPen exportPen, const QString &pdfCreator, const QString &pdfTitle)
 {
   bool success = false;
 #ifdef QT_NO_PRINTER
@@ -14279,7 +14279,7 @@ void QCustomPlot::rescaleAxes(bool onlyVisiblePlottables)
   setViewport(oldViewport);
 #endif // QT_NO_PRINTER
   return success;
-}*/
+}
 
 /*!
   Saves a PNG image file to \a fileName on disc. The output plot will have the dimensions \a width

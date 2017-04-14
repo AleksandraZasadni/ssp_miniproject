@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
 
     srand(QDateTime::currentDateTime().toTime_t());
-    ui->setupUi(this);
+
 
     //Setting the Height and width
     setMinimumWidth(1924);
