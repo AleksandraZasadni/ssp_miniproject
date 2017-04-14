@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "data.h"
 #include <QApplication>
 #include <QPushButton>
 #include <QtCharts/QChartView>
