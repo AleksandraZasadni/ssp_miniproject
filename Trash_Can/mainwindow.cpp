@@ -103,21 +103,20 @@ void MainWindow::on_pushButtonReturn_6_clicked()
 
 //STATUS
 
-
-void MainWindow::on_pushButtonStatusFullness_clicked()
+void MainWindow::on_statusFullness_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(2);
-     returnStatus=true;
+    ui->stackedWidget->setCurrentIndex(2);
+    returnStatus=true;
 }
 
-void MainWindow::on_pushButtonStatusTemperature_clicked()
+void MainWindow::on_statusTemperature_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(3);
-     returnStatus=true;
+    ui->stackedWidget->setCurrentIndex(3);
+    returnStatus=true;
 }
 
-void MainWindow::on_pushButtonStatusHumidity_clicked()
+void MainWindow::on_statusHumidity_clicked()
 {
-     ui->stackedWidget->setCurrentIndex(4);
-     returnStatus=true;
+    ui->stackedWidget->setCurrentIndex(4);
+    returnStatus=true;
 }

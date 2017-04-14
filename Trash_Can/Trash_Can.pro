@@ -27,12 +27,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     readserial.cpp \
     serialconnection.cpp \
-    writeserial.cpp
+    writeserial.cpp \
+    clickablewidget.cpp
 
 HEADERS  += mainwindow.h \
     readserial.h \
     serialconnection.h \
-    writeserial.h
+    writeserial.h \
+    clickablewidget.h
 
 FORMS    += mainwindow.ui
 

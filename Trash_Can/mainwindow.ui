@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>786</width>
-    <height>602</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>0</height>
+    <width>1280</width>
+    <height>720</height>
    </size>
   </property>
   <property name="font">
@@ -31,11 +31,11 @@
    <string>WALL-Æ</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_14">
+   <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="mainScreen">
        <property name="sizePolicy">
@@ -95,15 +95,15 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>150</width>
-              <height>50</height>
+              <width>300</width>
+              <height>100</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>35</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -137,15 +137,15 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>150</width>
-              <height>50</height>
+              <width>300</width>
+              <height>100</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>30</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -163,15 +163,15 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>150</width>
-              <height>50</height>
+              <width>300</width>
+              <height>100</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>30</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -189,15 +189,15 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>150</width>
-              <height>50</height>
+              <width>300</width>
+              <height>100</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>30</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -231,15 +231,15 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>100</width>
-              <height>0</height>
+              <width>200</width>
+              <height>50</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>20</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -251,20 +251,37 @@
            <widget class="QPushButton" name="pushButtonHelp">
             <property name="minimumSize">
              <size>
-              <width>100</width>
-              <height>0</height>
+              <width>200</width>
+              <height>50</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>20</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
              <string>Help</string>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>10</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item alignment="Qt::AlignRight|Qt::AlignVCenter">
            <widget class="QPushButton" name="pushButtonExit">
@@ -276,15 +293,15 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>100</width>
-              <height>0</height>
+              <width>200</width>
+              <height>50</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>20</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -297,20 +314,14 @@
        </layout>
       </widget>
       <widget class="QWidget" name="status">
-       <property name="minimumSize">
-        <size>
-         <width>768</width>
-         <height>432</height>
-        </size>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_7">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-         <widget class="QLabel" name="statusLabel">
+         <widget class="QLabel" name="statusLabel_2">
           <property name="font">
            <font>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <pointsize>45</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
            </font>
           </property>
           <property name="text">
@@ -319,287 +330,245 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer_10">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <layout class="QHBoxLayout" name="horizontalLayout_19">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QPushButton" name="pushButtonStatusFullness">
-              <property name="font">
-               <font>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Fullness</string>
-              </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignHCenter">
-             <widget class="QProgressBar" name="statusFullnessProgressBar">
-              <property name="value">
-               <number>25</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="textDirection">
-               <enum>QProgressBar::TopToBottom</enum>
-              </property>
-              <property name="format">
-               <string/>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="clickableWidget" name="statusFullness" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+              <widget class="QLabel" name="label_5">
+               <property name="font">
+                <font>
+                 <pointsize>30</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Fullness</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QProgressBar" name="statusFullnessProgressBar">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>25</pointsize>
+                </font>
+               </property>
+               <property name="value">
+                <number>25</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="invertedAppearance">
+                <bool>false</bool>
+               </property>
+               <property name="textDirection">
+                <enum>QProgressBar::TopToBottom</enum>
+               </property>
+               <property name="format">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
-           <widget class="Line" name="line_1">
+           <widget class="Line" name="line_12">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
+           <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <widget class="QListWidget" name="listWidget">
-              <item>
-               <property name="text">
-                <string>overall status of the trashcan will be shown here</string>
-               </property>
-              </item>
-             </widget>
+             <widget class="QWidget" name="widget_4" native="true"/>
             </item>
             <item>
-             <widget class="Line" name="line_3">
+             <widget class="Line" name="line_13">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <layout class="QHBoxLayout" name="horizontalLayout_17">
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_5">
-                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                 <widget class="QPushButton" name="pushButtonStatusTemperature">
-                  <property name="font">
-                   <font>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Temperature</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_2">
-                  <item>
-                   <spacer name="horizontalSpacer_4">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-                   <widget class="QLCDNumber" name="statusTemperatureLCD">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>150</width>
-                      <height>100</height>
-                     </size>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="smallDecimalPoint">
-                     <bool>false</bool>
-                    </property>
-                    <property name="digitCount">
-                     <number>4</number>
-                    </property>
-                    <property name="segmentStyle">
-                     <enum>QLCDNumber::Flat</enum>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>15.539999999999999</double>
-                    </property>
-                   </widget>
-                  </item>
-                  <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-                   <widget class="QLabel" name="celsiusLabel_1">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>60</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>°C</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_3">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
+               <widget class="clickableWidget" name="statusTemperature" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_2">
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                  <widget class="QLabel" name="label">
+                   <property name="font">
+                    <font>
+                     <pointsize>30</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Temperature</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_13">
+                   <item>
+                    <spacer name="horizontalSpacer_17">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="statusTemperatureNumber">
+                     <property name="font">
+                      <font>
+                       <pointsize>100</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>15.52</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="celsiusLabel_4">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>100</pointsize>
+                       <kerning>false</kerning>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>°C</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_18">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
               </item>
               <item>
-               <widget class="Line" name="line_2">
+               <widget class="Line" name="line_14">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
                </widget>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                 <widget class="QPushButton" name="pushButtonStatusHumidity">
-                  <property name="font">
-                   <font>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Humidity</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_3">
-                  <item>
-                   <spacer name="horizontalSpacer_1">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-                   <widget class="QLCDNumber" name="statusHumidityLCD">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>150</width>
-                      <height>100</height>
-                     </size>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="smallDecimalPoint">
-                     <bool>false</bool>
-                    </property>
-                    <property name="digitCount">
-                     <number>4</number>
-                    </property>
-                    <property name="segmentStyle">
-                     <enum>QLCDNumber::Flat</enum>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>53.000000000000000</double>
-                    </property>
-                    <property name="intValue" stdset="0">
-                     <number>53</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-                   <widget class="QLabel" name="percentageLabel_1">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>60</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>%</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
+               <widget class="clickableWidget" name="statusHumidity" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_5">
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                  <widget class="QLabel" name="label_2">
+                   <property name="font">
+                    <font>
+                     <pointsize>30</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Humidity</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_18">
+                   <item>
+                    <spacer name="horizontalSpacer_19">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+                    <widget class="QLabel" name="statusHumidityNumber">
+                     <property name="font">
+                      <font>
+                       <pointsize>100</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>88.88</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+                    <widget class="QLabel" name="percentageLabel_1">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>100</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>%</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_20">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
               </item>
              </layout>
             </item>
@@ -608,7 +577,7 @@
          </layout>
         </item>
         <item>
-         <widget class="Line" name="line_4">
+         <widget class="Line" name="line_15">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -624,16 +593,16 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>100</width>
-            <height>0</height>
+            <width>200</width>
+            <height>50</height>
            </size>
           </property>
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
+            <pointsize>20</pointsize>
+            <weight>50</weight>
             <italic>false</italic>
-            <bold>true</bold>
+            <bold>false</bold>
            </font>
           </property>
           <property name="text">
@@ -642,20 +611,20 @@
          </widget>
         </item>
        </layout>
+       <zorder>statusLabel_2</zorder>
+       <zorder>line_15</zorder>
        <zorder>pushButtonReturn_1</zorder>
-       <zorder>statusLabel</zorder>
-       <zorder>line_4</zorder>
-       <zorder>verticalSpacer_10</zorder>
+       <zorder></zorder>
       </widget>
       <widget class="QWidget" name="fullness">
-       <layout class="QVBoxLayout" name="verticalLayout_8">
-        <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+       <layout class="QVBoxLayout" name="verticalLayout_21">
+        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
          <widget class="QLabel" name="fullnessLabel">
           <property name="font">
            <font>
-            <pointsize>20</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <pointsize>45</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
            </font>
           </property>
           <property name="text">
@@ -681,6 +650,13 @@
         </item>
         <item alignment="Qt::AlignVCenter">
          <widget class="QProgressBar" name="fullnessBar_1">
+          <property name="font">
+           <font>
+            <pointsize>35</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="value">
            <number>25</number>
           </property>
@@ -697,6 +673,9 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
@@ -706,113 +685,161 @@
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-           <widget class="QLabel" name="FullnessEstimationLabel">
-            <property name="text">
-             <string>Full in approx.:</string>
-            </property>
-           </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+             <widget class="QLabel" name="FullnessEstimationLabel_2">
+              <property name="font">
+               <font>
+                <pointsize>35</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Usage</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <spacer name="horizontalSpacer_9">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>10</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-           <widget class="QLabel" name="fullnessEstimationNumber">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>NUMBER</string>
-            </property>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-           <widget class="QLabel" name="fullnessEstimationUnit">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>192</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>days/hours</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_10">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>10</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="Line" name="line_5">
+           <widget class="Line" name="line_2">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidget_2">
+           <layout class="QVBoxLayout" name="verticalLayout_9">
             <item>
-             <property name="text">
-              <string>Add number of bags to the left?</string>
-             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+               <widget class="QLabel" name="FullnessEstimationLabel">
+                <property name="font">
+                 <font>
+                  <pointsize>35</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Full in:</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+               <widget class="QLabel" name="fullnessEstimationNumber">
+                <property name="font">
+                 <font>
+                  <pointsize>35</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>16</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+               <widget class="QLabel" name="fullnessEstimationUnit">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>192</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>35</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>hours</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
             <item>
-             <property name="text">
-              <string>This box would include estimation of fullness over some short period of time</string>
-             </property>
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
-           </widget>
+            <item>
+             <widget class="QWidget" name="widget_2" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item alignment="Qt::AlignRight|Qt::AlignVCenter">
          <widget class="QPushButton" name="pushButtonReturn_2">
@@ -824,14 +851,15 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>100</width>
-            <height>0</height>
+            <width>200</width>
+            <height>50</height>
            </size>
           </property>
           <property name="font">
            <font>
-            <weight>75</weight>
-            <bold>true</bold>
+            <pointsize>20</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
            </font>
           </property>
           <property name="text">
@@ -1110,34 +1138,15 @@
                 </property>
                </spacer>
               </item>
-              <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-               <widget class="QLCDNumber" name="temperatureLCD">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="font">
+                 <font>
+                  <pointsize>40</pointsize>
+                 </font>
                 </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>50</height>
-                 </size>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
-                </property>
-                <property name="smallDecimalPoint">
-                 <bool>false</bool>
-                </property>
-                <property name="digitCount">
-                 <number>4</number>
-                </property>
-                <property name="segmentStyle">
-                 <enum>QLCDNumber::Flat</enum>
-                </property>
-                <property name="value" stdset="0">
-                 <double>15.539999999999999</double>
+                <property name="text">
+                 <string>15.52</string>
                 </property>
                </widget>
               </item>
@@ -1501,34 +1510,15 @@
                 </property>
                </spacer>
               </item>
-              <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-               <widget class="QLCDNumber" name="humidityLCD">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="font">
+                 <font>
+                  <pointsize>40</pointsize>
+                 </font>
                 </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>50</height>
-                 </size>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
-                </property>
-                <property name="smallDecimalPoint">
-                 <bool>false</bool>
-                </property>
-                <property name="digitCount">
-                 <number>4</number>
-                </property>
-                <property name="segmentStyle">
-                 <enum>QLCDNumber::Flat</enum>
-                </property>
-                <property name="value" stdset="0">
-                 <double>15.539999999999999</double>
+                <property name="text">
+                 <string>88.88</string>
                 </property>
                </widget>
               </item>
@@ -2307,6 +2297,14 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>clickableWidget</class>
+   <extends>QWidget</extends>
+   <header>clickablewidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>pushButtonStatus</tabstop>
   <tabstop>pushButtonFullness</tabstop>
@@ -2322,8 +2320,6 @@
   <tabstop>listWidget_4</tabstop>
   <tabstop>pushButtonReturn_5</tabstop>
   <tabstop>startRangeTemperature</tabstop>
-  <tabstop>listWidget</tabstop>
-  <tabstop>listWidget_2</tabstop>
   <tabstop>startRangeHumidity</tabstop>
   <tabstop>listWidget_5</tabstop>
   <tabstop>endRangeTemperature</tabstop>
@@ -2339,7 +2335,6 @@
   <tabstop>humidityMarginMaximumEdit</tabstop>
   <tabstop>pushButtonCalibrate</tabstop>
   <tabstop>listWidget_14</tabstop>
-  <tabstop>pushButtonReturn_1</tabstop>
   <tabstop>pushButtonReturn_6</tabstop>
  </tabstops>
  <resources>

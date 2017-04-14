@@ -44,11 +44,11 @@ private slots:
 
     void on_pushButtonReturn_6_clicked();
 
-    void on_pushButtonStatusFullness_clicked();
+    void on_statusFullness_clicked();
 
-    void on_pushButtonStatusTemperature_clicked();
+    void on_statusTemperature_clicked();
 
-    void on_pushButtonStatusHumidity_clicked();
+    void on_statusHumidity_clicked();
 
 private:
     Ui::MainWindow *ui;
