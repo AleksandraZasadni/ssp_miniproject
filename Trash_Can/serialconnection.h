@@ -2,23 +2,23 @@
 #define SERIALCONNECTION_H
 
 #include <QDialog>
-#include <QSerialPort>
+#include <QtSerialPort/QSerialPort>
 #include <QByteArray>
+#include <QString>
+#include <QObject>
 
-
-class serialConnection : public QWidget{
+class serialConnection : public QObject
+{
     Q_OBJECT
-public:
 
+public:
     serialConnection();
     ~serialConnection();
 
-private slots:
-    void writeSerial(QString command);
-
-private:
-
+protected:
     QSerialPort *arduino;
+    QString sPortName;
+
 };
 
 #endif // SERIALCONNECTION_H
