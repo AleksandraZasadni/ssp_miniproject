@@ -25,13 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    data.cpp \
     readserial.cpp \
     serialconnection.cpp \
     writeserial.cpp
 
 HEADERS  += mainwindow.h \
-    data.h \
     readserial.h \
     serialconnection.h \
     writeserial.h
