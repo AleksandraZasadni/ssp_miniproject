@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     serialconnection.cpp \
     writeserial.cpp \
     clickablewidget.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    timethread.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -37,7 +38,8 @@ HEADERS  += mainwindow.h \
     serialconnection.h \
     writeserial.h \
     clickablewidget.h \
-    qcustomplot.h
+    qcustomplot.h \
+    timethread.h
 
 
 FORMS    += mainwindow.ui

@@ -6,6 +6,10 @@
 #include <QtCore>
 #include <QInputDialog>
 #include "qcustomplot.h"
+#include <QTimer>
+#include <QTime>
+#include <QLabel>
+#include "timethread.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +24,10 @@ public:
     ~MainWindow();
 
 private slots:
+    //Plot
+    void    SerialDataArrive( QString sPortName );
+    //Gui buttons
+
     void on_pushButtonStatus_clicked();
 
     void on_pushButtonFullness_clicked();
@@ -53,6 +61,8 @@ private slots:
     void on_statusHumidity_clicked();
 
 private:
+    QVector<double> x0, y0, x1, y1;
+    TimeThread tThread;
     Ui::MainWindow *ui;
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there
 

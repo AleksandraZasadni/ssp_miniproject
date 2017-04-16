@@ -6,8 +6,8 @@
 
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    QMainWindow(parent), tThread()
 {
 
     ui->setupUi(this);
@@ -21,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setMinimumHeight(1024);
 
     //setting interactions with chart
-    ui->chart->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables);
+    ui->chart->setInteractions(QCP::iRangeDrag);
+    ui->chart->axisRect()->setRangeDrag(Qt::Horizontal);
 
     //setting layout, here title size, style etc, and whether we use dot or comma
     ui->chart->plotLayout()->insertRow(0);
@@ -33,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->chart->legend->setVisible(false);
 
     //add graph 1
-    ui->chart->addGraph(ui->chart->yAxis, ui->chart->xAxis);
+    ui->chart->addGraph(ui->chart->xAxis, ui->chart->yAxis);
     //set color for the curve
     ui->chart->graph(0)->setPen(QPen(QColor(255, 100, 0)));
     //set whether we want to connect the points
@@ -54,28 +55,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //set name (optional)
     //ui->chart->graph(1)->setName("Temperature");
 
-    //Define the QVector of data
-    QVector<double> x0(25), y0(25);
-    QVector<double> x1(15), y1(15);
+    /*for(int i=0; i<count; i++)
+        plot->graph()->data()[i] = y[i];*/
+
 
     //iterate through points to get data for graph 1
-    for (int i = 0; i < 25; ++i)
-        {
-            x0[i] = 3 * i / 25.0;
-            y0[i] = qExp(-x0[i] * x0[i] * 0.8)*(x0[i] * x0[i] + x0[i]);
-        }
-
-    // and data for graph 2
-    for (int i = 0; i < 15; ++i)
-        {
-            x1[i] = 3 * i / 15.0;;
-            y1[i] = qExp(-x1[i] * x1[i])*(x1[i] * x1[i])*2.6;
-        }
 
     //add data to the graph
-    ui->chart->graph(0)->setData(x0, y0);
-    ui->chart->graph(1)->setData(x1, y1);
-
     //For additional axes:
     //ui->chart->xAxis2->setVisible(true);
     //show axis 2
@@ -84,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //set time for x axis
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-    timeTicker->setTimeFormat("%h:%m:%s");
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
     ui->chart->xAxis->setTicker(timeTicker);
 
     //set labels for the axes
@@ -96,6 +82,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->chart->xAxis->setTickLength(0, 1);
     ui->chart->xAxis->setSubTickLength(0, 1);
 
+
+    //ui->chart->xAxis->setRange(x0, x1, Qt::AlignCenter );
     //set range for y axis
     ui->chart->yAxis->setRange(20,80);
     ui->chart->yAxis2->setRange(0,50);
@@ -103,25 +91,30 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Set time to current time
     static QTime time(QTime::currentTime());
-    // calculate two new data points
-    //double key = time.elapsed()/1000.0;
-    //static double lastPointKey = 0;
+
+    double key = time.elapsed()/1000.0;
+    static double lastPointKey = 0;
     //add points in this interval
-    //if (key-lastPointKey > 0.1) // at most add point every 0.1 s
-    //{
+    if (key-lastPointKey > 0.1) // at most add point every 0.1 s
+    {
       // add data to lines:
-    //ui->chart->graph(0)->addData(key, qSin(key)+qrand()/(double)RAND_MAX*1*qSin(key/0.3843));
-    //ui->chart->graph(1)->addData(key, qCos(key)+qrand()/(double)RAND_MAX*0.5*qSin(key/0.4364));
-    //ui->chart->yAxis->rescale(true);
+    ui->chart->graph(0)->addData(key, qSin(key)+qrand()/(double)RAND_MAX*1*qSin(key/0.3843));
+    ui->chart->graph(1)->addData(key, qCos(key)+qrand()/(double)RAND_MAX*0.5*qSin(key/0.4364));
+    ui->chart->yAxis->rescale(true);
       // rescale value (vertical) axis to fit the current data:
     //ui->chart->graph(0)->rescaleValueAxis();
     //ui->chart->graph(1)->rescaleValueAxis(true);
-    //lastPointKey = key;
-   // }
+    lastPointKey = key;
+    }
 
     // make key axis range scroll with the data and replot the graph
     //ui->chart->xAxis->setRange(key, 0, Qt::AlignRight);
     //ui->chart->replot();
+
+    ui->chart->xAxis->setScaleRatio(ui->chart->yAxis,1.0);
+    //ui->chart->replot();
+    tThread.setPlot(ui->chart);
+    tThread.start();
 
 //******
 
@@ -131,6 +124,14 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+//Plots
+
+//TO be done by the Arduino Communication
+void MainWindow::SerialDataArrive(QString sPortsName)
+{
+
 }
 
 //MAIN SCREEN
