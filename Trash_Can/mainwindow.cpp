@@ -123,6 +123,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    tThread.deactivate();
     delete ui;
 }
 

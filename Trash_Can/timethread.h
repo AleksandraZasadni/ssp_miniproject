@@ -13,6 +13,10 @@ public:
     void setPlot(QCustomPlot *plot) {
         this->plot = plot;
     }
+    void deactivate() {
+        active = false;
+        while(!this->isFinished());
+    }
 
     //QString name;
     //bool stop;
@@ -25,7 +29,8 @@ protected:
 private:
      QCustomPlot *plot;
      qint64 startTime;
-
+     bool active = true;
+     bool connected = true; //todo implement
 };
 
 #endif // TIMETHREAD_H
