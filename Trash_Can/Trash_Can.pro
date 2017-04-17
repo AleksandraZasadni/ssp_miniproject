@@ -43,5 +43,4 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 RESOURCES += \
-    graphics.qrc \
-    init.qrc
+    graphics.qrc

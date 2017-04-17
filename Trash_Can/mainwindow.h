@@ -4,8 +4,12 @@
 #include <QMainWindow>
 #include <QtCore/QDateTime>
 #include <QtCore>
+#include <QtCore/QCoreApplication>
 #include <QInputDialog>
 #include "qcustomplot.h"
+#include <QFile>
+#include <QString>
+#include <QTextStream>
 
 namespace Ui {
 class MainWindow;
@@ -52,8 +56,12 @@ private slots:
 
     void on_statusHumidity_clicked();
 
+    void on_proximityOpeningCheckBox_clicked(bool checked);
+
 private:
     Ui::MainWindow *ui;
+    bool isReturnToStatus;
+
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there
 
 };

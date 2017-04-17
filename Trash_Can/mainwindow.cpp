@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtWidgets/QApplication>
+#include <QByteArray>
 
 
 
@@ -14,11 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
 
     srand(QDateTime::currentDateTime().toTime_t());
-
-
-    //Setting the Height and width
-    setMinimumWidth(1924);
-    setMinimumHeight(1024);
 
     //setting interactions with chart
     ui->chart->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables);
@@ -171,12 +167,11 @@ void MainWindow::on_pushButtonExit_clicked()
 }
 
 //RETURN BUTTONS
-bool returnStatus;
 void MainWindow::returnToStatus()
 {
-    if (returnStatus==true){
+    if (isReturnToStatus==true){
     ui->stackedWidget->setCurrentIndex(1);
-    returnStatus=false;
+    isReturnToStatus=false;
     } else
     ui->stackedWidget->setCurrentIndex(0);
 }
@@ -219,17 +214,50 @@ void MainWindow::on_pushButtonReturn_6_clicked()
 void MainWindow::on_statusFullness_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
-    returnStatus=true;
+    isReturnToStatus=true;
 }
 
 void MainWindow::on_statusTemperature_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
-    returnStatus=true;
+    isReturnToStatus=true;
 }
 
 void MainWindow::on_statusHumidity_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
-    returnStatus=true;
+    isReturnToStatus=true;
+}
+
+void MainWindow::on_proximityOpeningCheckBox_clicked(bool checked)
+{
+        if(checked){
+        ui->proximityOpeningCheckBox->setText("Enabled");
+        ui->openingSpeedLabel->setEnabled(true);
+        ui->detectionRangeLabel->setEnabled(true);
+        ui->openingSpeedScrollBar->setEnabled(true);
+        ui->detectionRangeScrollBar->setEnabled(true);
+
+
+
+        }else{
+        ui->proximityOpeningCheckBox->setText("Disabled");
+        ui->openingSpeedLabel->setEnabled(false);
+        ui->detectionRangeLabel->setEnabled(false);
+        ui->openingSpeedScrollBar->setEnabled(false);
+        ui->detectionRangeScrollBar->setEnabled(false);
+
+        QFile initFile("/home/andrej/ssp_miniproject/Trash_Can/trashCan.init");
+        if(!initFile.open(QFile::ReadWrite | QFile::Text)){
+            qDebug() << "File not opened";
+            return;
+        }
+        QByteArray initFileContent = initFile.readAll();
+
+        initFileContent.replace("proximity_opening = 0", "proximity_opening = 1");
+        initFile.seek(0);
+        initFile.write(initFileContent);
+        initFile.flush();
+        initFile.close();
+        }
 }

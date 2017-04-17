@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/init">
-        <file>init/trashCan.init</file>
+    <qresource prefix="/">
+        <file>trashCan.init</file>
     </qresource>
 </RCC>
