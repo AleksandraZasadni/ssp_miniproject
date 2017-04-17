@@ -41,7 +41,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="mainScreen">
        <property name="sizePolicy">
@@ -130,7 +130,7 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>35</pointsize>
+              <pointsize>30</pointsize>
               <weight>50</weight>
               <bold>false</bold>
              </font>
@@ -830,7 +830,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>Full in approximately</string>
+                 <string>Full in app.</string>
                 </property>
                </widget>
               </item>

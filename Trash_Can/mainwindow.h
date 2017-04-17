@@ -7,16 +7,13 @@
 #include <QtCore/QCoreApplication>
 #include <QInputDialog>
 #include "qcustomplot.h"
-<<<<<<< HEAD
 #include <QFile>
 #include <QString>
 #include <QTextStream>
-=======
 #include <QTimer>
 #include <QTime>
 #include <QLabel>
 #include "timethread.h"
->>>>>>> 7b674bf67d4e96da67fff311acc1fc128da0a808
 
 namespace Ui {
 class MainWindow;
