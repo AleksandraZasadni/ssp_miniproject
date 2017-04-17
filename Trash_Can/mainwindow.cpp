@@ -1,8 +1,9 @@
 #include <QApplication>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_confirmdialog.h"
 #include <QtWidgets/QApplication>
-#include <QByteArray>
+#include "confirmdialog.h"
 
 
 
@@ -10,9 +11,47 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     QMainWindow(parent), tThread()
 {
-
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
+    ui->languageComboBox->setCurrentIndex(tSetting.language);
+    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
+    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
+    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
+    ui->temperatureMarginMinimumEdit->setText(QString::number(tSetting.temperatureMin));
+    ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
+    ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
+    ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
+
+//TEMPERATURE GAUGE
+    ui->temperatureGauge->addArc(55);
+    ui->temperatureGauge->addDegrees(65)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
+    ui->temperatureGauge->addValues(80)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
+    ui->temperatureGauge->addLabel(70)->setText("°C");
+    QcLabelItem *tempVal = ui->temperatureGauge->addLabel(40);
+    temperatureNeedle = ui->temperatureGauge->addNeedle(60);
+    temperatureNeedle->setLabel(tempVal);
+    temperatureNeedle->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
+    ui->temperatureGauge->show();
+/////////////////////////////////////////////////////////////////////////////////////
+    temperatureNeedle->setCurrentValue(0);
+/////////////////////////////////////////////////////////////////////////////////////
+
+//Humidity GAUGE
+    ui->humidiryGauge->addArc(55);
+    ui->humidiryGauge->addDegrees(65)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
+    ui->humidiryGauge->addValues(80)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
+    ui->humidiryGauge->addLabel(70)->setText("%");
+    QcLabelItem *humVal = ui->humidiryGauge->addLabel(40);
+    humidityNeedle = ui->humidiryGauge->addNeedle(60);
+    humidityNeedle->setLabel(humVal);
+    humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
+    ui->humidiryGauge->show();
+/////////////////////////////////////////////////////////////////////////////////////
+    humidityNeedle->setCurrentValue(0);
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+//PLOTS
 
     srand(QDateTime::currentDateTime().toTime_t());
 
@@ -123,14 +162,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//Plots
-
 //TO be done by the Arduino Communication
 void MainWindow::SerialDataArrive(QString sPortsName)
 {
 
 }
 
+//GUI//
 //MAIN SCREEN
 
 void MainWindow::on_pushButtonStatus_clicked()
@@ -171,13 +209,12 @@ void MainWindow::on_pushButtonExit_clicked()
 //RETURN BUTTONS
 void MainWindow::returnToStatus()
 {
-    if (isReturnToStatus==true){
+    if (isReturnToStatus){
     ui->stackedWidget->setCurrentIndex(1);
     isReturnToStatus=false;
     } else
     ui->stackedWidget->setCurrentIndex(0);
 }
-
 
 
 void MainWindow::on_pushButtonReturn_1_clicked()
@@ -231,35 +268,80 @@ void MainWindow::on_statusHumidity_clicked()
     isReturnToStatus=true;
 }
 
-void MainWindow::on_proximityOpeningCheckBox_clicked(bool checked)
+//SETTINGS
+
+void MainWindow::on_settingsApplyButton_clicked()
 {
-        if(checked){
-        ui->proximityOpeningCheckBox->setText("Enabled");
-        ui->openingSpeedLabel->setEnabled(true);
-        ui->detectionRangeLabel->setEnabled(true);
-        ui->openingSpeedScrollBar->setEnabled(true);
-        ui->detectionRangeScrollBar->setEnabled(true);
-
-
-
-        }else{
-        ui->proximityOpeningCheckBox->setText("Disabled");
-        ui->openingSpeedLabel->setEnabled(false);
-        ui->detectionRangeLabel->setEnabled(false);
-        ui->openingSpeedScrollBar->setEnabled(false);
-        ui->detectionRangeScrollBar->setEnabled(false);
-
-        QFile initFile("/home/andrej/ssp_miniproject/Trash_Can/trashCan.init");
-        if(!initFile.open(QFile::ReadWrite | QFile::Text)){
-            qDebug() << "File not opened";
-            return;
+    confirmDialog applySettingsDialog;
+    applySettingsDialog.exec();
+    if (applySettingsDialog.isAccepted){
+        applySettingsDialog.isAccepted=false;
+        confirmDialog applySettingsDialog2;
+        applySettingsDialog2.ui->title->setText("Really?");
+        applySettingsDialog2.ui->regularText->setText("Do you really mean it?");
+        applySettingsDialog2.exec();
+        if (applySettingsDialog2.isAccepted){
+            applySettingsDialog2.isAccepted=false;
+            tSetting.apply();
         }
-        QByteArray initFileContent = initFile.readAll();
+    }
+}
 
-        initFileContent.replace("proximity_opening = 0", "proximity_opening = 1");
-        initFile.seek(0);
-        initFile.write(initFileContent);
-        initFile.flush();
-        initFile.close();
-        }
+void MainWindow::on_settingsDefaultButton_clicked()
+{
+    tSetting.setDefault();
+    ui->languageComboBox->setCurrentIndex(LANGUAGE_DEFAULT);
+    ui->proximityOpeningCheckBox->setChecked(ISPROXIMITYENABLED_DEFAULT);
+    ui->openingSpeedScrollBar->setValue(OPENINGSPEED_DEFAULT);
+    ui->detectionRangeScrollBar->setValue(DETECTIONRANGE_DEFAULT);
+    ui->temperatureMarginMinimumEdit->setText(QString::number(TEMPERATUREMIN_DEFAULT));
+    ui->temperatureMarginMaximumEdit->setText(QString::number(TEMPERATUREMAX_DEFAULT));
+    ui->humidityMarginMinimumEdit->setText(QString::number(HUMIDITYMIN_DEFAULT));
+    ui->humidityMarginMaximumEdit->setText(QString::number(HUMIDITYMAX_DEFAULT));
+}
+
+void MainWindow::on_languageComboBox_currentIndexChanged(int index)
+{
+    tSetting.language = index;
+}
+
+void MainWindow::on_proximityOpeningCheckBox_toggled(bool checked)
+{
+    checked ? ui->proximityOpeningCheckBox->setText("Enabled") :
+              ui->proximityOpeningCheckBox->setText("Disabled");
+    ui->openingSpeedLabel->setEnabled(checked);
+    ui->detectionRangeLabel->setEnabled(checked);
+    ui->openingSpeedScrollBar->setEnabled(checked);
+    ui->detectionRangeScrollBar->setEnabled(checked);
+    tSetting.isProximityEnabled = checked;
+}
+
+void MainWindow::on_openingSpeedScrollBar_sliderMoved(int position)
+{
+    tSetting.openingSpeed = position;
+}
+
+void MainWindow::on_detectionRangeScrollBar_sliderMoved(int position)
+{
+    tSetting.detectionRange = position;
+}
+
+void MainWindow::on_temperatureMarginMinimumEdit_editingFinished()
+{
+    tSetting.temperatureMin = (ui->temperatureMarginMinimumEdit->text()).toInt();
+}
+
+void MainWindow::on_temperatureMarginMaximumEdit_editingFinished()
+{
+    tSetting.temperatureMax = (ui->temperatureMarginMaximumEdit->text()).toInt();
+}
+
+void MainWindow::on_humidityMarginMinimumEdit_editingFinished()
+{
+    tSetting.humidityMin = (ui->humidityMarginMinimumEdit->text()).toInt();
+}
+
+void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
+{
+    tSetting.humidityMax = (ui->humidityMarginMaximumEdit->text()).toInt();
 }

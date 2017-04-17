@@ -2,17 +2,16 @@
 #include <QApplication>
 #include <QPushButton>
 #include "timethread.h"
-
+#include "trashsettings.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication trashCan(argc, argv);
 
-    MainWindow w;
-    w.show();
+    MainWindow windowsTrash;
+    windowsTrash.show();
 
-
-    return a.exec();
+    return trashCan.exec();
 }

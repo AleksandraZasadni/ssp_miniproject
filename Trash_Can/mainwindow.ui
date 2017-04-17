@@ -41,7 +41,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="mainScreen">
        <property name="sizePolicy">
@@ -1092,7 +1092,7 @@
              </layout>
             </item>
             <item>
-             <widget class="QWidget" name="widget" native="true">
+             <widget class="QcGaugeWidget" name="temperatureGauge" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1303,7 +1303,7 @@
              </layout>
             </item>
             <item>
-             <widget class="QWidget" name="widget_5" native="true">
+             <widget class="QcGaugeWidget" name="humidiryGauge" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1441,7 +1441,7 @@
                 </property>
                </widget>
               </item>
-              <item row="4" column="1" alignment="Qt::AlignLeft|Qt::AlignVCenter">
+              <item row="4" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                <widget class="QCheckBox" name="proximityOpeningCheckBox">
                 <property name="enabled">
                  <bool>true</bool>
@@ -1483,8 +1483,8 @@
                 </property>
                </spacer>
               </item>
-              <item row="0" column="1" alignment="Qt::AlignLeft|Qt::AlignVCenter">
-               <widget class="QComboBox" name="comboBox">
+              <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+               <widget class="QComboBox" name="languageComboBox">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -1499,6 +1499,11 @@
                 <item>
                  <property name="text">
                   <string>English</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Danish</string>
                  </property>
                 </item>
                </widget>
@@ -1517,7 +1522,7 @@
                  </font>
                 </property>
                 <property name="maximum">
-                 <number>99</number>
+                 <number>100</number>
                 </property>
                 <property name="sliderPosition">
                  <number>50</number>
@@ -1545,6 +1550,9 @@
                  <font>
                   <pointsize>25</pointsize>
                  </font>
+                </property>
+                <property name="maximum">
+                 <number>100</number>
                 </property>
                 <property name="sliderPosition">
                  <number>50</number>
@@ -1710,7 +1718,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>60.51</string>
+                 <string/>
                 </property>
                 <property name="maxLength">
                  <number>5</number>
@@ -1775,7 +1783,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>0.634</string>
+                 <string/>
                 </property>
                 <property name="maxLength">
                  <number>5</number>
@@ -1822,7 +1830,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>40.51</string>
+                 <string/>
                 </property>
                 <property name="maxLength">
                  <number>5</number>
@@ -1905,7 +1913,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>30.52</string>
+                 <string/>
                 </property>
                 <property name="maxLength">
                  <number>5</number>
@@ -1933,32 +1941,6 @@
                </widget>
               </item>
              </layout>
-            </item>
-            <item alignment="Qt::AlignVCenter">
-             <widget class="QPushButton" name="pushButtonCalibrate">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>25</pointsize>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Calibrate Automatically</string>
-              </property>
-             </widget>
             </item>
             <item>
              <spacer name="verticalSpacer_16">
@@ -2002,7 +1984,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
               <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-               <widget class="QPushButton" name="pushButton_5">
+               <widget class="QPushButton" name="settingsApplyButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -2026,7 +2008,7 @@
                </widget>
               </item>
               <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="settingsDefaultButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -2052,6 +2034,19 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_17">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
@@ -2105,6 +2100,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
               <property name="html">
                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -2121,7 +2119,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;	&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Special thanks to:		TrashBags&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In memory of:		TrashCanA312&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In memory of:		TrashCanA315&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
@@ -2266,6 +2264,12 @@ p, li { white-space: pre-wrap; }
    <class>QCustomPlot</class>
    <extends>QWidget</extends>
    <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QcGaugeWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">qcgaugewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

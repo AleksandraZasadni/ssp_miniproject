@@ -14,6 +14,9 @@
 #include <QTime>
 #include <QLabel>
 #include "timethread.h"
+#include <QByteArray>
+#include "trashsettings.h"
+#include "qcgaugewidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +29,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    trashSettings tSetting;
 
 private slots:
     //Plot
@@ -64,16 +69,38 @@ private slots:
 
     void on_statusHumidity_clicked();
 
-    void on_proximityOpeningCheckBox_clicked(bool checked);
+    void on_settingsApplyButton_clicked();
+
+    void on_settingsDefaultButton_clicked();
+
+    void on_proximityOpeningCheckBox_toggled(bool checked);
+
+    void on_languageComboBox_currentIndexChanged(int index);
+
+    void on_openingSpeedScrollBar_sliderMoved(int position);
+
+    void on_detectionRangeScrollBar_sliderMoved(int position);
+
+
+
+    void on_temperatureMarginMinimumEdit_editingFinished();
+
+    void on_temperatureMarginMaximumEdit_editingFinished();
+
+    void on_humidityMarginMinimumEdit_editingFinished();
+
+    void on_humidityMarginMaximumEdit_editingFinished();
 
 private:
     QVector<double> x0, y0, x1, y1;
     TimeThread tThread;
     Ui::MainWindow *ui;
-    bool isReturnToStatus;
+    bool isReturnToStatus = false;
 
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there
 
+    QcNeedleItem *temperatureNeedle;
+    QcNeedleItem *humidityNeedle;
 };
 
 #endif // MAINWINDOW_H

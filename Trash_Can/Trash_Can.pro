@@ -30,7 +30,10 @@ SOURCES += main.cpp\
     writeserial.cpp \
     clickablewidget.cpp \
     qcustomplot.cpp \
-    timethread.cpp
+    timethread.cpp \
+    trashsettings.cpp \
+    confirmdialog.cpp \
+    qcgaugewidget.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -39,10 +42,14 @@ HEADERS  += mainwindow.h \
     writeserial.h \
     clickablewidget.h \
     qcustomplot.h \
-    timethread.h
+    timethread.h \
+    trashsettings.h \
+    confirmdialog.h \
+    qcgaugewidget.h
 
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    confirmdialog.ui
 
 RESOURCES += \
     graphics.qrc
