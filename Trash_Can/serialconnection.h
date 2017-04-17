@@ -6,6 +6,7 @@
 #include <QByteArray>
 #include <QString>
 #include <QObject>
+#include <QMutex>
 
 class serialConnection : public QObject
 {

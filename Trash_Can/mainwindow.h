@@ -7,9 +7,16 @@
 #include <QtCore/QCoreApplication>
 #include <QInputDialog>
 #include "qcustomplot.h"
+<<<<<<< HEAD
 #include <QFile>
 #include <QString>
 #include <QTextStream>
+=======
+#include <QTimer>
+#include <QTime>
+#include <QLabel>
+#include "timethread.h"
+>>>>>>> 7b674bf67d4e96da67fff311acc1fc128da0a808
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +31,10 @@ public:
     ~MainWindow();
 
 private slots:
+    //Plot
+    void    SerialDataArrive( QString sPortName );
+    //Gui buttons
+
     void on_pushButtonStatus_clicked();
 
     void on_pushButtonFullness_clicked();
@@ -59,6 +70,8 @@ private slots:
     void on_proximityOpeningCheckBox_clicked(bool checked);
 
 private:
+    QVector<double> x0, y0, x1, y1;
+    TimeThread tThread;
     Ui::MainWindow *ui;
     bool isReturnToStatus;
 
