@@ -14,6 +14,7 @@ public:
 private slots:
     void writeData(QString command);
 
+
 };
 
 #endif // WRITESERIAL_H
