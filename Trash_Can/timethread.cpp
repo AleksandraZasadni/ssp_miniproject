@@ -25,7 +25,7 @@ void TimeThread::run()
             double y3 = (qrand() % 50) + 25;
 
             proximityPlot->graph()->addData(timeSinceStart, y);
-            proximityPlot->xAxis->rescale(false);
+
             proximityPlot->replot();
             this->msleep(1000);//
 

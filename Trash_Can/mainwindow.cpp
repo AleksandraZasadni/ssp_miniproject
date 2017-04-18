@@ -12,12 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), tThread()
 {
     ui->setupUi(this);
-//GO TO MAIN MENU
+
     ui->stackedWidget->setCurrentIndex(0);
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-//INIT SETTINGS
     ui->settingsErrorLabel->setStyleSheet("font-weight: bold; color: red");
     ui->languageComboBox->setCurrentIndex(tSetting.language);
     ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
@@ -28,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
     ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
 
-//TEMPERATURE GAUGE
     ui->temperatureGauge->addArc(55);
     ui->temperatureGauge->addDegrees(65)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addValues(80)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
@@ -38,11 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     temperatureNeedle->setLabel(tempVal);
     temperatureNeedle->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->show();
-/////////////////////////////////////////////////////////////////////////////////////
-    temperatureNeedle->setCurrentValue(0);
-/////////////////////////////////////////////////////////////////////////////////////
 
-//Humidity GAUGE
+    temperatureNeedle->setCurrentValue(0);
+
     ui->humidiryGauge->addArc(55);
     ui->humidiryGauge->addDegrees(65)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
     ui->humidiryGauge->addValues(80)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
@@ -52,20 +46,19 @@ MainWindow::MainWindow(QWidget *parent) :
     humidityNeedle->setLabel(humVal);
     humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
     ui->humidiryGauge->show();
-/////////////////////////////////////////////////////////////////////////////////////
+
     humidityNeedle->setCurrentValue(0);
-/////////////////////////////////////////////////////////////////////////////////////
+
 
 
 //PLOTS
 
     srand(QDateTime::currentDateTime().toTime_t());
 
-    ui->chart->setInteractions(QCP::iRangeDrag);
-    ui->chart->axisRect()->setRangeDrag(Qt::Horizontal);
-=======
-=======
->>>>>>> Stashed changes
+    ui->proximityPlot->setInteractions(QCP::iRangeDrag);
+    ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+
+
     ui->proximityPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
     ui->proximityPlot->axisRect()->setRangeZoom(Qt::Horizontal);
@@ -80,10 +73,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->proximityPlot->graph()->setLineStyle(QCPGraph::lsLine);
     ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
     ui->proximityPlot->graph()->setName("Proximity Opening");
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
     timeTicker->setTimeFormat("day %d\n%h:%m:%s");
@@ -98,10 +87,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->proximityPlot->yAxis->setRange(0,100);
 
 
-    /*QCustomPlot::QCPFinancialDataMap *pDataMap = m_ptrCandles->data();
+    /*
+     *TODO: error checking -> set lower and upper range for xAxis
+      QCustomPlot::QCPFinancialDataMap *pDataMap = m_ptrCandles->data();
     QCPFinancialDataMap::const_iterator lower = pDataMap->lowerBound(ui->chart->yAxis->range().lower);
     QCPFinancialDataMap::const_iterator upper = pDataMap->upperBound(ui->chart->yAxis->range().upper);
-    //TODO: error checking -> set lower and upper range for xAxis
+
 
     double dHigh = std::numeric_limits<double>::min();
     double dLow = std::numeric_limits<double>::max();
