@@ -37,8 +37,6 @@ private slots:
     //Plot
     //void selectGraph(QCustomPlot *plot);
 
-
-    void SerialDataArrive( QString sPortName );
     //Gui buttons
 
     void on_pushButtonStatus_clicked();

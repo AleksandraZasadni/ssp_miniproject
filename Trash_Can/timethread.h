@@ -4,13 +4,14 @@
 #include <QThread>
 #include <QVector>
 #include "qcustomplot.h"
+#include "myplot.h"
 
 class TimeThread : public QThread
 {
     Q_OBJECT
 public:
     TimeThread();
-    void setProximityPlot(QCustomPlot *plot) {
+    void setProximityPlot(MyPlot *plot) {
         this->proximityPlot = plot;
     }
 
@@ -41,7 +42,7 @@ protected:
         void rescaleXAxis();
 
 private:
-     QCustomPlot *proximityPlot;
+     MyPlot *proximityPlot;
      QCustomPlot *fullnessPlot;
      QCustomPlot *temperaturePlot;
      QCustomPlot *humidityPlot;

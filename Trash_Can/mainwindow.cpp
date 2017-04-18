@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
     ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
 
-    ui->temperatureGauge->addArc(55);
+    /*ui->temperatureGauge->addArc(55);
     ui->temperatureGauge->addDegrees(65)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addValues(80)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addLabel(70)->setText("°C");
@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
     ui->humidiryGauge->show();
 
-    humidityNeedle->setCurrentValue(0);
+    humidityNeedle->setCurrentValue(0);*/
 
 
 
@@ -55,8 +55,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     srand(QDateTime::currentDateTime().toTime_t());
 
-    ui->proximityPlot->setInteractions(QCP::iRangeDrag);
-    ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
+
 
 
     ui->proximityPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
@@ -73,9 +74,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->proximityPlot->graph()->setLineStyle(QCPGraph::lsLine);
     ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
     ui->proximityPlot->graph()->setName("Proximity Opening");
-
-    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
     ui->proximityPlot->xAxis->setTicker(timeTicker);
 
     ui->proximityPlot->xAxis->setLabel("Time");
@@ -85,7 +83,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->proximityPlot->xAxis->setSubTickLength(0, 1);
 
     ui->proximityPlot->yAxis->setRange(0,100);
-
 
     /*
      *TODO: error checking -> set lower and upper range for xAxis
@@ -144,7 +141,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->temperaturePlot->graph()->setPen(QPen(QColor(255, 100, 0)));
     ui->temperaturePlot->graph()->setLineStyle(QCPGraph::lsLine);
     ui->temperaturePlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
-     //ui->temperaturePlot->graph(0)->setName("Temperature");
 
     ui->temperaturePlot->xAxis->setTicker(timeTicker);
 
@@ -166,23 +162,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->humidityPlot->plotLayout()->addElement(0, 0, title_4);
     ui->humidityPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
     ui->humidityPlot->legend->setVisible(false);
-
     ui->humidityPlot->addGraph(ui->humidityPlot->xAxis, ui->humidityPlot->yAxis);
     ui->humidityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
     ui->humidityPlot->graph()->setLineStyle(QCPGraph::lsLine);
     ui->humidityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
      //ui->temperaturePlot->graph(0)->setName("Temperature");
-
     ui->humidityPlot->xAxis->setTicker(timeTicker);
-
     ui->humidityPlot->xAxis->setLabel("Time");
     ui->humidityPlot->yAxis->setLabel("Humidity");
-
     ui->humidityPlot->xAxis->setTickLength(0, 1);
     ui->humidityPlot->xAxis->setSubTickLength(0, 1);
-
     ui->humidityPlot->yAxis->setRange(20,80);
-
 
     tThread.setProximityPlot(ui->proximityPlot);
     tThread.setFullnessPlot(ui->fullnessPlot);
@@ -198,12 +188,6 @@ MainWindow::~MainWindow()
 {
     tThread.deactivate();
     delete ui;
-}
-
-//TO be done by the Arduino Communication
-void MainWindow::SerialDataArrive(QString sPortsName)
-{
-
 }
 
 //GUI//

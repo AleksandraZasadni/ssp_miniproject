@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     timethread.cpp \
     trashsettings.cpp \
     confirmdialog.cpp \
-    qcgaugewidget.cpp
+    qcgaugewidget.cpp \
+    myplot.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS  += mainwindow.h \
     timethread.h \
     trashsettings.h \
     confirmdialog.h \
-    qcgaugewidget.h
+    qcgaugewidget.h \
+    myplot.h
 
 
 FORMS    += mainwindow.ui \
