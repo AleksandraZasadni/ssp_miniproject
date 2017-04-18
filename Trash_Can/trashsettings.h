@@ -47,11 +47,14 @@ public:
 
     int language, isProximityEnabled, openingSpeed, detectionRange,
     temperatureMin, temperatureMax, humidityMin, humidityMax;
+    bool isSettingsOutOfBoundaries;
 
 private:
     QByteArray initFileChanged;
     QStringList initFileList;
     QString initFileString;
+
+    bool checkBoundaries();
 
 };
 

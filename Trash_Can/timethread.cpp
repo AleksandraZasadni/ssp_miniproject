@@ -22,6 +22,7 @@ void TimeThread::run()
 
             plot->graph(0)->addData(timeSinceStart, y);
             plot->xAxis->rescale(true);
+            plot->update();
             plot->replot();
             this->msleep(1000);
         }

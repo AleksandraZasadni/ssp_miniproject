@@ -1,6 +1,9 @@
 #include "trashsettings.h"
 #include "ui_mainwindow.h"
 #include "mainwindow.h"
+#include "confirmdialog.h"
+#include "ui_confirmdialog.h"
+#include <QDebug>
 
 trashSettings::trashSettings(){
     QFile settingsFileRead(PATHTOSETTINGSFILE);
@@ -22,43 +25,66 @@ trashSettings::trashSettings(){
         temperatureMax = initFileList[5].toInt();
         humidityMin = initFileList[6].toInt();
         humidityMax = initFileList[7].toInt();
+        if(trashSettings::checkBoundaries()){
+            trashSettings::setDefault();
+          }
     }else{
         trashSettings::setDefault();
     }
-//TO DO: add condition checking whether numbers we got from the file are within boundaries
+}
 
-
-    if(language<LANGUAGE_LOWER_BOUNDARY || language>LANGUAGE_UPPER_BOUNDARY)
-    {
-    }
+bool trashSettings::checkBoundaries(){
+    if(language<LANGUAGE_LOWER_BOUNDARY || language>LANGUAGE_UPPER_BOUNDARY ||
+       isProximityEnabled<ISPROXIMITYENABLED_LOWER_BOUNDARY || isProximityEnabled>ISPROXIMITYENABLED_UPPER_BOUNDARY ||
+       openingSpeed<OPENINGSPEED_LOWER_BOUNDARY || openingSpeed>OPENINGSPEED_UPPER_BOUNDARY ||
+       detectionRange<DETECTIONRANGE_LOWER_BOUNDARY || detectionRange>DETECTIONRANGE_UPPER_BOUNDARY ||
+       temperatureMin<TEMPERATUREMIN_LOWER_BOUNDARY || temperatureMin>TEMPERATUREMIN_UPPER_BOUNDARY ||
+       temperatureMax<TEMPERATUREMAX_LOWER_BOUNDARY || temperatureMax>TEMPERATUREMAX_UPPER_BOUNDARY ||
+       humidityMin<HUMIDITYMIN_LOWER_BOUNDARY || humidityMin>HUMIDITYMIN_UPPER_BOUNDARY ||
+       humidityMax<HUMIDITYMAX_LOWER_BOUNDARY || humidityMax>HUMIDITYMAX_UPPER_BOUNDARY ||
+       temperatureMin>=temperatureMax || humidityMin>=humidityMax){
+       return true;
+    }else {return false;}
 }
 
 
 void trashSettings::apply(){
-    QFile applySettingsChangeFile(PATHTOSETTINGSFILE);
-    if(!applySettingsChangeFile.open(QFile::WriteOnly | QFile::Text)){
-        trashSettings::setDefault();
-        return;
-    }
-    initFileList.clear();
-    initFileList.append(QString::number(language));
-    initFileList.append(QString::number(isProximityEnabled));
-    initFileList.append(QString::number(openingSpeed));
-    initFileList.append(QString::number(detectionRange));
-    initFileList.append(QString::number(temperatureMin));
-    initFileList.append(QString::number(temperatureMax));
-    initFileList.append(QString::number(humidityMin));
-    initFileList.append(QString::number(humidityMax));
+    if(!trashSettings::checkBoundaries()){
+        QFile applySettingsChangeFile(PATHTOSETTINGSFILE);
+        if(!applySettingsChangeFile.open(QFile::WriteOnly | QFile::Text)){
+            trashSettings::setDefault();
+            return;
+        }
+        initFileList.clear();
+        initFileList.append(QString::number(language));
+        initFileList.append(QString::number(isProximityEnabled));
+        initFileList.append(QString::number(openingSpeed));
+        initFileList.append(QString::number(detectionRange));
+        initFileList.append(QString::number(temperatureMin));
+        initFileList.append(QString::number(temperatureMax));
+        initFileList.append(QString::number(humidityMin));
+        initFileList.append(QString::number(humidityMax));
 
-    initFileChanged.clear();
-    for(int i=0; i<initFileList.size(); i++){
-    initFileChanged.append(initFileList[i]);
-    initFileChanged.append("\n");
-    }
+        initFileChanged.clear();
+        for(int i=0; i<initFileList.size(); i++){
+            initFileChanged.append(initFileList[i]);
+            initFileChanged.append("\n");
+        }
 
-    applySettingsChangeFile.write(initFileChanged);
-    applySettingsChangeFile.flush();
-    applySettingsChangeFile.close();
+        applySettingsChangeFile.write(initFileChanged);
+        applySettingsChangeFile.flush();
+        applySettingsChangeFile.close();
+    }else{
+        confirmDialog outOfBoundariesSettingsDialog;
+        outOfBoundariesSettingsDialog.ui->title->setText("NOT APPLIED!!!");
+        outOfBoundariesSettingsDialog.ui->regularText->setText("Values are out of boundaries!");
+        outOfBoundariesSettingsDialog.ui->buttonBox->addButton(QDialogButtonBox::Close);
+        outOfBoundariesSettingsDialog.exec();
+        if (outOfBoundariesSettingsDialog.isAccepted){
+            outOfBoundariesSettingsDialog.isAccepted=false;
+            isSettingsOutOfBoundaries = true;
+        }
+    }
 }
 
 void trashSettings::setDefault(){
@@ -96,38 +122,3 @@ void trashSettings::setDefault(){
     settingsFileDefaultCreate.flush();
     settingsFileDefaultCreate.close();
 }
-
-
-
-// REWRITE ONE LINE IN TEXT FILE
-//        QFile initFile(PATHTOSETTINGSFILE);
-//        if(!initFile.open(QFile::ReadWrite | QFile::Text)){
-//            qDebug() << "File not opened";
-//            return;
-//        }
-//        QTextStream initFileTextStream(&initFile);
-//        QString initFileString = initFileTextStream.readAll();
-//        QStringList initFileList = initFileString.split('\n');
-
-//        insertInLine = 1;
-//        initFileList[insertInLine] = "WHAAAAAAAAAAAT?";
-//        initFileChanged.clear();
-
-//        for(int i=0; i<insertInLine; i++){
-//        initFileChanged.append(initFileList[i]);
-//        initFileChanged.append("\n");
-//        }
-
-//        initFileChanged.append(initFileList[insertInLine]);
-//        initFileChanged.append("\n");
-
-//        for(int i=insertInLine+1; i<initFileList.size()-1 ; i++){
-//        initFileChanged.append(initFileList[i]);
-//        initFileChanged.append("\n");
-//        }
-
-//        initFile.seek(0);
-//        initFile.write(initFileChanged);
-//        initFile.flush();
-//        initFile.close();
-//        }

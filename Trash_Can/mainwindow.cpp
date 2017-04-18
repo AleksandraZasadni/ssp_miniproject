@@ -14,17 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 //GO TO MAIN MENU
     ui->stackedWidget->setCurrentIndex(0);
+    MainWindow::updateSettings();
 
-//INIT SETTINGS
-    ui->settingsErrorLabel->setStyleSheet("font-weight: bold; color: red");
-    ui->languageComboBox->setCurrentIndex(tSetting.language);
-    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
-    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
-    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
-    ui->temperatureMarginMinimumEdit->setText(QString::number(tSetting.temperatureMin));
-    ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
-    ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
-    ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
 
 //TEMPERATURE GAUGE
     ui->temperatureGauge->addArc(55);
@@ -139,6 +130,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::updateSettings(){
+    ui->languageComboBox->setCurrentIndex(tSetting.language);
+    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
+    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
+    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
+    ui->temperatureMarginMinimumEdit->setText(QString::number(tSetting.temperatureMin));
+    ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
+    ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
+    ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
+}
+
+
+
 //TO be done by the Arduino Communication
 void MainWindow::SerialDataArrive(QString sPortsName)
 {
@@ -250,32 +255,21 @@ void MainWindow::on_statusHumidity_clicked()
 void MainWindow::on_settingsApplyButton_clicked()
 {
     confirmDialog applySettingsDialog;
+    applySettingsDialog.ui->title->setText("Are you sure?");
+    applySettingsDialog.ui->regularText->setText("Do you really want to apply these settings?");
+    applySettingsDialog.ui->buttonBox->addButton(QDialogButtonBox::Ok);
+    applySettingsDialog.ui->buttonBox->addButton(QDialogButtonBox::Cancel);
     applySettingsDialog.exec();
     if (applySettingsDialog.isAccepted){
         applySettingsDialog.isAccepted=false;
-        confirmDialog applySettingsDialog2;
-        applySettingsDialog2.ui->title->setText("Really?");
-        applySettingsDialog2.ui->regularText->setText("Do you really mean it?");
-        applySettingsDialog2.exec();
-        if (applySettingsDialog2.isAccepted){
-            applySettingsDialog2.isAccepted=false;
-            tSetting.apply();
-            ui->settingsErrorLabel->hide();
-        }
+        tSetting.apply();
     }
 }
 
 void MainWindow::on_settingsDefaultButton_clicked()
 {
     tSetting.setDefault();
-    ui->languageComboBox->setCurrentIndex(LANGUAGE_DEFAULT);
-    ui->proximityOpeningCheckBox->setChecked(ISPROXIMITYENABLED_DEFAULT);
-    ui->openingSpeedScrollBar->setValue(OPENINGSPEED_DEFAULT);
-    ui->detectionRangeScrollBar->setValue(DETECTIONRANGE_DEFAULT);
-    ui->temperatureMarginMinimumEdit->setText(QString::number(TEMPERATUREMIN_DEFAULT));
-    ui->temperatureMarginMaximumEdit->setText(QString::number(TEMPERATUREMAX_DEFAULT));
-    ui->humidityMarginMinimumEdit->setText(QString::number(HUMIDITYMIN_DEFAULT));
-    ui->humidityMarginMaximumEdit->setText(QString::number(HUMIDITYMAX_DEFAULT));
+    MainWindow::updateSettings();
 }
 
 void MainWindow::on_languageComboBox_currentIndexChanged(int index)

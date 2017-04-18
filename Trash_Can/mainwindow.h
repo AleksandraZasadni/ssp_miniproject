@@ -30,8 +30,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
-
     trashSettings tSetting;
+
+    void updateSettings();
 
 private slots:
     //Plot

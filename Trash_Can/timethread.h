@@ -18,6 +18,7 @@ public:
         while(!this->isFinished());
     }
 
+
     //QString name;
     //bool stop;
 signals:
