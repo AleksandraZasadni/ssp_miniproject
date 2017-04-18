@@ -10,9 +10,22 @@ class TimeThread : public QThread
     Q_OBJECT
 public:
     TimeThread();
-    void setPlot(QCustomPlot *plot) {
-        this->plot = plot;
+    void setProximityPlot(QCustomPlot *plot) {
+        this->proximityPlot = plot;
     }
+
+    void setFullnessPlot(QCustomPlot *plot){
+        this->fullnessPlot = plot;
+    }
+
+    void setTemperaturePlot(QCustomPlot *plot){
+        this->temperaturePlot = plot;
+    }
+
+    void setHumidityPlot(QCustomPlot *plot){
+        this->humidityPlot = plot;
+    }
+
     void deactivate() {
         active = false;
         while(!this->isFinished());
@@ -25,9 +38,13 @@ signals:
 
 protected:
         void run();
+        void rescaleXAxis();
 
 private:
-     QCustomPlot *plot;
+     QCustomPlot *proximityPlot;
+     QCustomPlot *fullnessPlot;
+     QCustomPlot *temperaturePlot;
+     QCustomPlot *humidityPlot;
      qint64 startTime;
      bool active = true;
      bool connected = true; //todo implement

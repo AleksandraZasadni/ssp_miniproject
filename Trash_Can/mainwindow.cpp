@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //GO TO MAIN MENU
     ui->stackedWidget->setCurrentIndex(0);
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 //INIT SETTINGS
     ui->settingsErrorLabel->setStyleSheet("font-weight: bold; color: red");
     ui->languageComboBox->setCurrentIndex(tSetting.language);
@@ -61,74 +63,142 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->chart->setInteractions(QCP::iRangeDrag);
     ui->chart->axisRect()->setRangeDrag(Qt::Horizontal);
+=======
+=======
+>>>>>>> Stashed changes
+    ui->proximityPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    ui->proximityPlot->axisRect()->setRangeZoom(Qt::Horizontal);
+    ui->proximityPlot->plotLayout()->insertRow(0);
+    QCPTextElement *title = new QCPTextElement(ui->proximityPlot, "", QFont("sans", 12, QFont::Bold));
+    ui->proximityPlot->plotLayout()->addElement(0, 0, title);
+    ui->proximityPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    ui->proximityPlot->legend->setVisible(false);
 
-
-    ui->chart->plotLayout()->insertRow(0);
-    QCPTextElement *title = new QCPTextElement(ui->chart, "Title of Plot", QFont("sans", 12, QFont::Bold));
-
-    ui->chart->plotLayout()->addElement(0, 0, title);
-    ui->chart->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
-
-    ui->chart->legend->setVisible(false);
-
-
-    ui->chart->addGraph(ui->chart->xAxis, ui->chart->yAxis);
-
-    ui->chart->graph(0)->setPen(QPen(QColor(255, 100, 0)));
-
-    ui->chart->graph(0)->setLineStyle(QCPGraph::lsLine);
-
-    ui->chart->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
-    //ui->chart->graph(0)->setName("Humidity");
-
-
-    ui->chart->addGraph(ui->chart->yAxis2,ui->chart->xAxis);
-
-    ui->chart->graph(1)->setPen(QPen(QColor(180,80,100)));
-
-    ui->chart->graph(1)->setLineStyle(QCPGraph::lsLine);
-
-    ui->chart->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
-
-    //ui->chart->graph(1)->setName("Temperature");
-
-    /*for(int i=0; i<count; i++)
-        plot->graph()->data()[i] = y[i];*/
-
-    //ui->chart->xAxis2->setVisible(true);
-
-    ui->chart->yAxis2->setVisible(true);
-
-
+    ui->proximityPlot->addGraph(ui->proximityPlot->xAxis, ui->proximityPlot->yAxis);
+    ui->proximityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+    ui->proximityPlot->graph()->setLineStyle(QCPGraph::lsLine);
+    ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+    ui->proximityPlot->graph()->setName("Proximity Opening");
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
     timeTicker->setTimeFormat("day %d\n%h:%m:%s");
-    ui->chart->xAxis->setTicker(timeTicker);
+    ui->proximityPlot->xAxis->setTicker(timeTicker);
+
+    ui->proximityPlot->xAxis->setLabel("Time");
+    ui->proximityPlot->yAxis->setLabel("Proximity Opening");
+
+    ui->proximityPlot->xAxis->setTickLength(0, 1);
+    ui->proximityPlot->xAxis->setSubTickLength(0, 1);
+
+    ui->proximityPlot->yAxis->setRange(0,100);
 
 
-    ui->chart->xAxis->setLabel("Time");
-    ui->chart->yAxis->setLabel("Humidity");
-    ui->chart->yAxis2->setLabel("Temperature");
+    /*QCustomPlot::QCPFinancialDataMap *pDataMap = m_ptrCandles->data();
+    QCPFinancialDataMap::const_iterator lower = pDataMap->lowerBound(ui->chart->yAxis->range().lower);
+    QCPFinancialDataMap::const_iterator upper = pDataMap->upperBound(ui->chart->yAxis->range().upper);
+    //TODO: error checking -> set lower and upper range for xAxis
+
+    double dHigh = std::numeric_limits<double>::min();
+    double dLow = std::numeric_limits<double>::max();
+
+    while (lower != upper)
+    {
+        if (lower.value().high > dHigh) dHigh = lower.value().high;
+        if (lower.value().low < dLow) dLow = lower.value().low;
+        lower++;
+    }
+
+    ui->chart->xAxis->setRange(dLow*0.99, dHigh*1.01);*/
 
 
-    ui->chart->xAxis->setTickLength(0, 1);
-    ui->chart->xAxis->setSubTickLength(0, 1);
+    ui->fullnessPlot->setInteractions(QCP::iRangeDrag);
+    ui->fullnessPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    ui->fullnessPlot->plotLayout()->insertRow(0);
+    QCPTextElement *title_2 = new QCPTextElement(ui->fullnessPlot, "", QFont("sans", 12, QFont::Bold));
+    ui->fullnessPlot->plotLayout()->addElement(0, 0, title_2);
+    ui->fullnessPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    ui->fullnessPlot->legend->setVisible(false);
+
+    ui->fullnessPlot->addGraph(ui->fullnessPlot->xAxis, ui->fullnessPlot->yAxis);
+    ui->fullnessPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+    ui->fullnessPlot->graph()->setLineStyle(QCPGraph::lsLine);
+    ui->fullnessPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+    ui->fullnessPlot->graph()->setName("Fullness");
+
+    ui->fullnessPlot->xAxis->setTicker(timeTicker);
+
+    ui->fullnessPlot->xAxis->setLabel("Time");
+    ui->fullnessPlot->yAxis->setLabel("Fullness");
+
+    ui->fullnessPlot->xAxis->setTickLength(0, 1);
+    ui->fullnessPlot->xAxis->setSubTickLength(0, 1);
+
+    ui->fullnessPlot->yAxis->setRange(0,100);
+
+    //Chart3
+    ui->temperaturePlot->setInteractions(QCP::iRangeDrag);
+    ui->temperaturePlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    ui->temperaturePlot->plotLayout()->insertRow(0);
+    QCPTextElement *title_3 = new QCPTextElement(ui->temperaturePlot, "", QFont("sans", 12, QFont::Bold));
+    ui->temperaturePlot->plotLayout()->addElement(0, 0, title_3);
+    ui->temperaturePlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    ui->temperaturePlot->legend->setVisible(false);
+
+    ui->temperaturePlot->addGraph(ui->temperaturePlot->xAxis, ui->temperaturePlot->yAxis);
+    ui->temperaturePlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+    ui->temperaturePlot->graph()->setLineStyle(QCPGraph::lsLine);
+    ui->temperaturePlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+     //ui->temperaturePlot->graph(0)->setName("Temperature");
+
+    ui->temperaturePlot->xAxis->setTicker(timeTicker);
+
+    ui->temperaturePlot->xAxis->setLabel("Time");
+    ui->temperaturePlot->yAxis->setLabel("Temperature");
+
+    ui->temperaturePlot->xAxis->setTickLength(0, 1);
+    ui->temperaturePlot->xAxis->setSubTickLength(0, 1);
+
+    ui->temperaturePlot->yAxis->setRange(0,50);
 
 
-    //ui->chart->xAxis->setRange(x0, x1, Qt::AlignCenter );
+     //chart4
 
-    ui->chart->yAxis->setRange(20,80);
-    ui->chart->yAxis2->setRange(0,50);
+    ui->humidityPlot->setInteractions(QCP::iRangeDrag);
+    ui->humidityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    ui->humidityPlot->plotLayout()->insertRow(0);
+    QCPTextElement *title_4 = new QCPTextElement(ui->humidityPlot, "", QFont("sans", 12, QFont::Bold));
+    ui->humidityPlot->plotLayout()->addElement(0, 0, title_4);
+    ui->humidityPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    ui->humidityPlot->legend->setVisible(false);
+
+    ui->humidityPlot->addGraph(ui->humidityPlot->xAxis, ui->humidityPlot->yAxis);
+    ui->humidityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+    ui->humidityPlot->graph()->setLineStyle(QCPGraph::lsLine);
+    ui->humidityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+     //ui->temperaturePlot->graph(0)->setName("Temperature");
+
+    ui->humidityPlot->xAxis->setTicker(timeTicker);
+
+    ui->humidityPlot->xAxis->setLabel("Time");
+    ui->humidityPlot->yAxis->setLabel("Humidity");
+
+    ui->humidityPlot->xAxis->setTickLength(0, 1);
+    ui->humidityPlot->xAxis->setSubTickLength(0, 1);
+
+    ui->humidityPlot->yAxis->setRange(20,80);
 
 
-
-   /* ui->chart->xAxis->setRange(key, 0, Qt::AlignRight);
-    ui->chart->xAxis->setScaleRatio(ui->chart->yAxis,1.0);*/
-
-    tThread.setPlot(ui->chart);
+    tThread.setProximityPlot(ui->proximityPlot);
+    tThread.setFullnessPlot(ui->fullnessPlot);
+    tThread.setTemperaturePlot(ui->temperaturePlot);
+    tThread.setHumidityPlot(ui->humidityPlot);
+ //   tThread.setPlot(ui->fullnessPlot);
     tThread.start();
-
-//******
 
 
 }
