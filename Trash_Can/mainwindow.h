@@ -29,6 +29,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    Ui::MainWindow *ui;
 
     trashSettings tSetting;
 
@@ -94,7 +95,6 @@ private slots:
 private:
     QVector<double> x0, y0, x1, y1;
     TimeThread tThread;
-    Ui::MainWindow *ui;
     bool isReturnToStatus = false;
 
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there

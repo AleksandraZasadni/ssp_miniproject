@@ -1,4 +1,6 @@
 #include "trashsettings.h"
+#include "ui_mainwindow.h"
+#include "mainwindow.h"
 
 trashSettings::trashSettings(){
     QFile settingsFileRead(PATHTOSETTINGSFILE);
@@ -24,6 +26,11 @@ trashSettings::trashSettings(){
         trashSettings::setDefault();
     }
 //TO DO: add condition checking whether numbers we got from the file are within boundaries
+
+
+    if(language<LANGUAGE_LOWER_BOUNDARY || language>LANGUAGE_UPPER_BOUNDARY)
+    {
+    }
 }
 
 

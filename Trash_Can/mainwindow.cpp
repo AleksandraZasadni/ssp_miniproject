@@ -12,7 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), tThread()
 {
     ui->setupUi(this);
+//GO TO MAIN MENU
     ui->stackedWidget->setCurrentIndex(0);
+
+//INIT SETTINGS
+    ui->settingsErrorLabel->setStyleSheet("font-weight: bold; color: red");
     ui->languageComboBox->setCurrentIndex(tSetting.language);
     ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
     ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
@@ -256,6 +260,7 @@ void MainWindow::on_settingsApplyButton_clicked()
         if (applySettingsDialog2.isAccepted){
             applySettingsDialog2.isAccepted=false;
             tSetting.apply();
+            ui->settingsErrorLabel->hide();
         }
     }
 }

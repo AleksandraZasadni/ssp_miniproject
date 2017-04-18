@@ -41,7 +41,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="mainScreen">
        <property name="sizePolicy">
@@ -2034,6 +2034,18 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+             <widget class="QLabel" name="settingsErrorLabel">
+              <property name="font">
+               <font>
+                <pointsize>20</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>FQ</string>
+              </property>
+             </widget>
             </item>
             <item>
              <spacer name="verticalSpacer_17">
