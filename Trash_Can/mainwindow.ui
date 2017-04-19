@@ -45,7 +45,11 @@
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
 <<<<<<< HEAD
+<<<<<<< HEAD
        <number>1</number>
+=======
+       <number>3</number>
+>>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 =======
        <number>3</number>
 >>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
@@ -2538,7 +2542,11 @@ p, li { white-space: pre-wrap; }
    <class>MyPlot</class>
    <extends>QWidget</extends>
 <<<<<<< HEAD
+<<<<<<< HEAD
    <header>qcgaugewidget.h</header>
+=======
+   <header>myplot.h</header>
+>>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 =======
    <header>myplot.h</header>
 >>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf

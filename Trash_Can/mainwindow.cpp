@@ -43,6 +43,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->humidiryGauge->show();
 
     humidityNeedle->setCurrentValue(0);*/
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 
 //PLOTS
 
@@ -56,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setTemperaturePlot();
     setHumidityPlot();
 
+<<<<<<< HEAD
 
     tThread.setProximityPlot(ui->proximityPlot);
     tThread.setFullnessPlot(ui->fullnessPlot);
@@ -63,6 +69,15 @@ MainWindow::MainWindow(QWidget *parent) :
     tThread.setHumidityPlot(ui->humidityPlot);
     tThread.start();
 
+=======
+
+    tThread.setProximityPlot(ui->proximityPlot);
+    tThread.setFullnessPlot(ui->fullnessPlot);
+    tThread.setTemperaturePlot(ui->temperaturePlot);
+    tThread.setHumidityPlot(ui->humidityPlot);
+    tThread.start();
+
+>>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 }
 
 MainWindow::~MainWindow()
@@ -197,6 +212,7 @@ void MainWindow::resetProximityPlot(){
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 MainWindow::~MainWindow()
 {
     tThread.deactivate();
@@ -209,6 +225,8 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 }
 
+=======
+>>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 =======
 >>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 

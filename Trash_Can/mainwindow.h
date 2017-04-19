@@ -123,8 +123,11 @@ private:
     QcNeedleItem *humidityNeedle;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     void resizeEvent(QResizeEvent *event);
 
+=======
+>>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 =======
 >>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 };
