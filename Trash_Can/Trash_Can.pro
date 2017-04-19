@@ -26,25 +26,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     serialconnection.cpp \
-    writeserial.cpp \
     clickablewidget.cpp \
     qcustomplot.cpp \
     timethread.cpp \
     trashsettings.cpp \
     confirmdialog.cpp \
-    qcgaugewidget.cpp
+    qcgaugewidget.cpp \
+    myplot.cpp
 
 
 HEADERS  += mainwindow.h \
-    readserial.h \
     serialconnection.h \
-    writeserial.h \
     clickablewidget.h \
     qcustomplot.h \
     timethread.h \
     trashsettings.h \
     confirmdialog.h \
-    qcgaugewidget.h
+    qcgaugewidget.h \
+    myplot.h
 
 
 FORMS    += mainwindow.ui \

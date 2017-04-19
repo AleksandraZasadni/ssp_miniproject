@@ -17,6 +17,7 @@
 #include <QByteArray>
 #include "trashsettings.h"
 #include "qcgaugewidget.h"
+#include "serialconnection.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,18 +32,16 @@ public:
     ~MainWindow();
     Ui::MainWindow *ui;
     trashSettings tSetting;
+    serialConnection trashConnect;
+
 
     void updateSettings();
 
 private slots:
-    //Plot
+
     //void selectGraph(QCustomPlot *plot);
 
-
     void SerialDataArrive( QString sPortName );
-
-
-
 
     void on_pushButtonStatus_clicked();
 
@@ -96,20 +95,38 @@ private slots:
 
     void on_humidityMarginMaximumEdit_editingFinished();
 
+<<<<<<< HEAD
+    void on_lock_clicked(bool checked);
+=======
+    void on_humidityResetButton_clicked();
+
+    void on_temperatureResetButton_clicked();
+
     void on_secretPushButton_clicked();
+>>>>>>> 00cdbd40316c4af181dd599144a5db107f12860a
 
 private:
-    QVector<double> x0, y0, x1, y1;
     TimeThread tThread;
     bool isReturnToStatus = false;
 
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there
 
+    void setProximityPlot();
+    void setFullnessPlot();
+    void setTemperaturePlot();
+    void setHumidityPlot();
+
+    void resetProximityPlot();
+    //void resetFullnessPlot();
+
     QcNeedleItem *temperatureNeedle;
     QcNeedleItem *humidityNeedle;
 
+<<<<<<< HEAD
     void resizeEvent(QResizeEvent *event);
 
+=======
+>>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 };
 
 #endif // MAINWINDOW_H
