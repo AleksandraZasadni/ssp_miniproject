@@ -15,6 +15,7 @@ public:
     explicit confirmDialog(QWidget *parent = 0);
     ~confirmDialog();
     Ui::confirmDialog *ui;
+
     bool isAccepted;
 
 private slots:

@@ -2,9 +2,6 @@
 #define SETTINGS_H
 
 #include <QFile>
-#include <QString>
-#include <QByteArray>
-#include <QStringList>
 
 
 #define PATHTOSETTINGSFILE "./settings.txt"
@@ -34,9 +31,6 @@
 #define HUMIDITYMIN_UPPER_BOUNDARY 80
 #define HUMIDITYMAX_LOWER_BOUNDARY 20
 #define HUMIDITYMAX_UPPER_BOUNDARY 80
-
-
-
 
 class trashSettings
 {

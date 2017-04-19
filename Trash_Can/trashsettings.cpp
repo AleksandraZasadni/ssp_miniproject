@@ -1,9 +1,5 @@
 #include "trashsettings.h"
-#include "ui_mainwindow.h"
-#include "mainwindow.h"
-#include "confirmdialog.h"
-#include "ui_confirmdialog.h"
-#include <QDebug>
+
 
 trashSettings::trashSettings(){
     QFile settingsFileRead(PATHTOSETTINGSFILE);
@@ -75,15 +71,7 @@ void trashSettings::apply(){
         applySettingsChangeFile.flush();
         applySettingsChangeFile.close();
     }else{
-        confirmDialog outOfBoundariesSettingsDialog;
-        outOfBoundariesSettingsDialog.ui->title->setText("NOT APPLIED!!!");
-        outOfBoundariesSettingsDialog.ui->regularText->setText("Values are out of boundaries!");
-        outOfBoundariesSettingsDialog.ui->buttonBox->addButton(QDialogButtonBox::Close);
-        outOfBoundariesSettingsDialog.exec();
-        if (outOfBoundariesSettingsDialog.isAccepted){
-            outOfBoundariesSettingsDialog.isAccepted=false;
-            isSettingsOutOfBoundaries = true;
-        }
+        isSettingsOutOfBoundaries = true;
     }
 }
 

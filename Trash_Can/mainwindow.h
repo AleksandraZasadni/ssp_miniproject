@@ -40,7 +40,9 @@ private slots:
 
 
     void SerialDataArrive( QString sPortName );
-    //Gui buttons
+
+
+
 
     void on_pushButtonStatus_clicked();
 
@@ -86,8 +88,6 @@ private slots:
 
     void on_detectionRangeScrollBar_sliderMoved(int position);
 
-
-
     void on_temperatureMarginMinimumEdit_editingFinished();
 
     void on_temperatureMarginMaximumEdit_editingFinished();
@@ -95,6 +95,8 @@ private slots:
     void on_humidityMarginMinimumEdit_editingFinished();
 
     void on_humidityMarginMaximumEdit_editingFinished();
+
+    void on_secretPushButton_clicked();
 
 private:
     QVector<double> x0, y0, x1, y1;

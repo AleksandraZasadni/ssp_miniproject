@@ -11,10 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     QMainWindow(parent), tThread()
 {
-    ui->setupUi(this);
+//INITIAL SETUP
 
+    ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
     MainWindow::updateSettings();
+
+//TEMPERATURE GAUGE
 
     ui->temperatureGauge->addArc(55);
     ui->temperatureGauge->addDegrees(65)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
@@ -27,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->temperatureGauge->show();
 
     temperatureNeedle->setCurrentValue(0);
+
+//HUMIDITY GAUGE
 
     ui->humidiryGauge->addArc(55);
     ui->humidiryGauge->addDegrees(65)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
@@ -192,17 +197,6 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::updateSettings(){
-    ui->languageComboBox->setCurrentIndex(tSetting.language);
-    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
-    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
-    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
-    ui->temperatureMarginMinimumEdit->setText(QString::number(tSetting.temperatureMin));
-    ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
-    ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
-    ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
-}
-
 
 
 //TO be done by the Arduino Communication
@@ -211,7 +205,18 @@ void MainWindow::SerialDataArrive(QString sPortsName)
 
 }
 
-//GUI//
+
+
+
+
+
+
+
+
+
+
+
+//**********************GUI**********************//
 //MAIN SCREEN
 
 void MainWindow::on_pushButtonStatus_clicked()
@@ -313,6 +318,17 @@ void MainWindow::on_statusHumidity_clicked()
 
 //SETTINGS
 
+void MainWindow::updateSettings(){
+    ui->languageComboBox->setCurrentIndex(tSetting.language);
+    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
+    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
+    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
+    ui->temperatureMarginMinimumEdit->setText(QString::number(tSetting.temperatureMin));
+    ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
+    ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
+    ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
+}
+
 void MainWindow::on_settingsApplyButton_clicked()
 {
     confirmDialog applySettingsDialog;
@@ -324,6 +340,10 @@ void MainWindow::on_settingsApplyButton_clicked()
     if (applySettingsDialog.isAccepted){
         applySettingsDialog.isAccepted=false;
         tSetting.apply();
+        if(tSetting.isSettingsOutOfBoundaries){
+            QMessageBox::critical(this,"NOT APPLIED!!!","Invalid values, settings not applied!");
+            tSetting.isSettingsOutOfBoundaries = false;
+        }
     }
 }
 
@@ -377,4 +397,10 @@ void MainWindow::on_humidityMarginMinimumEdit_editingFinished()
 void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 {
     tSetting.humidityMax = (ui->humidityMarginMaximumEdit->text()).toInt();
+}
+
+void MainWindow::on_secretPushButton_clicked()
+{
+    ui->secretPushButton->setText("SECRET REVEALED!");
+    ui->secretPushButton->setEnabled(false);
 }
