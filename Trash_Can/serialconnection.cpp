@@ -5,6 +5,7 @@
 #include <QString>
 #include <QDebug>
 #include <QVector>
+#include <QVectorIterator>
 
 
 serialConnection::serialConnection() : QObject(NULL){
@@ -33,21 +34,32 @@ serialConnection::~serialConnection(){
 }
 
 void serialConnection::readData(){
-    QStringList bufferSplit = serialBuffer.split(",");
+//    QStringList bufferSplit = serialBuffer.split(",");
 
     serialData = arduino->readAll();
-//    qDebug() << serialData;
     sensorDataSecond = serialData.split(',');
-    for(int i=0;i<sensorDataSecond.size()-1;i++){
-        sensorDataThird = sensorDataSecond[i].split(' ');
+    for(int i=0; i<sensorDataSecond.size()-1; i++){
+        sensorDataThird = sensorDataSecond[i].split('_');
         if (sensorDataThird[0] == "f"){
-            fullVect.push_back(serialData.toDouble());
+            sensorDataFourth = sensorDataThird[1];
+            fullVect.push_back(sensorDataFourth.toDouble());
+//            QVectorIterator<double> i(fullVect);
+//            while (i.hasNext())
+//                qDebug() << i.next();
         }
         else if (sensorDataThird[0] == "t"){
-            tempVect.push_back(serialData.toDouble());
+            sensorDataFourth = sensorDataThird[1];
+            tempVect.push_back(sensorDataFourth.toDouble());
+//                QVectorIterator<double> i(tempVect);
+//                while (i.hasNext())
+//                    qDebug() << i.next();
         }
         else if (sensorDataThird[0] == "h"){
-            humidVect.push_back(serialData.toDouble());
+            sensorDataFourth = sensorDataThird[1];
+            humidVect.push_back(sensorDataFourth.toDouble());
+//            QVectorIterator<double> i(humidVect);
+//            while (i.hasNext())
+//                qDebug() << i.next();
         }
         else{
         }

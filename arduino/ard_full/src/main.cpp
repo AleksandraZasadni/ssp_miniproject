@@ -1,6 +1,6 @@
 #include <Servo.h>
+#include <dht.h>
 #include "Arduino.h"
-#include "../lib/dht.h"
 
 #define fullPin A0
 #define dhtPin 8
@@ -21,18 +21,18 @@ void setup(){
 
 void writeCommand(int brightness){
   analogWrite(led, 255 - brightness);
-  Serial.print("Brightf: ");
-  Serial.print(brightness);
-  Serial.println(";");
+//   Serial.print("Brightf: ");
+//   Serial.print(brightness);
+//   Serial.print(";");
 }
 
 void led_meth(){
   if (Serial.available()){
     int led_brightness = Serial.parseInt();
     writeCommand(led_brightness);
-    Serial.print("Brights: ");
-    Serial.print(led_brightness);
-    Serial.println("|");
+    // Serial.print("Brights: ");
+    // Serial.print(led_brightness);
+    // Serial.print("|");
   }
 }
 
@@ -54,18 +54,20 @@ void lid_open(){
   if (distance > 20){
       lidservo.write(120);
     }
-  Serial.print("Dist: ");
+  Serial.print("d");
+  Serial.print("_");
   Serial.print(distance);
-  Serial.println(",");
+  Serial.print(",");
   delay(1000);
 }
 
 void fullness(){
   float volts = analogRead(fullPin)*0.0048828125;  // same as below?
   int distance = 13*pow(volts, -1); // que pasa?
-  Serial.print("Full: ");
+  Serial.print("f");
+  Serial.print("_");
   Serial.print(distance);
-  Serial.println(".");
+  Serial.print(",");
   delay(1000);
 }
 
@@ -73,12 +75,14 @@ dht DHT;
 void dht_meth() {
   DHT.read11(dhtPin);
 
-  Serial.print("Temp: ");
+  Serial.print("t");
+  Serial.print("_");
   Serial.print(DHT.temperature);
-  Serial.print(" ");
-  Serial.print("Humid: ");
+  Serial.print(",");
+  Serial.print("h");
+  Serial.print("_");
   Serial.print(DHT.humidity);
-  Serial.println("_");
+  Serial.print(",");
   delay(1000);
 }
 
@@ -86,6 +90,5 @@ void loop(){
   led_meth();
   lid_open();
   fullness();
-  // dht not done
- // dht_meth();
+  dht_meth();
 }

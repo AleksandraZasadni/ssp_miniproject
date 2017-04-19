@@ -22,6 +22,7 @@ public:
     QVector<double> fullVect;
     QStringList sensorDataSecond;
     QStringList sensorDataThird;
+    QString sensorDataFourth;
 
 private slots:
     void readData();
