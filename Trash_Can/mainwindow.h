@@ -107,6 +107,9 @@ private:
 
     QcNeedleItem *temperatureNeedle;
     QcNeedleItem *humidityNeedle;
+
+    void resizeEvent(QResizeEvent *event);
+
 };
 
 #endif // MAINWINDOW_H

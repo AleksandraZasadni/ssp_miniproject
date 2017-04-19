@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    readserial.cpp \
     serialconnection.cpp \
     writeserial.cpp \
     clickablewidget.cpp \

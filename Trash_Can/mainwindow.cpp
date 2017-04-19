@@ -45,8 +45,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     humidityNeedle->setCurrentValue(0);
 
-
-
 //PLOTS
 
     srand(QDateTime::currentDateTime().toTime_t());
@@ -196,7 +194,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
 
+}
 
 
 //TO be done by the Arduino Communication
