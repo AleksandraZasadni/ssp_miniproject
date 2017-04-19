@@ -87,5 +87,5 @@ void loop(){
   lid_open();
   fullness();
   // dht not done
-  dht_meth();
+ // dht_meth();
 }

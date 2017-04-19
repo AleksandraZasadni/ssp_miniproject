@@ -30,11 +30,17 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
-
     trashSettings tSetting;
+
+    void updateSettings();
 
 private slots:
     //Gui buttons
+    //Plot
+    //void selectGraph(QCustomPlot *plot);
+
+
+    void SerialDataArrive( QString sPortName );
 
     void on_pushButtonStatus_clicked();
 
@@ -80,8 +86,6 @@ private slots:
 
     void on_detectionRangeScrollBar_sliderMoved(int position);
 
-
-
     void on_temperatureMarginMinimumEdit_editingFinished();
 
     void on_temperatureMarginMaximumEdit_editingFinished();
@@ -90,11 +94,10 @@ private slots:
 
     void on_humidityMarginMaximumEdit_editingFinished();
 
-
-
     void on_humidityResetButton_clicked();
 
     void on_temperatureResetButton_clicked();
+    void on_secretPushButton_clicked();
 
 private:
     TimeThread tThread;
