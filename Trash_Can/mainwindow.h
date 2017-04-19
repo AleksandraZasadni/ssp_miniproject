@@ -95,15 +95,13 @@ private slots:
 
     void on_humidityMarginMaximumEdit_editingFinished();
 
-<<<<<<< HEAD
     void on_lock_clicked(bool checked);
-=======
+
     void on_humidityResetButton_clicked();
 
     void on_temperatureResetButton_clicked();
 
     void on_secretPushButton_clicked();
->>>>>>> 00cdbd40316c4af181dd599144a5db107f12860a
 
 private:
     TimeThread tThread;
@@ -122,14 +120,8 @@ private:
     QcNeedleItem *temperatureNeedle;
     QcNeedleItem *humidityNeedle;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     void resizeEvent(QResizeEvent *event);
 
-=======
->>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
-=======
->>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 };
 
 #endif // MAINWINDOW_H

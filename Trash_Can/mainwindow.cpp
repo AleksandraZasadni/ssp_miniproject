@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //TEMPERATURE GAUGE
 
-    /*ui->temperatureGauge->addArc(55);
+    ui->temperatureGauge->addArc(55);
     ui->temperatureGauge->addDegrees(65)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addValues(80)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addLabel(70)->setText("°C");
@@ -42,12 +42,8 @@ MainWindow::MainWindow(QWidget *parent) :
     humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
     ui->humidiryGauge->show();
 
-    humidityNeedle->setCurrentValue(0);*/
-<<<<<<< HEAD
-=======
+    humidityNeedle->setCurrentValue(0);
 
-
->>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 
 //PLOTS
 
@@ -61,23 +57,11 @@ MainWindow::MainWindow(QWidget *parent) :
     setTemperaturePlot();
     setHumidityPlot();
 
-<<<<<<< HEAD
-
     tThread.setProximityPlot(ui->proximityPlot);
     tThread.setFullnessPlot(ui->fullnessPlot);
     tThread.setTemperaturePlot(ui->temperaturePlot);
     tThread.setHumidityPlot(ui->humidityPlot);
     tThread.start();
-
-=======
-
-    tThread.setProximityPlot(ui->proximityPlot);
-    tThread.setFullnessPlot(ui->fullnessPlot);
-    tThread.setTemperaturePlot(ui->temperaturePlot);
-    tThread.setHumidityPlot(ui->humidityPlot);
-    tThread.start();
-
->>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 }
 
 MainWindow::~MainWindow()
@@ -211,13 +195,6 @@ void MainWindow::resetProximityPlot(){
 
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-MainWindow::~MainWindow()
-{
-    tThread.deactivate();
-    delete ui;
-}
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
@@ -225,10 +202,6 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 }
 
-=======
->>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
-=======
->>>>>>> 1feb04ae8b49b1848aeb39a44a3e3ddf4288ccbf
 
 //TO be done by the Arduino Communication
 void MainWindow::SerialDataArrive(QString sPortsName)
@@ -424,11 +397,11 @@ void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
     tSetting.humidityMax = (ui->humidityMarginMaximumEdit->text()).toInt();
 }
 
-<<<<<<< HEAD
 void MainWindow::on_lock_clicked(bool checked)
 {
     trashConnect.serialConnection::changeLED(checked);
-=======
+}
+
 void MainWindow::on_humidityResetButton_clicked()
 {
 
@@ -444,5 +417,4 @@ void MainWindow::on_secretPushButton_clicked()
 {
     ui->secretPushButton->setText("SECRET REVEALED!");
     ui->secretPushButton->setEnabled(false);
->>>>>>> 00cdbd40316c4af181dd599144a5db107f12860a
 }
