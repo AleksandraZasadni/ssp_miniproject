@@ -44,7 +44,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>6</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="mainScreen">
        <property name="sizePolicy">
@@ -455,14 +455,17 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <widget class="QWidget" name="widget_4" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <item>
+               <widget class="QWidget" name="widget_2" native="true"/>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget" native="true"/>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget_3" native="true"/>
+              </item>
+             </layout>
             </item>
             <item>
              <widget class="Line" name="line_13">
@@ -650,7 +653,7 @@
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+        <item>
          <widget class="QPushButton" name="pushButtonReturn_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -678,6 +681,7 @@
          </widget>
         </item>
        </layout>
+       <zorder>layoutWidget</zorder>
        <zorder>statusLabel_2</zorder>
        <zorder>line_15</zorder>
        <zorder>pushButtonReturn_1</zorder>
