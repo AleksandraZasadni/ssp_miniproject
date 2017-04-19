@@ -10,23 +10,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     QMainWindow(parent), tThread()
 {
-    ui->setupUi(this);
-//GO TO MAIN MENU
-    ui->stackedWidget->setCurrentIndex(0);
+//INITIAL SETUP
 
-//INIT SETTINGS
-    ui->settingsErrorLabel->setStyleSheet("font-weight: bold; color: red");
-    ui->languageComboBox->setCurrentIndex(tSetting.language);
-    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
-    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
-    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
-    ui->temperatureMarginMinimumEdit->setText(QString::number(tSetting.temperatureMin));
-    ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
-    ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
-    ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
+    ui->setupUi(this);
+    ui->stackedWidget->setCurrentIndex(0);
+    MainWindow::updateSettings();
 
 //TEMPERATURE GAUGE
-    ui->temperatureGauge->addArc(55);
+
+    /*ui->temperatureGauge->addArc(55);
     ui->temperatureGauge->addDegrees(65)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addValues(80)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addLabel(70)->setText("°C");
@@ -35,11 +27,11 @@ MainWindow::MainWindow(QWidget *parent) :
     temperatureNeedle->setLabel(tempVal);
     temperatureNeedle->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->show();
-/////////////////////////////////////////////////////////////////////////////////////
-    temperatureNeedle->setCurrentValue(0);
-/////////////////////////////////////////////////////////////////////////////////////
 
-//Humidity GAUGE
+    temperatureNeedle->setCurrentValue(0);
+
+//HUMIDITY GAUGE
+
     ui->humidiryGauge->addArc(55);
     ui->humidiryGauge->addDegrees(65)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
     ui->humidiryGauge->addValues(80)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
@@ -49,86 +41,29 @@ MainWindow::MainWindow(QWidget *parent) :
     humidityNeedle->setLabel(humVal);
     humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
     ui->humidiryGauge->show();
-/////////////////////////////////////////////////////////////////////////////////////
-    humidityNeedle->setCurrentValue(0);
-/////////////////////////////////////////////////////////////////////////////////////
+
+    humidityNeedle->setCurrentValue(0);*/
+
 
 
 //PLOTS
 
     srand(QDateTime::currentDateTime().toTime_t());
 
-    ui->chart->setInteractions(QCP::iRangeDrag);
-    ui->chart->axisRect()->setRangeDrag(Qt::Horizontal);
-
-
-    ui->chart->plotLayout()->insertRow(0);
-    QCPTextElement *title = new QCPTextElement(ui->chart, "Title of Plot", QFont("sans", 12, QFont::Bold));
-
-    ui->chart->plotLayout()->addElement(0, 0, title);
-    ui->chart->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
-
-    ui->chart->legend->setVisible(false);
-
-
-    ui->chart->addGraph(ui->chart->xAxis, ui->chart->yAxis);
-
-    ui->chart->graph(0)->setPen(QPen(QColor(255, 100, 0)));
-
-    ui->chart->graph(0)->setLineStyle(QCPGraph::lsLine);
-
-    ui->chart->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
-    //ui->chart->graph(0)->setName("Humidity");
-
-
-    ui->chart->addGraph(ui->chart->yAxis2,ui->chart->xAxis);
-
-    ui->chart->graph(1)->setPen(QPen(QColor(180,80,100)));
-
-    ui->chart->graph(1)->setLineStyle(QCPGraph::lsLine);
-
-    ui->chart->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
-
-    //ui->chart->graph(1)->setName("Temperature");
-
-    /*for(int i=0; i<count; i++)
-        plot->graph()->data()[i] = y[i];*/
-
-    //ui->chart->xAxis2->setVisible(true);
-
-    ui->chart->yAxis2->setVisible(true);
-
-
-
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
     timeTicker->setTimeFormat("day %d\n%h:%m:%s");
-    ui->chart->xAxis->setTicker(timeTicker);
+
+    setProximityPlot();
+    setFullnessPlot();
+    setTemperaturePlot();
+    setHumidityPlot();
 
 
-    ui->chart->xAxis->setLabel("Time");
-    ui->chart->yAxis->setLabel("Humidity");
-    ui->chart->yAxis2->setLabel("Temperature");
-
-
-    ui->chart->xAxis->setTickLength(0, 1);
-    ui->chart->xAxis->setSubTickLength(0, 1);
-
-
-    //ui->chart->xAxis->setRange(x0, x1, Qt::AlignCenter );
-
-    ui->chart->yAxis->setRange(20,80);
-    ui->chart->yAxis2->setRange(0,50);
-
-
-
-   /* ui->chart->xAxis->setRange(key, 0, Qt::AlignRight);
-    ui->chart->xAxis->setScaleRatio(ui->chart->yAxis,1.0);*/
-
-    tThread.setPlot(ui->chart);
+    tThread.setProximityPlot(ui->proximityPlot);
+    tThread.setFullnessPlot(ui->fullnessPlot);
+    tThread.setTemperaturePlot(ui->temperaturePlot);
+    tThread.setHumidityPlot(ui->humidityPlot);
     tThread.start();
-
-//******
-
 
 }
 
@@ -138,13 +73,144 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setProximityPlot(){
+
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
+
+    ui->proximityPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    ui->proximityPlot->axisRect()->setRangeZoom(Qt::Horizontal);
+    ui->proximityPlot->plotLayout()->insertRow(0);
+    QCPTextElement *title = new QCPTextElement(ui->proximityPlot, "", QFont("sans", 12, QFont::Bold));
+    ui->proximityPlot->plotLayout()->addElement(0, 0, title);
+    ui->proximityPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    ui->proximityPlot->legend->setVisible(false);
+
+    ui->proximityPlot->addGraph(ui->proximityPlot->xAxis, ui->proximityPlot->yAxis);
+    ui->proximityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+    ui->proximityPlot->graph()->setLineStyle(QCPGraph::lsLine);
+    ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+    ui->proximityPlot->graph()->setName("Proximity Opening");
+    ui->proximityPlot->xAxis->setTicker(timeTicker);
+
+    ui->proximityPlot->xAxis->setLabel("Time");
+    ui->proximityPlot->yAxis->setLabel("Proximity Opening");
+    ui->proximityPlot->xAxis->setTickLength(0, 1);
+    ui->proximityPlot->xAxis->setSubTickLength(0, 1);
+
+
+    ui->proximityPlot->yAxis->setRange(0,100);
+
+
+}
+
+void MainWindow::setFullnessPlot(){
+
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
+
+    ui->fullnessPlot->setInteractions(QCP::iRangeDrag);
+    ui->fullnessPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    ui->fullnessPlot->plotLayout()->insertRow(0);
+    QCPTextElement *title_2 = new QCPTextElement(ui->fullnessPlot, "", QFont("sans", 12, QFont::Bold));
+    ui->fullnessPlot->plotLayout()->addElement(0, 0, title_2);
+    ui->fullnessPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    ui->fullnessPlot->legend->setVisible(false);
+
+    ui->fullnessPlot->addGraph(ui->fullnessPlot->xAxis, ui->fullnessPlot->yAxis);
+    ui->fullnessPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+    ui->fullnessPlot->graph()->setLineStyle(QCPGraph::lsLine);
+    ui->fullnessPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+    ui->fullnessPlot->graph()->setName("Fullness");
+
+    ui->fullnessPlot->xAxis->setTicker(timeTicker);
+
+    ui->fullnessPlot->xAxis->setLabel("Time");
+    ui->fullnessPlot->yAxis->setLabel("Fullness");
+
+    ui->fullnessPlot->xAxis->setTickLength(0, 1);
+    ui->fullnessPlot->xAxis->setSubTickLength(0, 1);
+
+    ui->fullnessPlot->yAxis->setRange(0,100);
+}
+
+
+void MainWindow::setTemperaturePlot(){
+
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
+
+    ui->temperaturePlot->setInteractions(QCP::iRangeDrag);
+    ui->temperaturePlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    ui->temperaturePlot->plotLayout()->insertRow(0);
+    QCPTextElement *title_3 = new QCPTextElement(ui->temperaturePlot, "", QFont("sans", 12, QFont::Bold));
+    ui->temperaturePlot->plotLayout()->addElement(0, 0, title_3);
+    ui->temperaturePlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    ui->temperaturePlot->legend->setVisible(false);
+
+    ui->temperaturePlot->addGraph(ui->temperaturePlot->xAxis, ui->temperaturePlot->yAxis);
+    ui->temperaturePlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+    ui->temperaturePlot->graph()->setLineStyle(QCPGraph::lsLine);
+    ui->temperaturePlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+
+    ui->temperaturePlot->xAxis->setTicker(timeTicker);
+
+    ui->temperaturePlot->xAxis->setLabel("Time");
+    ui->temperaturePlot->yAxis->setLabel("Temperature");
+
+    ui->temperaturePlot->xAxis->setTickLength(0, 1);
+    ui->temperaturePlot->xAxis->setSubTickLength(0, 1);
+
+    ui->temperaturePlot->yAxis->setRange(0,50);
+
+
+}
+
+void MainWindow::setHumidityPlot(){
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
+
+
+    ui->humidityPlot->setInteractions(QCP::iRangeDrag);
+    ui->humidityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+    ui->humidityPlot->plotLayout()->insertRow(0);
+    QCPTextElement *title_4 = new QCPTextElement(ui->humidityPlot, "", QFont("sans", 12, QFont::Bold));
+    ui->humidityPlot->plotLayout()->addElement(0, 0, title_4);
+    ui->humidityPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    ui->humidityPlot->legend->setVisible(false);
+    ui->humidityPlot->addGraph(ui->humidityPlot->xAxis, ui->humidityPlot->yAxis);
+    ui->humidityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+    ui->humidityPlot->graph()->setLineStyle(QCPGraph::lsLine);
+    ui->humidityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+     //ui->temperaturePlot->graph(0)->setName("Temperature");
+    ui->humidityPlot->xAxis->setTicker(timeTicker);
+    ui->humidityPlot->xAxis->setLabel("Time");
+    ui->humidityPlot->yAxis->setLabel("Humidity");
+    ui->humidityPlot->xAxis->setTickLength(0, 1);
+    ui->humidityPlot->xAxis->setSubTickLength(0, 1);
+    ui->humidityPlot->yAxis->setRange(20,80);
+}
+
+
+void MainWindow::resetProximityPlot(){
+
+
+}
+
+
 //TO be done by the Arduino Communication
 void MainWindow::SerialDataArrive(QString sPortsName)
 {
 
 }
 
-//GUI//
+
+/*void MainWindow::resetFullnessPlot(){
+
+}*/
+
+//**********************GUI**********************//
 //MAIN SCREEN
 
 void MainWindow::on_pushButtonStatus_clicked()
@@ -246,20 +312,31 @@ void MainWindow::on_statusHumidity_clicked()
 
 //SETTINGS
 
+void MainWindow::updateSettings(){
+    ui->languageComboBox->setCurrentIndex(tSetting.language);
+    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
+    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
+    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
+    ui->temperatureMarginMinimumEdit->setText(QString::number(tSetting.temperatureMin));
+    ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
+    ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
+    ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
+}
+
 void MainWindow::on_settingsApplyButton_clicked()
 {
     confirmDialog applySettingsDialog;
+    applySettingsDialog.ui->title->setText("Are you sure?");
+    applySettingsDialog.ui->regularText->setText("Do you really want to apply these settings?");
+    applySettingsDialog.ui->buttonBox->addButton(QDialogButtonBox::Ok);
+    applySettingsDialog.ui->buttonBox->addButton(QDialogButtonBox::Cancel);
     applySettingsDialog.exec();
     if (applySettingsDialog.isAccepted){
         applySettingsDialog.isAccepted=false;
-        confirmDialog applySettingsDialog2;
-        applySettingsDialog2.ui->title->setText("Really?");
-        applySettingsDialog2.ui->regularText->setText("Do you really mean it?");
-        applySettingsDialog2.exec();
-        if (applySettingsDialog2.isAccepted){
-            applySettingsDialog2.isAccepted=false;
-            tSetting.apply();
-            ui->settingsErrorLabel->hide();
+        tSetting.apply();
+        if(tSetting.isSettingsOutOfBoundaries){
+            QMessageBox::critical(this,"NOT APPLIED!!!","Invalid values, settings not applied!");
+            tSetting.isSettingsOutOfBoundaries = false;
         }
     }
 }
@@ -267,14 +344,7 @@ void MainWindow::on_settingsApplyButton_clicked()
 void MainWindow::on_settingsDefaultButton_clicked()
 {
     tSetting.setDefault();
-    ui->languageComboBox->setCurrentIndex(LANGUAGE_DEFAULT);
-    ui->proximityOpeningCheckBox->setChecked(ISPROXIMITYENABLED_DEFAULT);
-    ui->openingSpeedScrollBar->setValue(OPENINGSPEED_DEFAULT);
-    ui->detectionRangeScrollBar->setValue(DETECTIONRANGE_DEFAULT);
-    ui->temperatureMarginMinimumEdit->setText(QString::number(TEMPERATUREMIN_DEFAULT));
-    ui->temperatureMarginMaximumEdit->setText(QString::number(TEMPERATUREMAX_DEFAULT));
-    ui->humidityMarginMinimumEdit->setText(QString::number(HUMIDITYMIN_DEFAULT));
-    ui->humidityMarginMaximumEdit->setText(QString::number(HUMIDITYMAX_DEFAULT));
+    MainWindow::updateSettings();
 }
 
 void MainWindow::on_languageComboBox_currentIndexChanged(int index)
@@ -323,7 +393,25 @@ void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
     tSetting.humidityMax = (ui->humidityMarginMaximumEdit->text()).toInt();
 }
 
+<<<<<<< HEAD
 void MainWindow::on_lock_clicked(bool checked)
 {
     trashConnect.serialConnection::changeLED(checked);
+=======
+void MainWindow::on_humidityResetButton_clicked()
+{
+
+    ui->humidityPlot->xAxis->rescale(false);
+}
+
+void MainWindow::on_temperatureResetButton_clicked()
+{
+    ui->temperaturePlot->xAxis->rescale(false);
+}
+
+void MainWindow::on_secretPushButton_clicked()
+{
+    ui->secretPushButton->setText("SECRET REVEALED!");
+    ui->secretPushButton->setEnabled(false);
+>>>>>>> 00cdbd40316c4af181dd599144a5db107f12860a
 }

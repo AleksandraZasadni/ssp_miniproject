@@ -31,15 +31,17 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
-
     trashSettings tSetting;
     serialConnection trashConnect;
 
 
+    void updateSettings();
+
 private slots:
-    //Plot
-    void    SerialDataArrive( QString sPortName );
-    //Gui buttons
+
+    //void selectGraph(QCustomPlot *plot);
+
+    void SerialDataArrive( QString sPortName );
 
     void on_pushButtonStatus_clicked();
 
@@ -85,8 +87,6 @@ private slots:
 
     void on_detectionRangeScrollBar_sliderMoved(int position);
 
-
-
     void on_temperatureMarginMinimumEdit_editingFinished();
 
     void on_temperatureMarginMaximumEdit_editingFinished();
@@ -95,17 +95,33 @@ private slots:
 
     void on_humidityMarginMaximumEdit_editingFinished();
 
+<<<<<<< HEAD
     void on_lock_clicked(bool checked);
+=======
+    void on_humidityResetButton_clicked();
+
+    void on_temperatureResetButton_clicked();
+
+    void on_secretPushButton_clicked();
+>>>>>>> 00cdbd40316c4af181dd599144a5db107f12860a
 
 private:
-    QVector<double> x0, y0, x1, y1;
     TimeThread tThread;
     bool isReturnToStatus = false;
 
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there
 
+    void setProximityPlot();
+    void setFullnessPlot();
+    void setTemperaturePlot();
+    void setHumidityPlot();
+
+    void resetProximityPlot();
+    //void resetFullnessPlot();
+
     QcNeedleItem *temperatureNeedle;
     QcNeedleItem *humidityNeedle;
+
 };
 
 #endif // MAINWINDOW_H

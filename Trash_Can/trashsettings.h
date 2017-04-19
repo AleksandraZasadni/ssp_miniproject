@@ -2,9 +2,6 @@
 #define SETTINGS_H
 
 #include <QFile>
-#include <QString>
-#include <QByteArray>
-#include <QStringList>
 
 
 #define PATHTOSETTINGSFILE "./settings.txt"
@@ -35,9 +32,6 @@
 #define HUMIDITYMAX_LOWER_BOUNDARY 20
 #define HUMIDITYMAX_UPPER_BOUNDARY 80
 
-
-
-
 class trashSettings
 {
 public:
@@ -47,11 +41,14 @@ public:
 
     int language, isProximityEnabled, openingSpeed, detectionRange,
     temperatureMin, temperatureMax, humidityMin, humidityMax;
+    bool isSettingsOutOfBoundaries;
 
 private:
     QByteArray initFileChanged;
     QStringList initFileList;
     QString initFileString;
+
+    bool checkBoundaries();
 
 };
 
