@@ -6,7 +6,6 @@
 #include "confirmdialog.h"
 
 
-
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     QMainWindow(parent), tThread()
@@ -322,4 +321,9 @@ void MainWindow::on_humidityMarginMinimumEdit_editingFinished()
 void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 {
     tSetting.humidityMax = (ui->humidityMarginMaximumEdit->text()).toInt();
+}
+
+void MainWindow::on_lock_clicked(bool checked)
+{
+    trashConnect.serialConnection::changeLED(checked);
 }

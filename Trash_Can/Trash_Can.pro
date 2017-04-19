@@ -25,9 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    readserial.cpp \
     serialconnection.cpp \
-    writeserial.cpp \
     clickablewidget.cpp \
     qcustomplot.cpp \
     timethread.cpp \
@@ -37,9 +35,7 @@ SOURCES += main.cpp\
 
 
 HEADERS  += mainwindow.h \
-    readserial.h \
     serialconnection.h \
-    writeserial.h \
     clickablewidget.h \
     qcustomplot.h \
     timethread.h \

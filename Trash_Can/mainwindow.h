@@ -17,6 +17,7 @@
 #include <QByteArray>
 #include "trashsettings.h"
 #include "qcgaugewidget.h"
+#include "serialconnection.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,8 @@ public:
     Ui::MainWindow *ui;
 
     trashSettings tSetting;
+    serialConnection trashConnect;
+
 
 private slots:
     //Plot
@@ -91,6 +94,8 @@ private slots:
     void on_humidityMarginMinimumEdit_editingFinished();
 
     void on_humidityMarginMaximumEdit_editingFinished();
+
+    void on_lock_clicked(bool checked);
 
 private:
     QVector<double> x0, y0, x1, y1;

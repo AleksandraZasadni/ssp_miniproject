@@ -7,6 +7,7 @@
 #include <QString>
 #include <QObject>
 #include <QMutex>
+#include <QStringList>
 
 class serialConnection : public QObject
 {
@@ -15,11 +16,23 @@ class serialConnection : public QObject
 public:
     serialConnection();
     ~serialConnection();
+    void changeLED(bool checked);
+    QVector<double> humidVect;
+    QVector<double> tempVect;
+    QVector<double> fullVect;
+    QStringList sensorDataSecond;
+    QStringList sensorDataThird;
 
-protected:
+private slots:
+    void readData();
+
+private:
+    int brightness;
+    void updateLED(QString command);
+    QString serialData; // If doesn't work, use QByteArray
+    QString serialBuffer;
     QSerialPort *arduino;
     QString sPortName;
-
 };
 
 #endif // SERIALCONNECTION_H
