@@ -7,7 +7,7 @@
 
 writeSerial::writeSerial()
 {
-//    QObject::connect(FROM, SIGNAL(Action), this, SLOT(writeData()));
+   //QObject::connect(FROM, SIGNAL(Action), this, SLOT(writeData()));
 }
 
 

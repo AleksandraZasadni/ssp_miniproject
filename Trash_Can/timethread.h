@@ -4,25 +4,26 @@
 #include <QThread>
 #include <QVector>
 #include "qcustomplot.h"
+#include "myplot.h"
 
 class TimeThread : public QThread
 {
     Q_OBJECT
 public:
     TimeThread();
-    void setProximityPlot(QCustomPlot *plot) {
+    void setProximityPlot(MyPlot *plot) {
         this->proximityPlot = plot;
     }
 
-    void setFullnessPlot(QCustomPlot *plot){
+    void setFullnessPlot(MyPlot *plot){
         this->fullnessPlot = plot;
     }
 
-    void setTemperaturePlot(QCustomPlot *plot){
+    void setTemperaturePlot(MyPlot *plot){
         this->temperaturePlot = plot;
     }
 
-    void setHumidityPlot(QCustomPlot *plot){
+    void setHumidityPlot(MyPlot *plot){
         this->humidityPlot = plot;
     }
 
@@ -39,13 +40,12 @@ signals:
 
 protected:
         void run();
-        void rescaleXAxis();
 
 private:
-     QCustomPlot *proximityPlot;
-     QCustomPlot *fullnessPlot;
-     QCustomPlot *temperaturePlot;
-     QCustomPlot *humidityPlot;
+     MyPlot *proximityPlot;
+     MyPlot *fullnessPlot;
+     MyPlot *temperaturePlot;
+     MyPlot *humidityPlot;
      qint64 startTime;
      bool active = true;
      bool connected = true; //todo implement

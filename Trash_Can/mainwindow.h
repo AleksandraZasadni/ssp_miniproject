@@ -35,14 +35,12 @@ public:
     void updateSettings();
 
 private slots:
+    //Gui buttons
     //Plot
     //void selectGraph(QCustomPlot *plot);
 
 
     void SerialDataArrive( QString sPortName );
-
-
-
 
     void on_pushButtonStatus_clicked();
 
@@ -96,17 +94,28 @@ private slots:
 
     void on_humidityMarginMaximumEdit_editingFinished();
 
+    void on_humidityResetButton_clicked();
+
+    void on_temperatureResetButton_clicked();
     void on_secretPushButton_clicked();
 
 private:
-    QVector<double> x0, y0, x1, y1;
     TimeThread tThread;
     bool isReturnToStatus = false;
 
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there
 
+    void setProximityPlot();
+    void setFullnessPlot();
+    void setTemperaturePlot();
+    void setHumidityPlot();
+
+    void resetProximityPlot();
+    //void resetFullnessPlot();
+
     QcNeedleItem *temperatureNeedle;
     QcNeedleItem *humidityNeedle;
+
 };
 
 #endif // MAINWINDOW_H

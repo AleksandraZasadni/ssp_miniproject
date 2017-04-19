@@ -29,7 +29,8 @@
    </size>
   </property>
   <property name="font">
-   <font>
+   <font>.h
+
     <pointsize>12</pointsize>
    </font>
   </property>
@@ -44,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="mainScreen">
        <property name="sizePolicy">
@@ -788,7 +789,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QCustomPlot" name="proximityPlot" native="true">
+             <widget class="MyPlot" name="proximityPlot" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -897,7 +898,7 @@
              </layout>
             </item>
             <item>
-             <widget class="QCustomPlot" name="fullnessPlot" native="true">
+             <widget class="MyPlot" name="fullnessPlot" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -988,7 +989,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_11">
             <item>
-             <widget class="QCustomPlot" name="temperaturePlot" native="true">
+             <widget class="MyPlot" name="temperaturePlot" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -998,7 +999,7 @@
              </widget>
             </item>
             <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="temperatureResetButton">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -1199,7 +1200,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_13">
             <item>
-             <widget class="QCustomPlot" name="humidityPlot" native="true">
+             <widget class="MyPlot" name="humidityPlot" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1209,7 +1210,7 @@
              </widget>
             </item>
             <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="humidityResetButton">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -2354,15 +2355,15 @@ p, li { white-space: pre-wrap; }
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>QCustomPlot</class>
-   <extends>QWidget</extends>
-   <header>qcustomplot.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>QcGaugeWidget</class>
    <extends>QWidget</extends>
    <header location="global">qcgaugewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyPlot</class>
+   <extends>QWidget</extends>
+   <header>myplot.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

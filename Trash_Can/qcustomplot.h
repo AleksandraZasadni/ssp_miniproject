@@ -658,7 +658,7 @@ public:
   void setMode(LayerMode mode);
   
   // non-virtual methods:
-  void replot();
+  virtual void replot();
   
 protected:
   // property members:
