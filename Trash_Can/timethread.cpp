@@ -23,7 +23,26 @@ void TimeThread::run()
             double y2 = (qrand() % 50) + 10;
             double y3 = (qrand() % 50) + 25;
 
-//bind the range with signals
+            /*
+             *TODO: error checking -> set lower and upper range for xAxis
+              QCustomPlot::QCPFinancialDataMap *pDataMap = m_ptrCandles->data();
+            QCPFinancialDataMap::const_iterator lower = pDataMap->lowerBound(ui->chart->yAxis->range().lower);
+            QCPFinancialDataMap::const_iterator upper = pDataMap->upperBound(ui->chart->yAxis->range().upper);
+
+
+            double dHigh = std::numeric_limits<double>::min();
+            double dLow = std::numeric_limits<double>::max();
+
+            while (lower != upper)
+            {
+                if (lower.value().high > dHigh) dHigh = lower.value().high;
+                if (lower.value().low < dLow) dLow = lower.value().low;
+                lower++;
+            }
+
+            ui->chart->xAxis->setRange(dLow*0.99, dHigh*1.01);*/
+
+
 
            /* Attempt to rescale x axis dependent on time
             * static QTime time(QTime::currentTime());
@@ -37,25 +56,25 @@ void TimeThread::run()
                 lastPointKey = key;
             };*/
 
-            proximityPlot->getMutex().lock();
-            proximityPlot->graph()->addData(timeSinceStart, y);
-            //proximityPlot->xAxis->setRange(key,5,Qt::AlignRight);
-            proximityPlot->xAxis->rescale(true);
-            proximityPlot->replot();
-            proximityPlot->getMutex().unlock();
 
-            /*fullnessPlot->graph()->addData(timeSinceStart, y1);
+            proximityPlot->graph()->addData(timeSinceStart, y);
+            proximityPlot->xAxis->setRange(0,360);
+            //proximityPlot->xAxis->rescale(true);
+            proximityPlot->replot();
+
+            fullnessPlot->graph()->addData(timeSinceStart, y1);
             fullnessPlot->xAxis->rescale(false);
             fullnessPlot->replot();
 
             temperaturePlot->graph()->addData(timeSinceStart,y2);
-            temperaturePlot->xAxis->rescale(false);
+            //temperaturePlot->xAxis->rescale(false);
             temperaturePlot->replot();
 
             humidityPlot->graph()->addData(timeSinceStart, y3);
-            humidityPlot->xAxis->rescale(false);
-            humidityPlot->replot();*/
-            this->msleep(1000);//
+            //humidityPlot->xAxis->rescale(false);
+            humidityPlot->replot();
+
+            this->msleep(10000);//
         }
 
     }

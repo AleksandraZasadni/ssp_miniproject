@@ -15,15 +15,15 @@ public:
         this->proximityPlot = plot;
     }
 
-    void setFullnessPlot(QCustomPlot *plot){
+    void setFullnessPlot(MyPlot *plot){
         this->fullnessPlot = plot;
     }
 
-    void setTemperaturePlot(QCustomPlot *plot){
+    void setTemperaturePlot(MyPlot *plot){
         this->temperaturePlot = plot;
     }
 
-    void setHumidityPlot(QCustomPlot *plot){
+    void setHumidityPlot(MyPlot *plot){
         this->humidityPlot = plot;
     }
 
@@ -39,13 +39,12 @@ signals:
 
 protected:
         void run();
-        void rescaleXAxis();
 
 private:
      MyPlot *proximityPlot;
-     QCustomPlot *fullnessPlot;
-     QCustomPlot *temperaturePlot;
-     QCustomPlot *humidityPlot;
+     MyPlot *fullnessPlot;
+     MyPlot *temperaturePlot;
+     MyPlot *humidityPlot;
      qint64 startTime;
      bool active = true;
      bool connected = true; //todo implement

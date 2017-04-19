@@ -58,7 +58,30 @@ MainWindow::MainWindow(QWidget *parent) :
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
     timeTicker->setTimeFormat("day %d\n%h:%m:%s");
 
+    setProximityPlot();
+    setFullnessPlot();
+    setTemperaturePlot();
+    setHumidityPlot();
 
+
+    tThread.setProximityPlot(ui->proximityPlot);
+    tThread.setFullnessPlot(ui->fullnessPlot);
+    tThread.setTemperaturePlot(ui->temperaturePlot);
+    tThread.setHumidityPlot(ui->humidityPlot);
+    tThread.start();
+
+}
+
+MainWindow::~MainWindow()
+{
+    tThread.deactivate();
+    delete ui;
+}
+
+void MainWindow::setProximityPlot(){
+
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
 
     ui->proximityPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
@@ -78,31 +101,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->proximityPlot->xAxis->setLabel("Time");
     ui->proximityPlot->yAxis->setLabel("Proximity Opening");
-
     ui->proximityPlot->xAxis->setTickLength(0, 1);
     ui->proximityPlot->xAxis->setSubTickLength(0, 1);
 
+
     ui->proximityPlot->yAxis->setRange(0,100);
 
-    /*
-     *TODO: error checking -> set lower and upper range for xAxis
-      QCustomPlot::QCPFinancialDataMap *pDataMap = m_ptrCandles->data();
-    QCPFinancialDataMap::const_iterator lower = pDataMap->lowerBound(ui->chart->yAxis->range().lower);
-    QCPFinancialDataMap::const_iterator upper = pDataMap->upperBound(ui->chart->yAxis->range().upper);
 
+}
 
-    double dHigh = std::numeric_limits<double>::min();
-    double dLow = std::numeric_limits<double>::max();
+void MainWindow::setFullnessPlot(){
 
-    while (lower != upper)
-    {
-        if (lower.value().high > dHigh) dHigh = lower.value().high;
-        if (lower.value().low < dLow) dLow = lower.value().low;
-        lower++;
-    }
-
-    ui->chart->xAxis->setRange(dLow*0.99, dHigh*1.01);*/
-
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
 
     ui->fullnessPlot->setInteractions(QCP::iRangeDrag);
     ui->fullnessPlot->axisRect()->setRangeDrag(Qt::Horizontal);
@@ -127,8 +138,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->fullnessPlot->xAxis->setSubTickLength(0, 1);
 
     ui->fullnessPlot->yAxis->setRange(0,100);
+}
 
-    //Chart3
+
+void MainWindow::setTemperaturePlot(){
+
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
+
     ui->temperaturePlot->setInteractions(QCP::iRangeDrag);
     ui->temperaturePlot->axisRect()->setRangeDrag(Qt::Horizontal);
     ui->temperaturePlot->plotLayout()->insertRow(0);
@@ -153,7 +170,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->temperaturePlot->yAxis->setRange(0,50);
 
 
-     //chart4
+}
+
+void MainWindow::setHumidityPlot(){
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
+
 
     ui->humidityPlot->setInteractions(QCP::iRangeDrag);
     ui->humidityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
@@ -173,22 +195,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->humidityPlot->xAxis->setTickLength(0, 1);
     ui->humidityPlot->xAxis->setSubTickLength(0, 1);
     ui->humidityPlot->yAxis->setRange(20,80);
+}
 
-    tThread.setProximityPlot(ui->proximityPlot);
-    tThread.setFullnessPlot(ui->fullnessPlot);
-    tThread.setTemperaturePlot(ui->temperaturePlot);
-    tThread.setHumidityPlot(ui->humidityPlot);
- //   tThread.setPlot(ui->fullnessPlot);
-    tThread.start();
+
+void MainWindow::resetProximityPlot(){
 
 
 }
 
-MainWindow::~MainWindow()
-{
-    tThread.deactivate();
-    delete ui;
-}
+
+
+
+/*void MainWindow::resetFullnessPlot(){
+
+}*/
 
 //GUI//
 //MAIN SCREEN
@@ -367,4 +387,15 @@ void MainWindow::on_humidityMarginMinimumEdit_editingFinished()
 void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 {
     tSetting.humidityMax = (ui->humidityMarginMaximumEdit->text()).toInt();
+}
+
+void MainWindow::on_humidityResetButton_clicked()
+{
+
+    ui->humidityPlot->xAxis->rescale(false);
+}
+
+void MainWindow::on_temperatureResetButton_clicked()
+{
+    ui->temperaturePlot->xAxis->rescale(false);
 }
