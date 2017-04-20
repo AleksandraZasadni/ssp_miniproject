@@ -10,6 +10,7 @@
 #define servTrig 13
 
 Servo lidservo;
+dht DHT;
 
 void setup(){
   pinMode(led, OUTPUT);
@@ -19,51 +20,50 @@ void setup(){
   lidservo.attach(2);
 }
 
-void writeCommand(int brightness){
+void led_meth(int brightness){
   analogWrite(led, brightness);
-  Serial.print("Brightf: ");
-  Serial.print(brightness);
+//   Serial.print("Brightf: ");
+//   Serial.print(brightness);
 //   Serial.print(";");
 }
 
-void led_meth(){
-  if (Serial.available()){
-    int led_brightness = Serial.parseInt();
-    writeCommand(led_brightness);
-    Serial.print("Brights: ");
-    Serial.print(led_brightness);
-    // Serial.print("|");
-  }
-}
-
-void lid_open(){
+void lid_open(int distanceOpen){
   long duration, distance;
+  // distanceOpen = 20;
+  duration = pulseIn(servEcho, HIGH);
+  distance = (duration/2) / 29.1;
+
   digitalWrite(servTrig, LOW);
   delayMicroseconds(2);
   digitalWrite(servTrig, HIGH);
   delayMicroseconds(10);
   digitalWrite(servTrig, LOW);
-  duration = pulseIn(servEcho, HIGH);
-  distance = (duration/2) / 29.1;
 
-  if (distance < 20){
+  if (distance < distanceOpen){
       lidservo.write(0); //0
       // delay(2500);
     }
 
-  if (distance > 20){
+  if (distance > distanceOpen){
       lidservo.write(120); //120
     }
-  // Serial.print("d");
-  // Serial.print("_");
-  // Serial.print(distance);
-  // Serial.print(",");
+
+  Serial.print("d");
+  Serial.print("_");
+  Serial.print(distance);
+  Serial.print(",");
   // delay(1000);
+  Serial.print("dO");
+  Serial.print("_");
+  Serial.print(distanceOpen);
+  Serial.print(",");
+  delay(1000);
 }
 
 void fullness(){
-  float volts = analogRead(fullPin)*0.0048828125;  // same as below?
-  int distance = 13*pow(volts, -1); // que pasa?
+  float volts = analogRead(fullPin)*0.0048828125;
+  float distance = 13*pow(volts, -1);
+
   Serial.print("f");
   Serial.print("_");
   Serial.print(distance);
@@ -71,7 +71,6 @@ void fullness(){
   // delay(1000);
 }
 
-dht DHT;
 void dht_meth() {
   DHT.read11(dhtPin);
 
@@ -83,6 +82,7 @@ void dht_meth() {
   Serial.print("_");
   Serial.print(DHT.humidity);
   Serial.print(",");
+
   // delay(1000);
 }
 
@@ -92,13 +92,19 @@ void sensors(){
 }
 
 void loop(){
-  int resample = 100;
-  Serial.print(Serial.parseInt());
-  if (Serial.available() && Serial.parseInt() == resample){
+  char serialSpecifier = Serial.read();
+  int serialValue = Serial.parseInt();
+
+  Serial.print(serialValue);
+
+  if (serialSpecifier == 's'){
     sensors();
    }
-   else{
-     led_meth();
+   else if (serialSpecifier == 'l'){
+     led_meth(serialValue);
    }
-   lid_open();
+   else if(serialSpecifier == 'p'){
+     lid_open(serialValue);
+     Serial.print("Andreeeeej!");
+   }
 }

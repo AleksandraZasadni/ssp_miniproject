@@ -28,7 +28,7 @@ trashSettings::trashSettings(){
     }else{
         trashSettings::setDefault();
     }
-    qDebug() << openingSpeed << detectionRange << isLockEnabled;
+
 }
 
 bool trashSettings::checkBoundaries(){
