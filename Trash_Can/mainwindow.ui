@@ -44,7 +44,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="mainScreen">
        <property name="sizePolicy">
@@ -453,7 +453,7 @@
                 </font>
                </property>
                <property name="value">
-                <number>25</number>
+                <number>0</number>
                </property>
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
@@ -499,16 +499,16 @@
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_10">
                  <property name="leftMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="topMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="rightMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                   <widget class="QLabel" name="ledGreen">
@@ -579,21 +579,21 @@
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_15">
                  <property name="leftMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="topMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="rightMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                   <widget class="QLabel" name="ledYellow">
                    <property name="enabled">
-                    <bool>false</bool>
+                    <bool>true</bool>
                    </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -671,21 +671,21 @@
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_12">
                  <property name="leftMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="topMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="rightMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>20</number>
+                  <number>5</number>
                  </property>
                  <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                   <widget class="QLabel" name="ledRed">
                    <property name="enabled">
-                    <bool>false</bool>
+                    <bool>true</bool>
                    </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -736,16 +736,16 @@
                </spacer>
               </item>
               <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="statusLabel">
                 <property name="font">
                  <font>
-                  <pointsize>35</pointsize>
+                  <pointsize>20</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>GOOD</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -814,7 +814,7 @@
                       </font>
                      </property>
                      <property name="text">
-                      <string>15.52</string>
+                      <string/>
                      </property>
                     </widget>
                    </item>
@@ -900,7 +900,7 @@
                       </font>
                      </property>
                      <property name="text">
-                      <string>88.88</string>
+                      <string/>
                      </property>
                     </widget>
                    </item>
@@ -1015,7 +1015,7 @@
          </spacer>
         </item>
         <item alignment="Qt::AlignVCenter">
-         <widget class="QProgressBar" name="fullnessBar_1">
+         <widget class="QProgressBar" name="fullnessBar">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -1030,7 +1030,7 @@
            </font>
           </property>
           <property name="value">
-           <number>25</number>
+           <number>0</number>
           </property>
           <property name="textVisible">
            <bool>true</bool>
@@ -1146,7 +1146,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>16</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -1346,14 +1346,14 @@
                </spacer>
               </item>
               <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-               <widget class="QLabel" name="label_3">
+               <widget class="QLabel" name="temperatureNumberLabel">
                 <property name="font">
                  <font>
                   <pointsize>65</pointsize>
                  </font>
                 </property>
                 <property name="text">
-                 <string>15.52</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -1557,14 +1557,14 @@
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="label_4">
+               <widget class="QLabel" name="humidityNumberLabel">
                 <property name="font">
                  <font>
                   <pointsize>65</pointsize>
                  </font>
                 </property>
                 <property name="text">
-                 <string>53.26</string>
+                 <string/>
                 </property>
                 <property name="wordWrap">
                  <bool>false</bool>

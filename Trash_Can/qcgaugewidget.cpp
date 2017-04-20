@@ -136,7 +136,6 @@ QList<QcItem *> QcGaugeWidget::items()
 void QcGaugeWidget::paintEvent(QPaintEvent */*paintEvt*/)
 {
     QPainter painter(this);
-    painter.eraseRect(0,0,this->width(),this->height());
     painter.setRenderHint(QPainter::Antialiasing);
 
     foreach (QcItem * item, mItems) {
@@ -668,7 +667,7 @@ void QcNeedleItem::setCurrentValue(float value)
         mCurrentValue = value;
 
     if(mLabel!=0)
-        mLabel->setText(QString::number(mCurrentValue),false);
+        mLabel->setText(QString::number(mCurrentValue,'f',2),false);
 
 /// This pull request is not working properly
 //    if(mLabel!=0){

@@ -1,11 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <QFile>
-
-
 #define PATHTOSETTINGSFILE "./settings.txt"
-//DEFAULT SETTINGS
 #define LANGUAGE_DEFAULT 0
 #define ISPROXIMITYENABLED_DEFAULT 1
 #define OPENINGSPEED_DEFAULT 50
@@ -35,6 +31,11 @@
 #define ISLOCKENABLED_LOWER_BOUNDARY 0
 #define ISLOCKENABLED_UPPER_BOUNDARY 1
 
+
+#define FULLNESSRED 70
+#define FULLNESSYELLOW 90
+
+#include <QFile>
 
 class trashSettings
 {

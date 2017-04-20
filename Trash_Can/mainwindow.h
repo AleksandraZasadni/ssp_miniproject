@@ -33,6 +33,7 @@ public:
     Ui::MainWindow *ui;
     trashSettings tSetting;
     serialConnection trashConnect;
+    double currentTemperature, currentHumidity, currentFullness;
 
 
     void updateSettings();
@@ -124,6 +125,12 @@ private:
     void resizeEvent(QResizeEvent *event);
     void resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label);
     void resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label, double scale);
+
+
+    void updateTemperature();
+    void updateHumidity();
+    void updateFullness();
+    void updateStatus();
 
 
 };
