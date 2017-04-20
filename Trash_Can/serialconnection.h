@@ -17,7 +17,8 @@ public:
     serialConnection();
     ~serialConnection();
     void changeLED(bool checked);
-    void resample(bool resampleNOW);
+    void resample();
+    void setDefaultVal();
     QVector<double> humidVect;
     QVector<double> tempVect;
     QVector<double> fullVect;
@@ -31,6 +32,7 @@ private slots:
 
 private:
     int brightness;
+    int setValue;
     void writeArd(QString command);
     QString serialData; // If doesn't work, use QByteArray
     QString serialBuffer;

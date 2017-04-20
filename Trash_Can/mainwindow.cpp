@@ -358,6 +358,14 @@ void MainWindow::updateSettings(){
     ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
     ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
     ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
+    if (tSetting.isLockEnabled == 1){
+     ui->lock->setText("UNLOCKED");
+     ui->lock->setChecked(true);
+    }
+    else{
+     ui->lock->setText("LOCK");
+     ui->lock->setChecked(false);
+    }
 }
 
 void MainWindow::on_settingsApplyButton_clicked()
@@ -437,7 +445,10 @@ void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 void MainWindow::on_lock_clicked(bool checked)
 {
     trashConnect.serialConnection::changeLED(checked);
-    trashConnect.serialConnection::resample(checked);
+    trashConnect.serialConnection::resample();
+    trashConnect.serialConnection::setDefaultVal();
+    checked ? ui->lock->setText("UNLOCK"): ui->lock->setText("LOCK");
+    tSetting.isLockEnabled = checked;
 }
 
 void MainWindow::on_humidityResetButton_clicked()
