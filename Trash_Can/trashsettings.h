@@ -14,6 +14,7 @@
 #define TEMPERATUREMAX_DEFAULT 50
 #define HUMIDITYMIN_DEFAULT 20
 #define HUMIDITYMAX_DEFAULT 80
+#define ISLOCKENABLED_DEFAULT 0
 
 #define LANGUAGE_LOWER_BOUNDARY 0
 #define LANGUAGE_UPPER_BOUNDARY 1
@@ -31,6 +32,9 @@
 #define HUMIDITYMIN_UPPER_BOUNDARY 80
 #define HUMIDITYMAX_LOWER_BOUNDARY 20
 #define HUMIDITYMAX_UPPER_BOUNDARY 80
+#define ISLOCKENABLED_LOWER_BOUNDARY 0
+#define ISLOCKENABLED_UPPER_BOUNDARY 1
+
 
 class trashSettings
 {
@@ -40,7 +44,7 @@ public:
     void setDefault();
 
     int language, isProximityEnabled, openingSpeed, detectionRange,
-    temperatureMin, temperatureMax, humidityMin, humidityMax;
+    temperatureMin, temperatureMax, humidityMin, humidityMax, isLockEnabled;
     bool isSettingsOutOfBoundaries;
 
 private:
