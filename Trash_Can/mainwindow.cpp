@@ -25,34 +25,32 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ledRed->setScaledContents(true);
     ui->ledRed->setFixedSize(0,0);
 
+    currentTemperature=49;
+    currentHumidity=53.521521;
+    currentFullness=64.521512512;
+
 //TEMPERATURE GAUGE
 
     ui->temperatureGauge->addArc(55);
+    ui->temperatureGauge->addDegrees(65)->setValueRange(TEMPERATUREMIN_DEFAULT,TEMPERATUREMAX_DEFAULT);
+    ui->temperatureGauge->addValues(80)->setValueRange(TEMPERATUREMIN_DEFAULT,TEMPERATUREMAX_DEFAULT);
     ui->temperatureGauge->addLabel(70)->setText("°C");
     QcLabelItem *tempVal = ui->temperatureGauge->addLabel(40);
     temperatureNeedle = ui->temperatureGauge->addNeedle(60);
     temperatureNeedle->setLabel(tempVal);
-    temperatureNeedle->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
+    temperatureNeedle->setValueRange(TEMPERATUREMIN_DEFAULT,TEMPERATUREMAX_DEFAULT);
     ui->temperatureGauge->show();
 
-
-
- //HUMIDITY GAUGE
-
+//HUMIDITY GAUGE
     ui->humidiryGauge->addArc(55);
+    ui->humidiryGauge->addDegrees(65)->setValueRange(HUMIDITYMIN_DEFAULT,HUMIDITYMAX_DEFAULT);
+    ui->humidiryGauge->addValues(80)->setValueRange(HUMIDITYMIN_DEFAULT,HUMIDITYMAX_DEFAULT);
     ui->humidiryGauge->addLabel(70)->setText("%");
     QcLabelItem *humVal = ui->humidiryGauge->addLabel(40);
     humidityNeedle = ui->humidiryGauge->addNeedle(60);
     humidityNeedle->setLabel(humVal);
-    humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
+    humidityNeedle->setValueRange(HUMIDITYMIN_DEFAULT,HUMIDITYMAX_DEFAULT);
     ui->humidiryGauge->show();
-
-
-///////////////////////////////////////////////////////
-    humidityNeedle->setCurrentValue(0);
-    temperatureNeedle->setCurrentValue(0);
-///////////////////////////////////////////////////////
-
 
 //PLOTS
 
@@ -218,9 +216,6 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     MainWindow::resizeImagesKeepingAspectRatio(ui->ledGreenWidget, ui->ledGreen,0.9);
     MainWindow::resizeImagesKeepingAspectRatio(ui->ledYellowWidget, ui->ledYellow,0.9);
     MainWindow::resizeImagesKeepingAspectRatio(ui->ledRedWidget, ui->ledRed,0.9);
-
-
-
 }
 
 void MainWindow::resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label){
@@ -375,9 +370,7 @@ void MainWindow::on_settingsApplyButton_clicked()
             QMessageBox::critical(this,"NOT APPLIED!!!","Invalid values, settings not applied!");
             tSetting.isSettingsOutOfBoundaries = false;
         }else{
-            temperatureNeedle->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
-            ui->temperatureGauge->repaint();
-            humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
+            MainWindow::updateStatus();
         }
     }
 }
@@ -454,4 +447,53 @@ void MainWindow::on_secretPushButton_clicked()
 {
     ui->secretPushButton->setText("SECRET REVEALED!");
     ui->secretPushButton->setEnabled(false);
+/**********************************************************/
+    MainWindow::updateTemperature();
+    MainWindow::updateHumidity();
+    MainWindow::updateFullness();
+    MainWindow::updateStatus();
+/**********************************************************/
+}
+
+void MainWindow::updateTemperature(){
+    ui->statusTemperatureNumber->setText(QString::number(currentTemperature,'f', 2));
+    ui->temperatureNumberLabel->setText(QString::number(currentTemperature,'f', 2));
+    temperatureNeedle->setCurrentValue(currentTemperature);
+}
+
+void MainWindow::updateHumidity(){
+    ui->statusHumidityNumber->setText(QString::number(currentHumidity,'f', 2));
+    ui->humidityNumberLabel->setText(QString::number(currentHumidity,'f', 2));
+    humidityNeedle->setCurrentValue(currentHumidity);
+}
+
+void MainWindow::updateFullness(){
+    ui->statusFullnessProgressBar->setValue(currentFullness);
+    ui->fullnessBar->setValue(currentFullness);
+    ui->fullnessEstimationNumber->setText(QString::number(currentFullness,'f', 2));
+}
+
+
+void MainWindow::updateStatus(){
+    if(currentTemperature>(3*tSetting.temperatureMin+tSetting.temperatureMax)/4 && currentTemperature<(3*tSetting.temperatureMax+tSetting.temperatureMin)/4 &&
+       currentHumidity>(3*tSetting.humidityMin+tSetting.humidityMax)/4 && currentHumidity<(3*tSetting.humidityMax+tSetting.humidityMin)/4 &&
+       currentFullness<FULLNESSYELLOW){
+        ui->ledGreen->setEnabled(true);
+        ui->ledYellow->setEnabled(false);
+        ui->ledRed->setEnabled(false);
+        ui->statusLabel->setText("GOOD");
+    }else
+    if(currentTemperature<tSetting.temperatureMin || currentTemperature>tSetting.temperatureMax ||
+       currentHumidity<tSetting.humidityMin || currentHumidity>tSetting.humidityMax ||
+       currentFullness>FULLNESSRED){
+        ui->ledGreen->setEnabled(false);
+        ui->ledYellow->setEnabled(false);
+        ui->ledRed->setEnabled(true);
+        ui->statusLabel->setText("UNACCEPTABLE");
+    }else{
+        ui->ledGreen->setEnabled(false);
+        ui->ledYellow->setEnabled(true);
+        ui->ledRed->setEnabled(false);
+        ui->statusLabel->setText("ACCEPTABLE");
+    }
 }
