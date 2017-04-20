@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/graphics">
-        <file>graphics/mainScreenImage.png</file>
         <file>graphics/ledRed.png</file>
         <file>graphics/ledGreen.png</file>
         <file>graphics/ledYellow.png</file>
+        <file>graphics/mainScreenImage.png</file>
     </qresource>
 </RCC>

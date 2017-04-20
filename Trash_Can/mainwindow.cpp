@@ -16,11 +16,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
     MainWindow::updateSettings();
 
+    ui->mainScreenImageLabel->setScaledContents(true);
+    ui->mainScreenImageLabel->setFixedSize(0,0);
+    ui->ledGreen->setScaledContents(true);
+    ui->ledGreen->setFixedSize(0,0);
+    ui->ledYellow->setScaledContents(true);
+    ui->ledYellow->setFixedSize(0,0);
+    ui->ledRed->setScaledContents(true);
+    ui->ledRed->setFixedSize(0,0);
+
 //TEMPERATURE GAUGE
 
     ui->temperatureGauge->addArc(55);
-    ui->temperatureGauge->addDegrees(65)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
-    ui->temperatureGauge->addValues(80)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addLabel(70)->setText("°C");
     QcLabelItem *tempVal = ui->temperatureGauge->addLabel(40);
     temperatureNeedle = ui->temperatureGauge->addNeedle(60);
@@ -28,13 +35,11 @@ MainWindow::MainWindow(QWidget *parent) :
     temperatureNeedle->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->show();
 
-    temperatureNeedle->setCurrentValue(0);
 
-//HUMIDITY GAUGE
+
+ //HUMIDITY GAUGE
 
     ui->humidiryGauge->addArc(55);
-    ui->humidiryGauge->addDegrees(65)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
-    ui->humidiryGauge->addValues(80)->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
     ui->humidiryGauge->addLabel(70)->setText("%");
     QcLabelItem *humVal = ui->humidiryGauge->addLabel(40);
     humidityNeedle = ui->humidiryGauge->addNeedle(60);
@@ -42,7 +47,11 @@ MainWindow::MainWindow(QWidget *parent) :
     humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
     ui->humidiryGauge->show();
 
+
+///////////////////////////////////////////////////////
     humidityNeedle->setCurrentValue(0);
+    temperatureNeedle->setCurrentValue(0);
+///////////////////////////////////////////////////////
 
 
 //PLOTS
@@ -68,6 +77,12 @@ MainWindow::~MainWindow()
 {
     tThread.deactivate();
     delete ui;
+}
+
+
+void MainWindow::updateArduinoReadings(){
+//    float/double temperature, humidity, fullness;
+
 }
 
 void MainWindow::setProximityPlot(){
@@ -199,7 +214,25 @@ void MainWindow::resetProximityPlot(){
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
+    MainWindow::resizeImagesKeepingAspectRatio(ui->mainScrennImageWidget, ui->mainScreenImageLabel);
+    MainWindow::resizeImagesKeepingAspectRatio(ui->ledGreenWidget, ui->ledGreen,0.9);
+    MainWindow::resizeImagesKeepingAspectRatio(ui->ledYellowWidget, ui->ledYellow,0.9);
+    MainWindow::resizeImagesKeepingAspectRatio(ui->ledRedWidget, ui->ledRed,0.9);
 
+
+
+}
+
+void MainWindow::resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label){
+    QSize pixSize = label->pixmap()->size();
+    pixSize.scale(widget->size(), Qt::KeepAspectRatio);
+    label->setFixedSize(pixSize);
+}
+
+void MainWindow::resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label, double scale){
+    QSize pixSize = label->pixmap()->size();
+    pixSize.scale(scale*widget->size(), Qt::KeepAspectRatio);
+    label->setFixedSize(pixSize);
 }
 
 
@@ -341,6 +374,10 @@ void MainWindow::on_settingsApplyButton_clicked()
         if(tSetting.isSettingsOutOfBoundaries){
             QMessageBox::critical(this,"NOT APPLIED!!!","Invalid values, settings not applied!");
             tSetting.isSettingsOutOfBoundaries = false;
+        }else{
+            temperatureNeedle->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
+            ui->temperatureGauge->repaint();
+            humidityNeedle->setValueRange(tSetting.humidityMin,tSetting.humidityMax);
         }
     }
 }

@@ -136,6 +136,7 @@ QList<QcItem *> QcGaugeWidget::items()
 void QcGaugeWidget::paintEvent(QPaintEvent */*paintEvt*/)
 {
     QPainter painter(this);
+    painter.eraseRect(0,0,this->width(),this->height());
     painter.setRenderHint(QPainter::Antialiasing);
 
     foreach (QcItem * item, mItems) {

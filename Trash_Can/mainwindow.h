@@ -113,6 +113,7 @@ private:
     void setFullnessPlot();
     void setTemperaturePlot();
     void setHumidityPlot();
+    void updateArduinoReadings();
 
     void resetProximityPlot();
     //void resetFullnessPlot();
@@ -121,6 +122,9 @@ private:
     QcNeedleItem *humidityNeedle;
 
     void resizeEvent(QResizeEvent *event);
+    void resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label);
+    void resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label, double scale);
+
 
 };
 
