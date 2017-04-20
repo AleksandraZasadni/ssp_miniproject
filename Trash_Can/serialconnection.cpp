@@ -43,23 +43,23 @@ void serialConnection::readData(){
         if (sensorDataThird[0] == "f"){
             sensorDataFourth = sensorDataThird[1];
             fullVect.push_back(sensorDataFourth.toDouble());
-//            QVectorIterator<double> i(fullVect);
-//            while (i.hasNext())
-//                qDebug() << i.next();
+            QVectorIterator<double> i(fullVect);
+            while (i.hasNext())
+                qDebug() << i.next();
         }
         else if (sensorDataThird[0] == "t"){
             sensorDataFourth = sensorDataThird[1];
             tempVect.push_back(sensorDataFourth.toDouble());
-//                QVectorIterator<double> i(tempVect);
-//                while (i.hasNext())
-//                    qDebug() << i.next();
+                QVectorIterator<double> i(tempVect);
+                while (i.hasNext())
+                    qDebug() << i.next();
         }
         else if (sensorDataThird[0] == "h"){
             sensorDataFourth = sensorDataThird[1];
             humidVect.push_back(sensorDataFourth.toDouble());
-//            QVectorIterator<double> i(humidVect);
-//            while (i.hasNext())
-//                qDebug() << i.next();
+            QVectorIterator<double> i(humidVect);
+            while (i.hasNext())
+                qDebug() << i.next();
         }
         else{
         }
@@ -83,9 +83,15 @@ void serialConnection::changeLED(bool checked){
     else{
         brightness = 0;
     }
-    serialConnection::updateLED(QString("b%1").arg(brightness));
+    serialConnection::writeArd(QString("b%1").arg(brightness));
 }
 
-void serialConnection::updateLED(QString command){
+void serialConnection::resample(bool resampleNOW){ //right now this is activated with the "lock-button" - change this in mainwindow.cpp
+
+    serialConnection::writeArd(QString("b%1").arg(100));
+}
+
+void serialConnection::writeArd(QString command){
+    qDebug() << command;
     arduino->write(command.toStdString().c_str());
 }

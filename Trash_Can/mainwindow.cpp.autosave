@@ -400,7 +400,7 @@ void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 void MainWindow::on_lock_clicked(bool checked)
 {
     trashConnect.serialConnection::changeLED(checked);
-    trashConnect.serialConnection::resample(checked);
+//    trashConnect.serialConnection::resample(checked);
 }
 
 void MainWindow::on_humidityResetButton_clicked()
