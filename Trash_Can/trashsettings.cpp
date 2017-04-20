@@ -1,10 +1,10 @@
 #include "trashsettings.h"
+#include <QDebug>
 
 
 trashSettings::trashSettings(){
     QFile settingsFileRead(PATHTOSETTINGSFILE);
     if(!settingsFileRead.open(QFile::ReadOnly | QFile::Text)){
-        settingsFileRead.close();
         trashSettings::setDefault();
         return;
     }
@@ -12,7 +12,7 @@ trashSettings::trashSettings(){
     settingsFileRead.close();
 
     initFileList = initFileString.split('\n');
-    if (initFileList.size() == 9){
+    if (initFileList.size() == 10){
         language = initFileList[0].toInt();
         isProximityEnabled = initFileList[1].toInt();
         openingSpeed = initFileList[2].toInt();
@@ -21,12 +21,14 @@ trashSettings::trashSettings(){
         temperatureMax = initFileList[5].toInt();
         humidityMin = initFileList[6].toInt();
         humidityMax = initFileList[7].toInt();
+        isLockEnabled = initFileList[8].toInt();
         if(trashSettings::checkBoundaries()){
             trashSettings::setDefault();
           }
     }else{
         trashSettings::setDefault();
     }
+    qDebug() << openingSpeed << detectionRange << isLockEnabled;
 }
 
 bool trashSettings::checkBoundaries(){
@@ -38,6 +40,7 @@ bool trashSettings::checkBoundaries(){
        temperatureMax<TEMPERATUREMAX_LOWER_BOUNDARY || temperatureMax>TEMPERATUREMAX_UPPER_BOUNDARY ||
        humidityMin<HUMIDITYMIN_LOWER_BOUNDARY || humidityMin>HUMIDITYMIN_UPPER_BOUNDARY ||
        humidityMax<HUMIDITYMAX_LOWER_BOUNDARY || humidityMax>HUMIDITYMAX_UPPER_BOUNDARY ||
+       isLockEnabled<ISLOCKENABLED_LOWER_BOUNDARY || isLockEnabled>isLockEnabled>ISLOCKENABLED_UPPER_BOUNDARY ||
        temperatureMin>=temperatureMax || humidityMin>=humidityMax){
        return true;
     }else {return false;}
@@ -60,6 +63,7 @@ void trashSettings::apply(){
         initFileList.append(QString::number(temperatureMax));
         initFileList.append(QString::number(humidityMin));
         initFileList.append(QString::number(humidityMax));
+        initFileList.append(QString::number(isLockEnabled));
 
         initFileChanged.clear();
         for(int i=0; i<initFileList.size(); i++){
@@ -85,6 +89,7 @@ void trashSettings::setDefault(){
     initFileList.append(QString::number(TEMPERATUREMAX_DEFAULT));
     initFileList.append(QString::number(HUMIDITYMIN_DEFAULT));
     initFileList.append(QString::number(HUMIDITYMAX_DEFAULT));
+    initFileList.append(QString::number(ISLOCKENABLED_DEFAULT));
     language = LANGUAGE_DEFAULT;
     isProximityEnabled = ISPROXIMITYENABLED_DEFAULT;
     openingSpeed = OPENINGSPEED_DEFAULT;
@@ -93,6 +98,7 @@ void trashSettings::setDefault(){
     temperatureMax = TEMPERATUREMAX_DEFAULT;
     humidityMin = HUMIDITYMIN_DEFAULT;
     humidityMax = HUMIDITYMAX_DEFAULT;
+    isLockEnabled = ISLOCKENABLED_DEFAULT;
 
     QFile::remove(PATHTOSETTINGSFILE);
     QFile settingsFileDefaultCreate(PATHTOSETTINGSFILE);

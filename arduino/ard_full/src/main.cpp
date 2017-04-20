@@ -1,5 +1,6 @@
 #include <Servo.h>
 #include <dht.h>
+#include <string.h>
 #include "Arduino.h"
 
 #define fullPin A0
@@ -14,15 +15,14 @@ void setup(){
   pinMode(led, OUTPUT);
   pinMode(servTrig, OUTPUT);
   pinMode(servEcho, INPUT);
-  analogWrite(led, 255);
   Serial.begin(115200);
   lidservo.attach(2);
 }
 
 void writeCommand(int brightness){
-  analogWrite(led, 255 - brightness);
-//   Serial.print("Brightf: ");
-//   Serial.print(brightness);
+  analogWrite(led, brightness);
+  Serial.print("Brightf: ");
+  Serial.print(brightness);
 //   Serial.print(";");
 }
 
@@ -30,8 +30,8 @@ void led_meth(){
   if (Serial.available()){
     int led_brightness = Serial.parseInt();
     writeCommand(led_brightness);
-    // Serial.print("Brights: ");
-    // Serial.print(led_brightness);
+    Serial.print("Brights: ");
+    Serial.print(led_brightness);
     // Serial.print("|");
   }
 }
@@ -47,18 +47,18 @@ void lid_open(){
   distance = (duration/2) / 29.1;
 
   if (distance < 20){
-      lidservo.write(0);
+      lidservo.write(0); //0
       // delay(2500);
     }
 
   if (distance > 20){
-      lidservo.write(120);
+      lidservo.write(120); //120
     }
-  Serial.print("d");
-  Serial.print("_");
-  Serial.print(distance);
-  Serial.print(",");
-  delay(1000);
+  // Serial.print("d");
+  // Serial.print("_");
+  // Serial.print(distance);
+  // Serial.print(",");
+  // delay(1000);
 }
 
 void fullness(){
@@ -68,7 +68,7 @@ void fullness(){
   Serial.print("_");
   Serial.print(distance);
   Serial.print(",");
-  delay(1000);
+  // delay(1000);
 }
 
 dht DHT;
@@ -83,12 +83,22 @@ void dht_meth() {
   Serial.print("_");
   Serial.print(DHT.humidity);
   Serial.print(",");
-  delay(1000);
+  // delay(1000);
+}
+
+void sensors(){
+  fullness();
+  dht_meth();
 }
 
 void loop(){
-  led_meth();
-  lid_open();
-  fullness();
-  dht_meth();
+  int resample = 100;
+  Serial.print(Serial.parseInt());
+  if (Serial.available() && Serial.parseInt() == resample){
+    sensors();
+   }
+   else{
+     led_meth();
+   }
+   lid_open();
 }
