@@ -441,7 +441,6 @@ void MainWindow::on_lock_clicked(bool checked)
 {
     trashConnect.serialConnection::changeLED(checked);
     trashConnect.serialConnection::resample();
-    trashConnect.serialConnection::setDefaultVal();
     QPixmap lockPix(":/graphics/graphics/locked.png");
     QPixmap unlockPix(":/graphics/graphics/unlocked.png");
     checked ? ui->lockLabel->setPixmap(lockPix): ui->lockLabel->setPixmap(unlockPix);

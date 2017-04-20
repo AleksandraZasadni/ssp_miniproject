@@ -1,4 +1,5 @@
 #include "trashsettings.h"
+#include "serialconnection.h"
 #include <QDebug>
 
 
@@ -44,6 +45,7 @@ bool trashSettings::checkBoundaries(){
        temperatureMin>=temperatureMax || humidityMin>=humidityMax){
        return true;
     }else {return false;}
+
 }
 
 
@@ -77,6 +79,7 @@ void trashSettings::apply(){
     }else{
         isSettingsOutOfBoundaries = true;
     }
+    trashConnect.serialConnection::setDefaultVal(detectionRange, openingSpeed);
 }
 
 void trashSettings::setDefault(){

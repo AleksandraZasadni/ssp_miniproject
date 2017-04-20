@@ -77,8 +77,8 @@ void serialConnection::readData(){
 //    }
 }
 
-void serialConnection::changeLED(bool checked){
-    if (checked){
+void serialConnection::changeLED(bool locked){
+    if (locked){
         brightness = 255;
     }
     else{
@@ -87,15 +87,17 @@ void serialConnection::changeLED(bool checked){
     for (int i = 0; i<3; i++){
     arduino->write((QString("l%1").arg(brightness)).toStdString().c_str());
     }
-//    qDebug() << brightness;
+    qDebug() << brightness;
 }
 
 void serialConnection::resample(){ //this is activated with the "lock-button" - change this in mainwindow.cpp
     arduino->write((QString("s")).toStdString().c_str());
 }
 
-void serialConnection::setDefaultVal(){ //this is activated with the "lock-button" - change this in mainwindow.cpp
-    setValue = 40;
-    arduino->write((QString("p%1").arg(setValue)).toStdString().c_str());
-//    qDebug() << setValue;
+void serialConnection::setDefaultVal(int setDist, int setSpeed){
+    int flah = 1; // used for the first one.. see next comment
+    arduino->write((QString("p%1").arg(flah)).toStdString().c_str()); //don't ask me why, but the first here is not working, no matter what, so i put in something useless for the rest to work
+    arduino->write((QString("q%1").arg(setSpeed)).toStdString().c_str());
+    arduino->write((QString("r%1").arg(setDist)).toStdString().c_str());
 }
+

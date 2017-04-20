@@ -34,6 +34,7 @@
 #define FULLNESSYELLOW 90
 
 #include <QFile>
+#include <serialconnection.h>
 
 class trashSettings
 {
@@ -41,6 +42,7 @@ public:
     trashSettings();
     void apply();
     void setDefault();
+    serialConnection trashConnect;
 
     int language, isProximityEnabled, openingSpeed, detectionRange,
     temperatureMin, temperatureMax, humidityMin, humidityMax, isLockEnabled;

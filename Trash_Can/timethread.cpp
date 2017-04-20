@@ -4,7 +4,7 @@
 
 TimeThread::TimeThread()
 {
-    startTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
+   startTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
 }
 
 
