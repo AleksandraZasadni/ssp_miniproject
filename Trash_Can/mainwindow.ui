@@ -44,7 +44,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="mainScreen">
        <property name="sizePolicy">
@@ -1730,11 +1730,6 @@
                 <item>
                  <property name="text">
                   <string>English</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Danish</string>
                  </property>
                 </item>
                </widget>

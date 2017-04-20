@@ -18,6 +18,7 @@
 #include "trashsettings.h"
 #include "qcgaugewidget.h"
 #include "serialconnection.h"
+#include <QPixmap>
 
 namespace Ui {
 class MainWindow;
@@ -125,7 +126,6 @@ private:
     void resizeEvent(QResizeEvent *event);
     void resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label);
     void resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label, double scale);
-
 
     void updateTemperature();
     void updateHumidity();

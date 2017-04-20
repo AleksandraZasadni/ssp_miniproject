@@ -13,9 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //INITIAL SETUP
 
     ui->setupUi(this);
-    ui->stackedWidget->setCurrentIndex(0);
-    MainWindow::updateSettings();
 
+    ui->stackedWidget->setCurrentIndex(0);
     ui->mainScreenImageLabel->setScaledContents(true);
     ui->mainScreenImageLabel->setFixedSize(0,0);
     ui->ledGreen->setScaledContents(true);
@@ -24,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ledYellow->setFixedSize(0,0);
     ui->ledRed->setScaledContents(true);
     ui->ledRed->setFixedSize(0,0);
+    MainWindow::updateSettings();
+
 
 //TEMPERATURE GAUGE
 
@@ -351,12 +352,16 @@ void MainWindow::updateSettings(){
     ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
     ui->humidityMarginMaximumEdit->setText(QString::number(tSetting.humidityMax));
     if (tSetting.isLockEnabled == 1){
-     ui->lock->setText("UNLOCKED");
-     ui->lock->setChecked(true);
+        QPixmap lockPix(":/graphics/graphics/locked.png");
+        ui->lock->setText("UNLOCK");
+        ui->lock->setChecked(true);
+        ui->lockLabel->setPixmap(lockPix);
     }
     else{
-     ui->lock->setText("LOCK");
-     ui->lock->setChecked(false);
+        QPixmap unlockPix(":/graphics/graphics/unlocked.png");
+        ui->lock->setText("LOCK");
+        ui->lock->setChecked(false);
+        ui->lockLabel->setPixmap(unlockPix);
     }
 }
 
@@ -435,17 +440,13 @@ void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 void MainWindow::on_lock_clicked(bool checked)
 {
     trashConnect.serialConnection::changeLED(checked);
-<<<<<<< HEAD
-    trashConnect.serialConnection::resample(checked);
+    trashConnect.serialConnection::resample();
+    trashConnect.serialConnection::setDefaultVal();
     QPixmap lockPix(":/graphics/graphics/locked.png");
     QPixmap unlockPix(":/graphics/graphics/unlocked.png");
     checked ? ui->lockLabel->setPixmap(lockPix): ui->lockLabel->setPixmap(unlockPix);
-=======
-    trashConnect.serialConnection::resample();
-    trashConnect.serialConnection::setDefaultVal();
     checked ? ui->lock->setText("UNLOCK"): ui->lock->setText("LOCK");
     tSetting.isLockEnabled = checked;
->>>>>>> 3d8ca8c919faed5580ebd25480ea1d590ea62f92
 }
 
 void MainWindow::on_humidityResetButton_clicked()
