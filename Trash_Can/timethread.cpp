@@ -4,14 +4,14 @@
 
 TimeThread::TimeThread()
 {
-    //startTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
+    startTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
 }
 
 
 
 void TimeThread::run()
 {
-   /* while(active) {
+    while(active) {
 
         while(active && connected) {
             qint64 newTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
@@ -22,7 +22,7 @@ void TimeThread::run()
             double y1 = (qrand() % 100) +5;
             double y2 = (qrand() % 50) + 10;
             double y3 = (qrand() % 50) + 25;
-*/
+
             /*
              *TODO: error checking -> set lower and upper range for xAxis
               QCustomPlot::QCPFinancialDataMap *pDataMap = m_ptrCandles->data();
@@ -51,11 +51,11 @@ void TimeThread::run()
                 lastPointKey = key;
             };*/
 
-/*
-            proximityPlot->graph()->addData(timeSinceStart, y);
+
+          /*  proximityPlot->graph()->addData(timeSinceStart, y);
             proximityPlot->xAxis->setRange(0,360);
             //proximityPlot->xAxis->rescale(true);
-            proximityPlot->replot();
+            proximityPlot->replot();*/
 
             fullnessPlot->graph()->addData(timeSinceStart, y1);
             fullnessPlot->xAxis->rescale(false);
@@ -69,9 +69,9 @@ void TimeThread::run()
             //humidityPlot->xAxis->rescale(false);
             humidityPlot->replot();
 
-            this->msleep(10000);//
+            this->msleep(1000);//
         }
 
-    }*/
+    }
 
 }

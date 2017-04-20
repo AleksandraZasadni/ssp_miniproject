@@ -11,9 +11,9 @@ class TimeThread : public QThread
     Q_OBJECT
 public:
     TimeThread();
-    void setProximityPlot(MyPlot *plot) {
-        this->proximityPlot = plot;
-    }
+//    void setProximityPlot(MyPlot *plot) {
+//        this->proximityPlot = plot;
+//    }
 
     void setFullnessPlot(MyPlot *plot){
         this->fullnessPlot = plot;
@@ -42,7 +42,7 @@ protected:
         void run();
 
 private:
-     MyPlot *proximityPlot;
+    // MyPlot *proximityPlot;
      MyPlot *fullnessPlot;
      MyPlot *temperaturePlot;
      MyPlot *humidityPlot;

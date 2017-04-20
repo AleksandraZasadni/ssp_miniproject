@@ -25,10 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ledRed->setScaledContents(true);
     ui->ledRed->setFixedSize(0,0);
 
-    currentTemperature=49;
-    currentHumidity=53.521521;
-    currentFullness=64.521512512;
-
 //TEMPERATURE GAUGE
 
     ui->temperatureGauge->addArc(55);
@@ -59,12 +55,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
     timeTicker->setTimeFormat("day %d\n%h:%m:%s");
 
-    setProximityPlot();
+//    setProximityPlot();
     setFullnessPlot();
     setTemperaturePlot();
     setHumidityPlot();
 
-    tThread.setProximityPlot(ui->proximityPlot);
+//    tThread.setProximityPlot(ui->proximityPlot);
     tThread.setFullnessPlot(ui->fullnessPlot);
     tThread.setTemperaturePlot(ui->temperaturePlot);
     tThread.setHumidityPlot(ui->humidityPlot);
@@ -83,37 +79,37 @@ void MainWindow::updateArduinoReadings(){
 
 }
 
-void MainWindow::setProximityPlot(){
+//void MainWindow::setProximityPlot(){
 
-    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
+//    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+//    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
 
-    ui->proximityPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
-    ui->proximityPlot->axisRect()->setRangeZoom(Qt::Horizontal);
-    ui->proximityPlot->plotLayout()->insertRow(0);
-    QCPTextElement *title = new QCPTextElement(ui->proximityPlot, "", QFont("sans", 12, QFont::Bold));
-    ui->proximityPlot->plotLayout()->addElement(0, 0, title);
-    ui->proximityPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
-    ui->proximityPlot->legend->setVisible(false);
+//    ui->proximityPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+//    ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
+//    ui->proximityPlot->axisRect()->setRangeZoom(Qt::Horizontal);
+//    ui->proximityPlot->plotLayout()->insertRow(0);
+//    QCPTextElement *title = new QCPTextElement(ui->proximityPlot, "", QFont("sans", 12, QFont::Bold));
+//    ui->proximityPlot->plotLayout()->addElement(0, 0, title);
+//    ui->proximityPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+//    ui->proximityPlot->legend->setVisible(false);
 
-    ui->proximityPlot->addGraph(ui->proximityPlot->xAxis, ui->proximityPlot->yAxis);
-    ui->proximityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
-    ui->proximityPlot->graph()->setLineStyle(QCPGraph::lsLine);
-    ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
-    ui->proximityPlot->graph()->setName("Proximity Opening");
-    ui->proximityPlot->xAxis->setTicker(timeTicker);
+//    ui->proximityPlot->addGraph(ui->proximityPlot->xAxis, ui->proximityPlot->yAxis);
+//    ui->proximityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
+//    ui->proximityPlot->graph()->setLineStyle(QCPGraph::lsLine);
+//    ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+//    ui->proximityPlot->graph()->setName("Proximity Opening");
+//    ui->proximityPlot->xAxis->setTicker(timeTicker);
 
-    ui->proximityPlot->xAxis->setLabel("Time");
-    ui->proximityPlot->yAxis->setLabel("Proximity Opening");
-    ui->proximityPlot->xAxis->setTickLength(0, 1);
-    ui->proximityPlot->xAxis->setSubTickLength(0, 1);
-
-
-    ui->proximityPlot->yAxis->setRange(0,100);
+//    ui->proximityPlot->xAxis->setLabel("Time");
+//    ui->proximityPlot->yAxis->setLabel("Proximity Opening");
+//    ui->proximityPlot->xAxis->setTickLength(0, 1);
+//    ui->proximityPlot->xAxis->setSubTickLength(0, 1);
 
 
-}
+//    ui->proximityPlot->yAxis->setRange(0,100);
+
+
+//}
 
 void MainWindow::setFullnessPlot(){
 
@@ -216,6 +212,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     MainWindow::resizeImagesKeepingAspectRatio(ui->ledGreenWidget, ui->ledGreen,0.9);
     MainWindow::resizeImagesKeepingAspectRatio(ui->ledYellowWidget, ui->ledYellow,0.9);
     MainWindow::resizeImagesKeepingAspectRatio(ui->ledRedWidget, ui->ledRed,0.9);
+    MainWindow::resizeImagesKeepingAspectRatio(ui->lockWidget, ui->lockLabel,0.75);
 }
 
 void MainWindow::resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label){
@@ -431,6 +428,9 @@ void MainWindow::on_lock_clicked(bool checked)
 {
     trashConnect.serialConnection::changeLED(checked);
     trashConnect.serialConnection::resample(checked);
+    QPixmap lockPix(":/graphics/graphics/locked.png");
+    QPixmap unlockPix(":/graphics/graphics/unlocked.png");
+    checked ? ui->lockLabel->setPixmap(lockPix): ui->lockLabel->setPixmap(unlockPix);
 }
 
 void MainWindow::on_humidityResetButton_clicked()
@@ -448,7 +448,12 @@ void MainWindow::on_secretPushButton_clicked()
 {
     ui->secretPushButton->setText("SECRET REVEALED!");
     ui->secretPushButton->setEnabled(false);
-/**********************************************************/
+    QPixmap secretPix(":/graphics/graphics/catception.png");
+    ui->secretLabel->setPixmap(secretPix);
+/******PUT INTO update of measurents**********************/
+    currentTemperature=49.7567456;
+    currentHumidity=53.521521;
+    currentFullness=64.521512512;
     MainWindow::updateTemperature();
     MainWindow::updateHumidity();
     MainWindow::updateFullness();
@@ -471,7 +476,7 @@ void MainWindow::updateHumidity(){
 void MainWindow::updateFullness(){
     ui->statusFullnessProgressBar->setValue(currentFullness);
     ui->fullnessBar->setValue(currentFullness);
-    ui->fullnessEstimationNumber->setText(QString::number(currentFullness,'f', 2));
+    ui->fullnessNumber->setText(QString::number(currentFullness,'f', 2) + "%");
 }
 
 
@@ -490,11 +495,11 @@ void MainWindow::updateStatus(){
         ui->ledGreen->setEnabled(false);
         ui->ledYellow->setEnabled(false);
         ui->ledRed->setEnabled(true);
-        ui->statusLabel->setText("UNACCEPTABLE");
+        ui->statusLabel->setText("OK");
     }else{
         ui->ledGreen->setEnabled(false);
         ui->ledYellow->setEnabled(true);
         ui->ledRed->setEnabled(false);
-        ui->statusLabel->setText("ACCEPTABLE");
+        ui->statusLabel->setText("BAD");
     }
 }

@@ -4,5 +4,8 @@
         <file>graphics/ledGreen.png</file>
         <file>graphics/ledYellow.png</file>
         <file>graphics/mainScreenImage.png</file>
+        <file>graphics/unlocked.png</file>
+        <file>graphics/locked.png</file>
+        <file>graphics/catception.png</file>
     </qresource>
 </RCC>

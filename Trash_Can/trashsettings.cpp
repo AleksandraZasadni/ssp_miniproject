@@ -80,16 +80,6 @@ void trashSettings::apply(){
 }
 
 void trashSettings::setDefault(){
-    initFileList.clear();
-    initFileList.append(QString::number(LANGUAGE_DEFAULT));
-    initFileList.append(QString::number(ISPROXIMITYENABLED_DEFAULT));
-    initFileList.append(QString::number(OPENINGSPEED_DEFAULT));
-    initFileList.append(QString::number(DETECTIONRANGE_DEFAULT));
-    initFileList.append(QString::number(TEMPERATUREMIN_DEFAULT));
-    initFileList.append(QString::number(TEMPERATUREMAX_DEFAULT));
-    initFileList.append(QString::number(HUMIDITYMIN_DEFAULT));
-    initFileList.append(QString::number(HUMIDITYMAX_DEFAULT));
-    initFileList.append(QString::number(ISLOCKENABLED_DEFAULT));
     language = LANGUAGE_DEFAULT;
     isProximityEnabled = ISPROXIMITYENABLED_DEFAULT;
     openingSpeed = OPENINGSPEED_DEFAULT;
@@ -101,18 +91,5 @@ void trashSettings::setDefault(){
     isLockEnabled = ISLOCKENABLED_DEFAULT;
 
     QFile::remove(PATHTOSETTINGSFILE);
-    QFile settingsFileDefaultCreate(PATHTOSETTINGSFILE);
-    if(!settingsFileDefaultCreate.open(QFile::WriteOnly | QFile::Text)){
-        return;
-    }
-
-    initFileChanged.clear();
-    for(int i=0; i<initFileList.size(); i++){
-        initFileChanged.append(initFileList[i]);
-        initFileChanged.append("\n");
-    }
-
-    settingsFileDefaultCreate.write(initFileChanged);
-    settingsFileDefaultCreate.flush();
-    settingsFileDefaultCreate.close();
+    trashSettings::apply();
 }
