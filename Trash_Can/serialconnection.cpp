@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QVector>
 #include <QVectorIterator>
+#include <QThread>
 
 
 serialConnection::serialConnection() : QObject(NULL){
@@ -86,12 +87,12 @@ void serialConnection::changeLED(bool checked){
     serialConnection::writeArd(QString("b%1").arg(brightness));
 }
 
-void serialConnection::resample(bool resampleNOW){ //right now this is activated with the "lock-button" - change this in mainwindow.cpp
-
+void serialConnection::resample(bool resampleNOW){ //this is activated with the "lock-button" - change this in mainwindow.cpp
     serialConnection::writeArd(QString("b%1").arg(100));
 }
 
 void serialConnection::writeArd(QString command){
-    qDebug() << command;
+    for (int i = 0; i<3; i++){
     arduino->write(command.toStdString().c_str());
+    }
 }
