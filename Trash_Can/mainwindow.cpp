@@ -363,6 +363,11 @@ void MainWindow::updateSettings(){
         ui->lock->setChecked(false);
         ui->lockLabel->setPixmap(unlockPix);
     }
+    if(!tSetting.isProximityEnabled && ui->lock->isChecked()){
+        ui->proximityOpeningCheckBox->setChecked(false);
+        ui->proximityOpeningLabel->setEnabled(false);
+        ui->proximityOpeningCheckBox->setEnabled(false);
+    }
 }
 
 void MainWindow::on_settingsApplyButton_clicked()
@@ -389,6 +394,8 @@ void MainWindow::on_settingsDefaultButton_clicked()
 {
     tSetting.setDefault();
     MainWindow::updateSettings();
+    ui->proximityOpeningCheckBox->setEnabled(true);
+    ui->proximityOpeningLabel->setEnabled(true);
 }
 
 void MainWindow::on_languageComboBox_currentIndexChanged(int index)
@@ -443,9 +450,15 @@ void MainWindow::on_lock_clicked(bool checked)
     trashConnect.serialConnection::resample();
     QPixmap lockPix(":/graphics/graphics/locked.png");
     QPixmap unlockPix(":/graphics/graphics/unlocked.png");
-    checked ? ui->lockLabel->setPixmap(lockPix): ui->lockLabel->setPixmap(unlockPix);
-    checked ? ui->lock->setText("UNLOCK"): ui->lock->setText("LOCK");
+    checked ? ui->lockLabel->setPixmap(lockPix):
+              ui->lockLabel->setPixmap(unlockPix);
+    checked ? ui->lock->setText("UNLOCK"):
+              ui->lock->setText("LOCK");
     tSetting.isLockEnabled = checked;
+
+    ui->proximityOpeningCheckBox->setChecked(!checked);
+    ui->proximityOpeningLabel->setEnabled(!checked);
+    ui->proximityOpeningCheckBox->setEnabled(!checked);
 }
 
 void MainWindow::on_humidityResetButton_clicked()
@@ -465,7 +478,12 @@ void MainWindow::on_secretPushButton_clicked()
     ui->secretPushButton->setEnabled(false);
     QPixmap secretPix(":/graphics/graphics/catception.png");
     ui->secretLabel->setPixmap(secretPix);
-/******PUT INTO update of measurents**********************/
+
+/**********************************************************/
+////////////////////////////////////////////////////////////
+/***************PUT INTO update of measurents**************/
+////////////////////////////////////////////////////////////
+/**********************************************************/
     currentTemperature=49.7567456;
     currentHumidity=53.521521;
     currentFullness=64.521512512;
@@ -474,6 +492,10 @@ void MainWindow::on_secretPushButton_clicked()
     MainWindow::updateFullness();
     MainWindow::updateStatus();
 /**********************************************************/
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+/**********************************************************/
+
 }
 
 void MainWindow::updateTemperature(){
@@ -510,11 +532,11 @@ void MainWindow::updateStatus(){
         ui->ledGreen->setEnabled(false);
         ui->ledYellow->setEnabled(false);
         ui->ledRed->setEnabled(true);
-        ui->statusLabel->setText("OK");
+        ui->statusLabel->setText("BAD");
     }else{
         ui->ledGreen->setEnabled(false);
         ui->ledYellow->setEnabled(true);
         ui->ledRed->setEnabled(false);
-        ui->statusLabel->setText("BAD");
+        ui->statusLabel->setText("OK");
     }
 }
