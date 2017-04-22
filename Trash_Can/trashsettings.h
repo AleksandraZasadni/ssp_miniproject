@@ -42,7 +42,9 @@ public:
     trashSettings();
     void apply();
     void setDefault();
-    serialConnection trashConnect;
+    serialConnection *trashConnect;
+
+    void setTrashConnect(serialConnection *trash);
 
     int language, isProximityEnabled, openingSpeed, detectionRange,
     temperatureMin, temperatureMax, humidityMin, humidityMax, isLockEnabled;

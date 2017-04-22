@@ -19,22 +19,12 @@ public:
     void changeLED(bool locked);
     void resample();
     void setDefaultVal(int setDist, int setSpeed);
-    QVector<double> humidVect;
-    QVector<double> tempVect;
-    QVector<double> fullVect;
-    QStringList sensorDataSecond;
-    QStringList sensorDataThird;
-    QString sensorDataFourth;
     bool resampleNOW = 1;
-
-private slots:
-    void readData();
+    std::tuple<double, double, double> readData();
 
 private:
     int brightness;
     void writeArd(QString command);
-    QString serialData; // If doesn't work, use QByteArray
-    QString serialBuffer;
     QSerialPort *arduino;
     QString sPortName;
 };

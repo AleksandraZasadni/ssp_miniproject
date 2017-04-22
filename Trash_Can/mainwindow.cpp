@@ -4,16 +4,16 @@
 #include "ui_confirmdialog.h"
 #include <QtWidgets/QApplication>
 #include "confirmdialog.h"
+#include "trashsettings.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
-    QMainWindow(parent), tThread()
+    QMainWindow(parent), tThread(currentTup)
 {
 //INITIAL SETUP
-
+    //trashConnect = new serialConnection();
     ui->setupUi(this);
-
     ui->stackedWidget->setCurrentIndex(0);
     ui->mainScreenImageLabel->setScaledContents(true);
     ui->mainScreenImageLabel->setFixedSize(0,0);
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ledYellow->setFixedSize(0,0);
     ui->ledRed->setScaledContents(true);
     ui->ledRed->setFixedSize(0,0);
-    MainWindow::updateSettings();
+    updateSettings();
 
 
 //TEMPERATURE GAUGE
@@ -60,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setFullnessPlot();
     setTemperaturePlot();
     setHumidityPlot();
+
+    //tSetting.setTrashConnect(&trashConnect); todo
 
 //    tThread.setProximityPlot(ui->proximityPlot);
     tThread.setFullnessPlot(ui->fullnessPlot);
@@ -446,8 +448,8 @@ void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 
 void MainWindow::on_lock_clicked(bool checked)
 {
-    trashConnect.serialConnection::changeLED(checked);
-    trashConnect.serialConnection::resample();
+    trashConnect->serialConnection::changeLED(checked);
+    //trashConnect.serialConnection::resample();
     QPixmap lockPix(":/graphics/graphics/locked.png");
     QPixmap unlockPix(":/graphics/graphics/unlocked.png");
     checked ? ui->lockLabel->setPixmap(lockPix):

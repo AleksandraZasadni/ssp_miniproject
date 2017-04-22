@@ -1,75 +1,50 @@
 #include "timethread.h"
 #include <QtCore>
 #include <QDebug>
+#include <stdexcept>
+#include <exception>
 
-TimeThread::TimeThread()
+TimeThread::TimeThread(std::tuple<double *, double *, double *> current): current(current)
 {
    startTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
+
 }
-
-
 
 void TimeThread::run()
 {
+    trashConnect = new serialConnection;
     while(active) {
-
         while(active && connected) {
             qint64 newTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
             double timeSinceStart = (newTime - startTime);
 
-            //todo: insert sensor data here instead
-            double y = (qrand() % 50) + 25;
-            double y1 = (qrand() % 100) +5;
-            double y2 = (qrand() % 50) + 10;
-            double y3 = (qrand() % 50) + 25;
-
-            /*
-             *TODO: error checking -> set lower and upper range for xAxis
-              QCustomPlot::QCPFinancialDataMap *pDataMap = m_ptrCandles->data();
-            QCPFinancialDataMap::const_iterator lower = pDataMap->lowerBound(ui->chart->yAxis->range().lower);
-            QCPFinancialDataMap::const_iterator upper = pDataMap->upperBound(ui->chart->yAxis->range().upper);
-            double dHigh = std::numeric_limits<double>::min();
-            double dLow = std::numeric_limits<double>::max();
-            while (lower != upper)
-            {
-                if (lower.value().high > dHigh) dHigh = lower.value().high;
-                if (lower.value().low < dLow) dLow = lower.value().low;
-                lower++;
+            double full, temp, hum;
+            //trashConnect->changeLED(true);
+            try {
+                std::tie(full, temp, hum) = trashConnect->readData();
+            } catch (const std::invalid_argument& e ) {
+                continue;
             }
-            ui->chart->xAxis->setRange(dLow*0.99, dHigh*1.01);*/
 
+            double *cfull, *ctemp, *chum;
+            std::tie(cfull, ctemp, chum) = current;
+            *cfull = full;
+            *ctemp = temp;
+            *chum = hum;
 
-
-           /* Attempt to rescale x axis dependent on time
-            * static QTime time(QTime::currentTime());
-            double key = newTime;
-            static double lastPointKey = startTime;
-            if(key - lastPointKey > 10)
-            {
-                proximityPlot->yAxis->rescale(true);
-                proximityPlot->xAxis->rescale(true);
-                lastPointKey = key;
-            };*/
-
-
-          /*  proximityPlot->graph()->addData(timeSinceStart, y);
-            proximityPlot->xAxis->setRange(0,360);
-            //proximityPlot->xAxis->rescale(true);
-            proximityPlot->replot();*/
-
-            fullnessPlot->graph()->addData(timeSinceStart, y1);
+            fullnessPlot->graph()->addData(timeSinceStart, full);
             fullnessPlot->xAxis->rescale(false);
             fullnessPlot->replot();
 
-            temperaturePlot->graph()->addData(timeSinceStart,y2);
-            //temperaturePlot->xAxis->rescale(false);
+            temperaturePlot->graph()->addData(timeSinceStart, temp);
+            temperaturePlot->xAxis->rescale(false);
             temperaturePlot->replot();
 
-            humidityPlot->graph()->addData(timeSinceStart, y3);
-            //humidityPlot->xAxis->rescale(false);
+            humidityPlot->graph()->addData(timeSinceStart, hum);
+            humidityPlot->xAxis->rescale(false);
             humidityPlot->replot();
 
-            this->msleep(1000);//
+            this->msleep(2000);//
         }
 
     }

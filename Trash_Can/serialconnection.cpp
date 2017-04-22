@@ -7,7 +7,11 @@
 #include <QVector>
 #include <QVectorIterator>
 #include <QThread>
+#include <tuple>
+#include <exception>
+#include <stdexcept>
 
+using namespace std;
 
 serialConnection::serialConnection() : QObject(NULL){
 
@@ -18,14 +22,12 @@ serialConnection::serialConnection() : QObject(NULL){
     }
 
     arduino->setPortName(sPortName);
-    arduino->open(QSerialPort::ReadWrite);
     arduino->setBaudRate(QSerialPort::Baud115200);
     arduino->setDataBits(QSerialPort::Data8);
     arduino->setFlowControl(QSerialPort::NoFlowControl);
     arduino->setParity(QSerialPort::NoParity);
     arduino->setStopBits(QSerialPort::OneStop);
-    QObject::connect(arduino, SIGNAL(readyRead()), this, SLOT(readData()));
-
+    arduino->open(QSerialPort::ReadWrite);
 }
 
 serialConnection::~serialConnection(){
@@ -34,48 +36,24 @@ serialConnection::~serialConnection(){
     }
 }
 
-void serialConnection::readData(){
-
-    serialData = arduino->readAll();
-    sensorDataSecond = serialData.split(',');
-    for(int i=0; i<sensorDataSecond.size()-1; i++){
-        sensorDataThird = sensorDataSecond[i].split('_');
-        if (sensorDataThird[0] == "f"){
-            sensorDataFourth = sensorDataThird[1];
-            fullVect.push_back(sensorDataFourth.toDouble());
-//            QVectorIterator<double> i(fullVect);
-//            while (i.hasNext())
-//                qDebug() << i.next();
-        }
-        else if (sensorDataThird[0] == "t"){
-            sensorDataFourth = sensorDataThird[1];
-            tempVect.push_back(sensorDataFourth.toDouble());
-//                QVectorIterator<double> i(tempVect);
-//                while (i.hasNext())
-//                    qDebug() << i.next();
-        }
-        else if (sensorDataThird[0] == "h"){
-            sensorDataFourth = sensorDataThird[1];
-            humidVect.push_back(sensorDataFourth.toDouble());
-//            QVectorIterator<double> i(humidVect);
-//            while (i.hasNext())
-//                qDebug() << i.next();
-        }
-        else{
-        }
+tuple<double, double, double> serialConnection::readData() {
+    QString ret = "";
+    arduino->write(QString("s").toLocal8Bit());
+    arduino->waitForBytesWritten(1000);
+    arduino->waitForReadyRead(5000);
+    ret = arduino->readLine();
+    if(ret.length() != 18) {
+        throw std::invalid_argument("incomplete reading");
     }
+    QStringList sensorDataSecond = ret.left(22).split(',');
+    double full = sensorDataSecond[0].toDouble();
+    double temp = sensorDataSecond[1].toDouble();
+    double hum = sensorDataSecond[2].toDouble();
 
-//    QStringList bufferSplit = serialBuffer.split(",");
-
-//    if(bufferSplit.length() < 3){
-//        serialBuffer = QString::fromStdString(serialData.toStdString());
-//    }
-//    else{
-//        serialBuffer = "";
-//        for (int i; i; i++){
-
-//    }
+    return make_tuple(full, temp, hum);
 }
+
+
 
 void serialConnection::changeLED(bool locked){
     if (locked){
@@ -86,6 +64,7 @@ void serialConnection::changeLED(bool locked){
     }
     for (int i = 0; i<3; i++){
     arduino->write((QString("l%1").arg(brightness)).toStdString().c_str());
+    arduino->waitForBytesWritten(1000);
     }
     qDebug() << brightness;
 }
@@ -96,8 +75,8 @@ void serialConnection::resample(){ //this is activated with the "lock-button" - 
 
 void serialConnection::setDefaultVal(int setDist, int setSpeed){
     int flah = 1; // used for the first one.. see next comment
-    arduino->write((QString("p%1").arg(flah)).toStdString().c_str()); //don't ask me why, but the first here is not working, no matter what, so i put in something useless for the rest to work
-    arduino->write((QString("q%1").arg(setSpeed)).toStdString().c_str());
-    arduino->write((QString("r%1").arg(setDist)).toStdString().c_str());
+    //arduino->write((QString("p%1").arg(flah)).toStdString().c_str()); //don't ask me why, but the first here is not working, no matter what, so i put in something useless for the rest to work
+    //arduino->write((QString("q%1").arg(setSpeed)).toStdString().c_str());
+    //arduino->write((QString("r%1").arg(setDist)).toStdString().c_str());
 }
 

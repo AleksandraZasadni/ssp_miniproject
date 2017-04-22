@@ -19,6 +19,7 @@
 #include "qcgaugewidget.h"
 #include "serialconnection.h"
 #include <QPixmap>
+#include <tuple>
 
 namespace Ui {
 class MainWindow;
@@ -33,8 +34,9 @@ public:
     ~MainWindow();
     Ui::MainWindow *ui;
     trashSettings tSetting;
-    serialConnection trashConnect;
+    serialConnection *trashConnect;
     double currentTemperature, currentHumidity, currentFullness;
+    std::tuple<double *, double *, double *> currentTup = std::make_tuple(&currentFullness, &currentTemperature, &currentHumidity);
 
 
     void updateSettings();

@@ -32,6 +32,11 @@ trashSettings::trashSettings(){
 
 }
 
+void trashSettings::setTrashConnect(serialConnection *trash) {
+    trashConnect = trash;
+}
+
+
 bool trashSettings::checkBoundaries(){
     if(language<LANGUAGE_LOWER_BOUNDARY || language>LANGUAGE_UPPER_BOUNDARY ||
        isProximityEnabled<ISPROXIMITYENABLED_LOWER_BOUNDARY || isProximityEnabled>ISPROXIMITYENABLED_UPPER_BOUNDARY ||
@@ -79,7 +84,7 @@ void trashSettings::apply(){
     }else{
         isSettingsOutOfBoundaries = true;
     }
-    trashConnect.serialConnection::setDefaultVal(detectionRange, openingSpeed);
+    trashConnect->serialConnection::setDefaultVal(detectionRange, openingSpeed);
 }
 
 void trashSettings::setDefault(){

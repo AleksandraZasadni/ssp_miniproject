@@ -5,12 +5,13 @@
 #include <QVector>
 #include "qcustomplot.h"
 #include "myplot.h"
+#include "serialconnection.h"
 
 class TimeThread : public QThread
 {
     Q_OBJECT
 public:
-    TimeThread();
+    TimeThread(std::tuple<double *, double *, double *> current);
 //    void setProximityPlot(MyPlot *plot) {
 //        this->proximityPlot = plot;
 //    }
@@ -49,6 +50,8 @@ private:
      qint64 startTime;
      bool active = true;
      bool connected = true; //todo implement
+     serialConnection *trashConnect;
+     std::tuple<double *, double *, double *> current;
 };
 
 #endif // TIMETHREAD_H
