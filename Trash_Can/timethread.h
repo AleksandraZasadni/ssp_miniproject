@@ -6,12 +6,13 @@
 #include "qcustomplot.h"
 #include "myplot.h"
 #include "serialconnection.h"
+#include <tuple>
 
 class TimeThread : public QThread
 {
     Q_OBJECT
 public:
-    TimeThread(std::tuple<double *, double *, double *> current);
+    TimeThread();
 //    void setProximityPlot(MyPlot *plot) {
 //        this->proximityPlot = plot;
 //    }
@@ -38,6 +39,7 @@ public:
     //bool stop;
 signals:
     void sendTime(QString time);
+    void currentMessurement(double full, double temp, double hum, double time);
 
 protected:
         void run();
@@ -54,7 +56,6 @@ private:
      bool active = true;
      bool connected = true; //todo implement
      serialConnection *trashConnect;
-     std::tuple<double *, double *, double *> current;
      bool locked = false;
      bool lockStatechanged = false;
 };

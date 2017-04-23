@@ -47,6 +47,7 @@ signals:
 
 public slots:
     void on_lock_clicked(bool checked);
+    void messurmentRecived(double full, double temp, double hum, double time);
 
 private slots:
 

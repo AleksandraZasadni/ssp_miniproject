@@ -6,10 +6,11 @@
 #include "confirmdialog.h"
 #include "trashsettings.h"
 
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
-    QMainWindow(parent), tThread(currentTup)
+    QMainWindow(parent)
 {
 //INITIAL SETUP
     //trashConnect = new serialConnection();
@@ -67,7 +68,8 @@ MainWindow::MainWindow(QWidget *parent) :
     tThread.setFullnessPlot(ui->fullnessPlot);
     tThread.setTemperaturePlot(ui->temperaturePlot);
     tThread.setHumidityPlot(ui->humidityPlot);
-    QObject::connect(this, SIGNAL(lockTrash(bool)), &tThread, SLOT(lockSlot(bool)));
+    QObject::connect(this, &MainWindow::lockTrash, &tThread, &TimeThread::lockSlot);
+    connect(&tThread, &TimeThread::currentMessurement, this, &MainWindow::messurmentRecived);
     tThread.start();
 }
 
@@ -77,6 +79,27 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::messurmentRecived(double full, double temp, double hum, double time) {
+    ui->fullnessPlot->graph()->addData(time, full);
+    ui->fullnessPlot->xAxis->rescale(false);
+    ui->fullnessPlot->replot();
+
+    ui->temperaturePlot->graph()->addData(time, temp);
+    ui->temperaturePlot->xAxis->rescale(false);
+    ui->temperaturePlot->replot();
+
+    ui->humidityPlot->graph()->addData(time, hum);
+    ui->humidityPlot->xAxis->rescale(false);
+    ui->humidityPlot->replot();
+
+    currentTemperature=temp;
+    currentHumidity=hum;
+    currentFullness=full;
+    MainWindow::updateTemperature();
+    MainWindow::updateHumidity();
+    MainWindow::updateFullness();
+    MainWindow::updateStatus();
+}
 
 void MainWindow::updateArduinoReadings(){
 //    float/double temperature, humidity, fullness;

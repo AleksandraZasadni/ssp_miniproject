@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <exception>
 
-TimeThread::TimeThread(std::tuple<double *, double *, double *> current): current(current)
+TimeThread::TimeThread()
 {
    startTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
 
@@ -36,23 +36,7 @@ void TimeThread::run()
                 continue;
             }
 
-            double *cfull, *ctemp, *chum;
-            std::tie(cfull, ctemp, chum) = current;
-            *cfull = full;
-            *ctemp = temp;
-            *chum = hum;
-
-            fullnessPlot->graph()->addData(timeSinceStart, full);
-            fullnessPlot->xAxis->rescale(false);
-            fullnessPlot->replot();
-
-            temperaturePlot->graph()->addData(timeSinceStart, temp);
-            temperaturePlot->xAxis->rescale(false);
-            temperaturePlot->replot();
-
-            humidityPlot->graph()->addData(timeSinceStart, hum);
-            humidityPlot->xAxis->rescale(false);
-            humidityPlot->replot();
+            emit currentMessurement(full, temp, hum, timeSinceStart);
 
             this->msleep(1000);//
         }

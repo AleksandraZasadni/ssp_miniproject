@@ -4,9 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui charts serialport printsupport
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui charts serialport printsupport widgets
 
 TARGET = Trash_Can
 TEMPLATE = app
