@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tThread.setFullnessPlot(ui->fullnessPlot);
     tThread.setTemperaturePlot(ui->temperaturePlot);
     tThread.setHumidityPlot(ui->humidityPlot);
+    QObject::connect(this, SIGNAL(lockTrash(bool)), &tThread, SLOT(lockSlot(bool)));
     tThread.start();
 }
 
@@ -448,7 +449,8 @@ void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 
 void MainWindow::on_lock_clicked(bool checked)
 {
-    trashConnect->serialConnection::changeLED(checked);
+    emit lockTrash(checked);
+    //trashConnect->serialConnection::changeLED(checked);
     //trashConnect.serialConnection::resample();
     QPixmap lockPix(":/graphics/graphics/locked.png");
     QPixmap unlockPix(":/graphics/graphics/unlocked.png");

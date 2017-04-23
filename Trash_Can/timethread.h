@@ -42,6 +42,9 @@ signals:
 protected:
         void run();
 
+public slots:
+     void lockSlot(bool lock);
+
 private:
     // MyPlot *proximityPlot;
      MyPlot *fullnessPlot;
@@ -52,6 +55,8 @@ private:
      bool connected = true; //todo implement
      serialConnection *trashConnect;
      std::tuple<double *, double *, double *> current;
+     bool locked = false;
+     bool lockStatechanged = false;
 };
 
 #endif // TIMETHREAD_H

@@ -10,6 +10,11 @@ TimeThread::TimeThread(std::tuple<double *, double *, double *> current): curren
 
 }
 
+void TimeThread::lockSlot(bool lock) {
+    locked = lock;
+    lockStatechanged = true;
+}
+
 void TimeThread::run()
 {
     trashConnect = new serialConnection;
@@ -17,6 +22,11 @@ void TimeThread::run()
         while(active && connected) {
             qint64 newTime = QDateTime::currentDateTime().currentSecsSinceEpoch();
             double timeSinceStart = (newTime - startTime);
+
+            if(lockStatechanged) {
+                lockStatechanged = false;
+                trashConnect->changeLED(locked);
+            }
 
             double full, temp, hum;
             //trashConnect->changeLED(true);
@@ -44,7 +54,7 @@ void TimeThread::run()
             humidityPlot->xAxis->rescale(false);
             humidityPlot->replot();
 
-            this->msleep(2000);//
+            this->msleep(1000);//
         }
 
     }

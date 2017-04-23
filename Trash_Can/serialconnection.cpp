@@ -39,8 +39,8 @@ serialConnection::~serialConnection(){
 tuple<double, double, double> serialConnection::readData() {
     QString ret = "";
     arduino->write(QString("s").toLocal8Bit());
-    arduino->waitForBytesWritten(1000);
-    arduino->waitForReadyRead(5000);
+    arduino->waitForBytesWritten(100);
+    arduino->waitForReadyRead(100);
     ret = arduino->readLine();
     if(ret.length() != 18) {
         throw std::invalid_argument("incomplete reading");
@@ -64,9 +64,8 @@ void serialConnection::changeLED(bool locked){
     }
     for (int i = 0; i<3; i++){
     arduino->write((QString("l%1").arg(brightness)).toStdString().c_str());
-    arduino->waitForBytesWritten(1000);
+    arduino->waitForBytesWritten(100);
     }
-    qDebug() << brightness;
 }
 
 void serialConnection::resample(){ //this is activated with the "lock-button" - change this in mainwindow.cpp

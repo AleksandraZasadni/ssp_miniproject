@@ -11,9 +11,13 @@
 #define servTrig 13
 
 char locked = 0;
+char open = 0;
+unsigned long closeTime = 0;
 Servo lidservo;
 dht DHT;
 ST_HW_HC_SR04 ultrasonicSensor(servTrig, servEcho);
+double currentFullness = 0;
+
 
 unsigned long last = 0;
 
@@ -48,17 +52,25 @@ void lid_open(int distanceOpen){
 
   if (distance < distanceOpen && !locked){
       lidservo.write(0); //0
-    }
-
-  if (distance > distanceOpen){
+      open = 1;
+    } else {
       lidservo.write(120); //120
+      if(open) {
+        closeTime = millis();
+        open = 0;
+      }
     }
 }
 
 void fullness(){
-  float volts = analogRead(fullPin)*0.0048828125;
-  float distance = 13*pow(volts, -1);
-  Serial.print(distance);
+  if(!open && millis() > closeTime + 1500) {
+    double volts = analogRead(fullPin)*0.0048828125;
+    double distance = 13*pow(volts, -1);
+    distance = (distance > 26)? 26 : distance;
+    distance = map(distance, 26, 0, 0, 100);
+    currentFullness = distance;
+  }
+  Serial.print(currentFullness);
   Serial.print(",");
 }
 

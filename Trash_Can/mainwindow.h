@@ -40,6 +40,13 @@ public:
 
 
     void updateSettings();
+signals:
+
+    void lockTrash(bool lock);
+
+
+public slots:
+    void on_lock_clicked(bool checked);
 
 private slots:
 
@@ -98,8 +105,6 @@ private slots:
     void on_humidityMarginMinimumEdit_editingFinished();
 
     void on_humidityMarginMaximumEdit_editingFinished();
-
-    void on_lock_clicked(bool checked);
 
     void on_humidityResetButton_clicked();
 
