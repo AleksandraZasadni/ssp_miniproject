@@ -13,7 +13,5 @@ int main(int argc, char *argv[])
     MainWindow windowsTrash;
     windowsTrash.show();
 
-//    trashSettings();
-
     return trashCan.exec();
 }

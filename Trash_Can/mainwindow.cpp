@@ -30,24 +30,24 @@ MainWindow::MainWindow(QWidget *parent) :
 //TEMPERATURE GAUGE
 
     ui->temperatureGauge->addArc(55);
-    ui->temperatureGauge->addDegrees(65)->setValueRange(TEMPERATUREMIN_DEFAULT,TEMPERATUREMAX_DEFAULT);
-    ui->temperatureGauge->addValues(80)->setValueRange(TEMPERATUREMIN_DEFAULT,TEMPERATUREMAX_DEFAULT);
+    ui->temperatureGauge->addDegrees(65)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
+    ui->temperatureGauge->addValues(80)->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->addLabel(70)->setText("°C");
     QcLabelItem *tempVal = ui->temperatureGauge->addLabel(40);
     temperatureNeedle = ui->temperatureGauge->addNeedle(60);
     temperatureNeedle->setLabel(tempVal);
-    temperatureNeedle->setValueRange(TEMPERATUREMIN_DEFAULT,TEMPERATUREMAX_DEFAULT);
+    temperatureNeedle->setValueRange(tSetting.temperatureMin,tSetting.temperatureMax);
     ui->temperatureGauge->show();
 
 //HUMIDITY GAUGE
     ui->humidiryGauge->addArc(55);
-    ui->humidiryGauge->addDegrees(65)->setValueRange(HUMIDITYMIN_DEFAULT,HUMIDITYMAX_DEFAULT);
-    ui->humidiryGauge->addValues(80)->setValueRange(HUMIDITYMIN_DEFAULT,HUMIDITYMAX_DEFAULT);
+    ui->humidiryGauge->addDegrees(65)->setValueRange(tSetting.humidityMin ,tSetting.humidityMax);
+    ui->humidiryGauge->addValues(80)->setValueRange(tSetting.humidityMin ,tSetting.humidityMax);
     ui->humidiryGauge->addLabel(70)->setText("%");
     QcLabelItem *humVal = ui->humidiryGauge->addLabel(40);
     humidityNeedle = ui->humidiryGauge->addNeedle(60);
     humidityNeedle->setLabel(humVal);
-    humidityNeedle->setValueRange(HUMIDITYMIN_DEFAULT,HUMIDITYMAX_DEFAULT);
+    humidityNeedle->setValueRange(tSetting.humidityMin ,tSetting.humidityMax);
     ui->humidiryGauge->show();
 
 //PLOTS
@@ -123,7 +123,7 @@ void MainWindow::updateArduinoReadings(){
 //    ui->proximityPlot->addGraph(ui->proximityPlot->xAxis, ui->proximityPlot->yAxis);
 //    ui->proximityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
 //    ui->proximityPlot->graph()->setLineStyle(QCPGraph::lsLine);
-//    ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+//    ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, GRAPHCROSSSIZE));
 //    ui->proximityPlot->graph()->setName("Proximity Opening");
 //    ui->proximityPlot->xAxis->setTicker(timeTicker);
 
@@ -154,7 +154,7 @@ void MainWindow::setFullnessPlot(){
     ui->fullnessPlot->addGraph(ui->fullnessPlot->xAxis, ui->fullnessPlot->yAxis);
     ui->fullnessPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
     ui->fullnessPlot->graph()->setLineStyle(QCPGraph::lsLine);
-    ui->fullnessPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+    ui->fullnessPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, GRAPHCROSSSIZE));
     ui->fullnessPlot->graph()->setName("Fullness");
 
     ui->fullnessPlot->xAxis->setTicker(timeTicker);
@@ -185,7 +185,7 @@ void MainWindow::setTemperaturePlot(){
     ui->temperaturePlot->addGraph(ui->temperaturePlot->xAxis, ui->temperaturePlot->yAxis);
     ui->temperaturePlot->graph()->setPen(QPen(QColor(255, 100, 0)));
     ui->temperaturePlot->graph()->setLineStyle(QCPGraph::lsLine);
-    ui->temperaturePlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+    ui->temperaturePlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, GRAPHCROSSSIZE));
 
     ui->temperaturePlot->xAxis->setTicker(timeTicker);
 
@@ -195,7 +195,7 @@ void MainWindow::setTemperaturePlot(){
     ui->temperaturePlot->xAxis->setTickLength(0, 1);
     ui->temperaturePlot->xAxis->setSubTickLength(0, 1);
 
-    ui->temperaturePlot->yAxis->setRange(0,50);
+    ui->temperaturePlot->yAxis->setRange(tSetting.temperatureMin ,tSetting.temperatureMax);
 
 
 }
@@ -215,14 +215,15 @@ void MainWindow::setHumidityPlot(){
     ui->humidityPlot->addGraph(ui->humidityPlot->xAxis, ui->humidityPlot->yAxis);
     ui->humidityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
     ui->humidityPlot->graph()->setLineStyle(QCPGraph::lsLine);
-    ui->humidityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 20));
+    ui->humidityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, GRAPHCROSSSIZE));
      //ui->temperaturePlot->graph(0)->setName("Temperature");
     ui->humidityPlot->xAxis->setTicker(timeTicker);
     ui->humidityPlot->xAxis->setLabel("Time");
     ui->humidityPlot->yAxis->setLabel("Humidity");
     ui->humidityPlot->xAxis->setTickLength(0, 1);
     ui->humidityPlot->xAxis->setSubTickLength(0, 1);
-    ui->humidityPlot->yAxis->setRange(20,80);
+
+    ui->humidityPlot->yAxis->setRange(tSetting.humidityMin ,tSetting.humidityMax);
 }
 
 
@@ -511,9 +512,9 @@ void MainWindow::on_secretPushButton_clicked()
 /***************PUT INTO update of measurents**************/
 ////////////////////////////////////////////////////////////
 /**********************************************************/
-    currentTemperature=49.7567456;
-    currentHumidity=53.521521;
-    currentFullness=64.521512512;
+    currentTemperature=20;
+    currentHumidity=25;
+    currentFullness=55;
     MainWindow::updateTemperature();
     MainWindow::updateHumidity();
     MainWindow::updateFullness();
