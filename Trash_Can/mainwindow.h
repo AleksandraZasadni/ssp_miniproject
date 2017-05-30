@@ -107,10 +107,6 @@ private slots:
 
     void on_humidityMarginMaximumEdit_editingFinished();
 
-    void on_humidityResetButton_clicked();
-
-    void on_temperatureResetButton_clicked();
-
     void on_secretPushButton_clicked();
 
 private:

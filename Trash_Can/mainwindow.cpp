@@ -110,7 +110,6 @@ void MainWindow::setFullnessPlot(){
     ui->fullnessPlot->graph()->setName("Fullness");
 
     ui->fullnessPlot->xAxis->setTicker(timeTicker);
-
     ui->fullnessPlot->xAxis->setLabel("Time");
     ui->fullnessPlot->yAxis->setLabel("Fullness");
 
@@ -422,17 +421,6 @@ void MainWindow::on_lock_clicked(bool checked)
 //    ui->proximityOpeningCheckBox->setEnabled(!checked);
 }
 
-void MainWindow::on_humidityResetButton_clicked()
-{
-
-    ui->humidityPlot->xAxis->rescale(false);
-}
-
-void MainWindow::on_temperatureResetButton_clicked()
-{
-    ui->temperaturePlot->xAxis->rescale(false);
-}
-
 void MainWindow::on_secretPushButton_clicked()
 {
     ui->secretPushButton->setText("SECRET REVEALED!");
@@ -491,3 +479,4 @@ void MainWindow::updateStatus(){
         ui->statusLabel->setText("OK");
     }
 }
+

@@ -33,7 +33,7 @@ void TimeThread::run()
 
             emit currentMessurement(full, temp, hum, timeSinceStart);
 
-            this->msleep(1000);//
+            this->msleep(3000);//
         }
 
     }
