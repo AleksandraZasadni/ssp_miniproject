@@ -1,13 +1,17 @@
 #ifndef SERIALCONNECTION_H
 #define SERIALCONNECTION_H
 
-#include <QDialog>
-#include <QtSerialPort/QSerialPort>
+#include <QObject>
+#include <QThread>
 #include <QByteArray>
 #include <QString>
-#include <QObject>
-#include <QMutex>
 #include <QStringList>
+#include <QMutex>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
+#include <tuple>
+#include <exception>
+#include <stdexcept>
 
 class serialConnection : public QObject
 {
@@ -18,7 +22,7 @@ public:
     ~serialConnection();
     void changeLED(bool locked);
     void resample();
-    void setDefaultVal(int setDist, int setSpeed);
+//    void setDefaultVal(int setDist, int setSpeed);
     bool resampleNOW = 1;
     std::tuple<double, double, double> readData();
 

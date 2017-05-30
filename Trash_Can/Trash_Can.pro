@@ -22,7 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    mainwindow.cpp \
     serialconnection.cpp \
     clickablewidget.cpp \
     qcustomplot.cpp \

@@ -1,8 +1,4 @@
 #include "timethread.h"
-#include <QtCore>
-#include <QDebug>
-#include <stdexcept>
-#include <exception>
 
 TimeThread::TimeThread()
 {

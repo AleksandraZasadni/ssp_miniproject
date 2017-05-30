@@ -1,15 +1,4 @@
 #include "serialconnection.h"
-#include <QtSerialPort/QSerialPort>
-#include <QtSerialPort/QSerialPortInfo>
-#include <string>
-#include <QString>
-#include <QDebug>
-#include <QVector>
-#include <QVectorIterator>
-#include <QThread>
-#include <tuple>
-#include <exception>
-#include <stdexcept>
 
 using namespace std;
 
@@ -72,7 +61,7 @@ void serialConnection::resample(){
     arduino->write((QString("s")).toStdString().c_str());
 }
 
-void serialConnection::setDefaultVal(int setDist, int setSpeed){
-    int flah = 1;
-}
+//void serialConnection::setDefaultVal(int setDist, int setSpeed){
+//    int flah = 1;
+//}
 

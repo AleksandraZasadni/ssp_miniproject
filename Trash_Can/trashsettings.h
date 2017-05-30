@@ -1,6 +1,9 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <QFile>
+#include "serialconnection.h"
+
 #define PATHTOSETTINGSFILE "./settings.txt"
 #define LANGUAGE_DEFAULT 0
 #define ISPROXIMITYENABLED_DEFAULT 1
@@ -36,8 +39,6 @@
 #define GRAPHCROSSSIZE 10
 
 
-#include <QFile>
-#include <serialconnection.h>
 
 class trashSettings
 {

@@ -1,10 +1,5 @@
-#include <QApplication>
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "ui_confirmdialog.h"
-#include <QtWidgets/QApplication>
-#include "confirmdialog.h"
-#include "trashsettings.h"
+
 
 using namespace std;
 
@@ -50,8 +45,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->humidiryGauge->show();
 
 //PLOTS
-
-    srand(QDateTime::currentDateTime().toTime_t());
 
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
     timeTicker->setTimeFormat("day %d\n%h:%m:%s");
@@ -175,7 +168,6 @@ void MainWindow::setHumidityPlot(){
     ui->humidityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
     ui->humidityPlot->graph()->setLineStyle(QCPGraph::lsLine);
     ui->humidityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, GRAPHCROSSSIZE));
-     //ui->temperaturePlot->graph(0)->setName("Temperature");
     ui->humidityPlot->xAxis->setTicker(timeTicker);
     ui->humidityPlot->xAxis->setLabel("Time");
     ui->humidityPlot->yAxis->setLabel("Humidity");
@@ -184,13 +176,6 @@ void MainWindow::setHumidityPlot(){
 
     ui->humidityPlot->yAxis->setRange(tSetting.humidityMin ,tSetting.humidityMax);
 }
-
-
-void MainWindow::resetProximityPlot(){
-
-
-}
-
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
@@ -321,9 +306,9 @@ void MainWindow::on_statusHumidity_clicked()
 
 void MainWindow::updateSettings(){
     ui->languageComboBox->setCurrentIndex(tSetting.language);
-    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
-    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
-    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
+//    ui->proximityOpeningCheckBox->setChecked(tSetting.isProximityEnabled);
+//    ui->openingSpeedScrollBar->setValue(tSetting.openingSpeed);
+//    ui->detectionRangeScrollBar->setValue(tSetting.detectionRange);
     ui->temperatureMarginMinimumEdit->setText(QString::number(tSetting.temperatureMin));
     ui->temperatureMarginMaximumEdit->setText(QString::number(tSetting.temperatureMax));
     ui->humidityMarginMinimumEdit->setText(QString::number(tSetting.humidityMin));
@@ -340,11 +325,11 @@ void MainWindow::updateSettings(){
         ui->lock->setChecked(false);
         ui->lockLabel->setPixmap(unlockPix);
     }
-    if(!tSetting.isProximityEnabled && ui->lock->isChecked()){
-        ui->proximityOpeningCheckBox->setChecked(false);
-        ui->proximityOpeningLabel->setEnabled(false);
-        ui->proximityOpeningCheckBox->setEnabled(false);
-    }
+//    if(!tSetting.isProximityEnabled && ui->lock->isChecked()){
+//        ui->proximityOpeningCheckBox->setChecked(false);
+//        ui->proximityOpeningLabel->setEnabled(false);
+//        ui->proximityOpeningCheckBox->setEnabled(false);
+//    }
 }
 
 void MainWindow::on_settingsApplyButton_clicked()
@@ -371,8 +356,8 @@ void MainWindow::on_settingsDefaultButton_clicked()
 {
     tSetting.setDefault();
     MainWindow::updateSettings();
-    ui->proximityOpeningCheckBox->setEnabled(true);
-    ui->proximityOpeningLabel->setEnabled(true);
+//    ui->proximityOpeningCheckBox->setEnabled(true);
+//    ui->proximityOpeningLabel->setEnabled(true);
 }
 
 void MainWindow::on_languageComboBox_currentIndexChanged(int index)
@@ -380,26 +365,26 @@ void MainWindow::on_languageComboBox_currentIndexChanged(int index)
     tSetting.language = index;
 }
 
-void MainWindow::on_proximityOpeningCheckBox_toggled(bool checked)
-{
-    checked ? ui->proximityOpeningCheckBox->setText("Enabled") :
-              ui->proximityOpeningCheckBox->setText("Disabled");
-    ui->openingSpeedLabel->setEnabled(checked);
-    ui->detectionRangeLabel->setEnabled(checked);
-    ui->openingSpeedScrollBar->setEnabled(checked);
-    ui->detectionRangeScrollBar->setEnabled(checked);
-    tSetting.isProximityEnabled = checked;
-}
+//void MainWindow::on_proximityOpeningCheckBox_toggled(bool checked)
+//{
+//    checked ? ui->proximityOpeningCheckBox->setText("Enabled") :
+//              ui->proximityOpeningCheckBox->setText("Disabled");
+//    ui->openingSpeedLabel->setEnabled(checked);
+//    ui->detectionRangeLabel->setEnabled(checked);
+//    ui->openingSpeedScrollBar->setEnabled(checked);
+//    ui->detectionRangeScrollBar->setEnabled(checked);
+//    tSetting.isProximityEnabled = checked;
+//}
 
-void MainWindow::on_openingSpeedScrollBar_sliderMoved(int position)
-{
-    tSetting.openingSpeed = position;
-}
+//void MainWindow::on_openingSpeedScrollBar_sliderMoved(int position)
+//{
+//    tSetting.openingSpeed = position;
+//}
 
-void MainWindow::on_detectionRangeScrollBar_sliderMoved(int position)
-{
-    tSetting.detectionRange = position;
-}
+//void MainWindow::on_detectionRangeScrollBar_sliderMoved(int position)
+//{
+//    tSetting.detectionRange = position;
+//}
 
 void MainWindow::on_temperatureMarginMinimumEdit_editingFinished()
 {
@@ -424,8 +409,6 @@ void MainWindow::on_humidityMarginMaximumEdit_editingFinished()
 void MainWindow::on_lock_clicked(bool checked)
 {
     emit lockTrash(checked);
-    //trashConnect->serialConnection::changeLED(checked);
-    //trashConnect.serialConnection::resample();
     QPixmap lockPix(":/graphics/graphics/locked.png");
     QPixmap unlockPix(":/graphics/graphics/unlocked.png");
     checked ? ui->lockLabel->setPixmap(lockPix):
@@ -434,9 +417,9 @@ void MainWindow::on_lock_clicked(bool checked)
               ui->lock->setText("LOCK");
     tSetting.isLockEnabled = checked;
 
-    ui->proximityOpeningCheckBox->setChecked(!checked);
-    ui->proximityOpeningLabel->setEnabled(!checked);
-    ui->proximityOpeningCheckBox->setEnabled(!checked);
+//    ui->proximityOpeningCheckBox->setChecked(!checked);
+//    ui->proximityOpeningLabel->setEnabled(!checked);
+//    ui->proximityOpeningCheckBox->setEnabled(!checked);
 }
 
 void MainWindow::on_humidityResetButton_clicked()

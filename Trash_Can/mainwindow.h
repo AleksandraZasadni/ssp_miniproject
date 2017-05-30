@@ -1,25 +1,29 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QtCore>
+#include <QApplication>
+#include <QtWidgets/QApplication>
 #include <QMainWindow>
 #include <QtCore/QDateTime>
-#include <QtCore>
 #include <QtCore/QCoreApplication>
 #include <QInputDialog>
-#include "qcustomplot.h"
-#include <QFile>
 #include <QString>
 #include <QTextStream>
 #include <QTimer>
-#include <QTime>
 #include <QLabel>
-#include "timethread.h"
 #include <QByteArray>
-#include "trashsettings.h"
-#include "qcgaugewidget.h"
-#include "serialconnection.h"
 #include <QPixmap>
 #include <tuple>
+#include "ui_mainwindow.h"
+#include "ui_confirmdialog.h"
+#include "timethread.h"
+#include "trashsettings.h"
+#include "serialconnection.h"
+#include "confirmdialog.h"
+#include "qcgaugewidget.h"
+#include "qcustomplot.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -31,8 +35,8 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
     Ui::MainWindow *ui;
+    ~MainWindow();
     trashSettings tSetting;
     serialConnection *trashConnect;
     double currentTemperature, currentHumidity, currentFullness;
@@ -87,13 +91,13 @@ private slots:
 
     void on_settingsDefaultButton_clicked();
 
-    void on_proximityOpeningCheckBox_toggled(bool checked);
+//    void on_proximityOpeningCheckBox_toggled(bool checked);
 
     void on_languageComboBox_currentIndexChanged(int index);
 
-    void on_openingSpeedScrollBar_sliderMoved(int position);
+//    void on_openingSpeedScrollBar_sliderMoved(int position);
 
-    void on_detectionRangeScrollBar_sliderMoved(int position);
+//    void on_detectionRangeScrollBar_sliderMoved(int position);
 
     void on_temperatureMarginMinimumEdit_editingFinished();
 
@@ -115,13 +119,9 @@ private:
 
     void returnToStatus(); //Return buttons in Fullness, Temperature and Humidity return to Status is accessed from there
 
-    void setProximityPlot();
     void setFullnessPlot();
     void setTemperaturePlot();
     void setHumidityPlot();
-    void updateArduinoReadings();
-
-    void resetProximityPlot();
 
     QcNeedleItem *temperatureNeedle;
     QcNeedleItem *humidityNeedle;

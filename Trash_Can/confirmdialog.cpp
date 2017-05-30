@@ -1,5 +1,4 @@
 #include "confirmdialog.h"
-#include "ui_confirmdialog.h"
 
 confirmDialog::confirmDialog(QWidget *parent) :
     QDialog(parent),

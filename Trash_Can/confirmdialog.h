@@ -2,6 +2,7 @@
 #define CONFIRMDIALOG_H
 
 #include <QDialog>
+#include "ui_confirmdialog.h"
 
 namespace Ui {
 class confirmDialog;

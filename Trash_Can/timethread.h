@@ -1,12 +1,14 @@
 #ifndef TIMETHREAD_H
 #define TIMETHREAD_H
+
 #include <QtCore>
 #include <QThread>
-#include <QVector>
+#include <tuple>
+#include <stdexcept>
+#include <exception>
+#include "serialconnection.h"
 #include "qcustomplot.h"
 #include "myplot.h"
-#include "serialconnection.h"
-#include <tuple>
 
 class TimeThread : public QThread
 {
