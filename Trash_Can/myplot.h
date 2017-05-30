@@ -6,11 +6,7 @@
 class MyPlot : public QCustomPlot
 {
 public:
-    virtual void replot() {
-        mut.lock();
-        QCustomPlot::replot();
-        mut.unlock();
-    }
+    virtual void replot();
 
     explicit MyPlot(QWidget *parent = 0);
 
