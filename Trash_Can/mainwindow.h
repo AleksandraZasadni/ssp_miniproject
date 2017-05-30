@@ -51,10 +51,6 @@ public slots:
 
 private slots:
 
-    //void selectGraph(QCustomPlot *plot);
-
-    void SerialDataArrive( QString sPortName );
-
     void on_pushButtonStatus_clicked();
 
     void on_pushButtonFullness_clicked();
@@ -126,7 +122,6 @@ private:
     void updateArduinoReadings();
 
     void resetProximityPlot();
-    //void resetFullnessPlot();
 
     QcNeedleItem *temperatureNeedle;
     QcNeedleItem *humidityNeedle;

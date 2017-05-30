@@ -68,14 +68,11 @@ void serialConnection::changeLED(bool locked){
     }
 }
 
-void serialConnection::resample(){ //this is activated with the "lock-button" - change this in mainwindow.cpp
+void serialConnection::resample(){
     arduino->write((QString("s")).toStdString().c_str());
 }
 
 void serialConnection::setDefaultVal(int setDist, int setSpeed){
-    int flah = 1; // used for the first one.. see next comment
-    //arduino->write((QString("p%1").arg(flah)).toStdString().c_str()); //don't ask me why, but the first here is not working, no matter what, so i put in something useless for the rest to work
-    //arduino->write((QString("q%1").arg(setSpeed)).toStdString().c_str());
-    //arduino->write((QString("r%1").arg(setDist)).toStdString().c_str());
+    int flah = 1;
 }
 

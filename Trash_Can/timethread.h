@@ -13,9 +13,6 @@ class TimeThread : public QThread
     Q_OBJECT
 public:
     TimeThread();
-//    void setProximityPlot(MyPlot *plot) {
-//        this->proximityPlot = plot;
-//    }
 
     void setFullnessPlot(MyPlot *plot){
         this->fullnessPlot = plot;
@@ -34,9 +31,6 @@ public:
         while(!this->isFinished());
     }
 
-
-    //QString name;
-    //bool stop;
 signals:
     void sendTime(QString time);
     void currentMessurement(double full, double temp, double hum, double time);
@@ -48,13 +42,13 @@ public slots:
      void lockSlot(bool lock);
 
 private:
-    // MyPlot *proximityPlot;
+
      MyPlot *fullnessPlot;
      MyPlot *temperaturePlot;
      MyPlot *humidityPlot;
      qint64 startTime;
      bool active = true;
-     bool connected = true; //todo implement
+     bool connected = true;
      serialConnection *trashConnect;
      bool locked = false;
      bool lockStatechanged = false;

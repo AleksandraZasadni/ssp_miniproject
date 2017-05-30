@@ -29,7 +29,6 @@ void TimeThread::run()
             }
 
             double full, temp, hum;
-            //trashConnect->changeLED(true);
             try {
                 std::tie(full, temp, hum) = trashConnect->readData();
             } catch (const std::invalid_argument& e ) {

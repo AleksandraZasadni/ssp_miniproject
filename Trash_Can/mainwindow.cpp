@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
 //INITIAL SETUP
-    //trashConnect = new serialConnection();
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
     ui->mainScreenImageLabel->setScaledContents(true);
@@ -57,14 +56,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
     timeTicker->setTimeFormat("day %d\n%h:%m:%s");
 
-//    setProximityPlot();
     setFullnessPlot();
     setTemperaturePlot();
     setHumidityPlot();
 
-    //tSetting.setTrashConnect(&trashConnect); todo
-
-//    tThread.setProximityPlot(ui->proximityPlot);
     tThread.setFullnessPlot(ui->fullnessPlot);
     tThread.setTemperaturePlot(ui->temperaturePlot);
     tThread.setHumidityPlot(ui->humidityPlot);
@@ -101,42 +96,6 @@ void MainWindow::messurmentRecived(double full, double temp, double hum, double 
     MainWindow::updateStatus();
 }
 
-void MainWindow::updateArduinoReadings(){
-//    float/double temperature, humidity, fullness;
-
-}
-
-//void MainWindow::setProximityPlot(){
-
-//    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-//    timeTicker->setTimeFormat("day %d\n%h:%m:%s");
-
-//    ui->proximityPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-//    ui->proximityPlot->axisRect()->setRangeDrag(Qt::Horizontal);
-//    ui->proximityPlot->axisRect()->setRangeZoom(Qt::Horizontal);
-//    ui->proximityPlot->plotLayout()->insertRow(0);
-//    QCPTextElement *title = new QCPTextElement(ui->proximityPlot, "", QFont("sans", 12, QFont::Bold));
-//    ui->proximityPlot->plotLayout()->addElement(0, 0, title);
-//    ui->proximityPlot->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
-//    ui->proximityPlot->legend->setVisible(false);
-
-//    ui->proximityPlot->addGraph(ui->proximityPlot->xAxis, ui->proximityPlot->yAxis);
-//    ui->proximityPlot->graph()->setPen(QPen(QColor(255, 100, 0)));
-//    ui->proximityPlot->graph()->setLineStyle(QCPGraph::lsLine);
-//    ui->proximityPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, GRAPHCROSSSIZE));
-//    ui->proximityPlot->graph()->setName("Proximity Opening");
-//    ui->proximityPlot->xAxis->setTicker(timeTicker);
-
-//    ui->proximityPlot->xAxis->setLabel("Time");
-//    ui->proximityPlot->yAxis->setLabel("Proximity Opening");
-//    ui->proximityPlot->xAxis->setTickLength(0, 1);
-//    ui->proximityPlot->xAxis->setSubTickLength(0, 1);
-
-
-//    ui->proximityPlot->yAxis->setRange(0,100);
-
-
-//}
 
 void MainWindow::setFullnessPlot(){
 
@@ -256,16 +215,7 @@ void MainWindow::resizeImagesKeepingAspectRatio(QWidget *widget, QLabel *label, 
 }
 
 
-//TO be done by the Arduino Communication
-void MainWindow::SerialDataArrive(QString sPortsName)
-{
 
-}
-
-
-/*void MainWindow::resetFullnessPlot(){
-
-}*/
 
 //**********************GUI**********************//
 //MAIN SCREEN
@@ -507,11 +457,6 @@ void MainWindow::on_secretPushButton_clicked()
     QPixmap secretPix(":/graphics/graphics/catception.png");
     ui->secretLabel->setPixmap(secretPix);
 
-/**********************************************************/
-////////////////////////////////////////////////////////////
-/***************PUT INTO update of measurents**************/
-////////////////////////////////////////////////////////////
-/**********************************************************/
     currentTemperature=20;
     currentHumidity=25;
     currentFullness=55;
@@ -519,11 +464,6 @@ void MainWindow::on_secretPushButton_clicked()
     MainWindow::updateHumidity();
     MainWindow::updateFullness();
     MainWindow::updateStatus();
-/**********************************************************/
-////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-/**********************************************************/
-
 }
 
 void MainWindow::updateTemperature(){
